@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Lead
 {
+
     /**
      * @var integer
      *
@@ -105,7 +105,13 @@ class Lead
      */
     private $accessedAt;
 
-
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="Source", inversedBy="leads")
+     * @ORM\JoinColumn(name="source_id", referencedColumnName="id")
+     */
+    private $source;
 
     /**
      * Get id
@@ -403,5 +409,25 @@ class Lead
     public function getAccessedAt()
     {
         return $this->accessedAt;
+    }
+
+    /**
+     *
+     * @return type
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     *
+     * @param type $source
+     * @return \AppBundle\Entity\Source
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+        return $this;
     }
 }

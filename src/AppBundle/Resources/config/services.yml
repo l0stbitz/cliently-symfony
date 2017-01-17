@@ -11,6 +11,10 @@ services:
         class: AppBundle\Service\SlackService
         arguments: ["@service_container"]  
         
+    app.twitter_service:
+        class: AppBundle\Service\TwitterService
+        arguments: ["@service_container"]          
+        
     app.account_voter:
         class: AppBundle\Security\Voter\AccountVoter
         tags:

@@ -164,10 +164,18 @@ class Company
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="deals")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="companies")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
     private $user;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="Source", inversedBy="companies")
+     * @ORM\JoinColumn(name="source_id", referencedColumnName="id")
+     */
+    private $source;    
 
     public function __construct()
     {
@@ -710,5 +718,25 @@ class Company
         $arr['created_at'] = $this->getCreatedAt();
         $arr['updated_at'] = $this->getUpdatedAt();
         return $arr;
+    }
+        
+    /**
+     *
+     * @return type
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     *
+     * @param type $source
+     * @return \AppBundle\Entity\Source
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+        return $this;
     }
 }

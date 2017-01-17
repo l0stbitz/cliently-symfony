@@ -125,7 +125,7 @@ class WorkspaceMember
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Workspace", inversedBy="workspace")
+     * @ORM\ManyToOne(targetEntity="Workspace", inversedBy="workspaceMembers")
      * @ORM\JoinColumn(name="workspace_id", referencedColumnName="id")
      */
     private $workspace;
@@ -133,7 +133,7 @@ class WorkspaceMember
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="workspaceMember")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="workspaceMembers")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;

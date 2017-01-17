@@ -220,6 +220,14 @@ class Client
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
     private $user;    
+    
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="Source", inversedBy="clients")
+     * @ORM\JoinColumn(name="source_id", referencedColumnName="id")
+     */
+    private $source;    
 
     /**
      * __construct
@@ -936,5 +944,25 @@ class Client
         //$arr['created_at'] = $this->getCreatedAt();
 
         return $arr;
+    }
+        
+    /**
+     *
+     * @return type
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     *
+     * @param type $source
+     * @return \AppBundle\Entity\Source
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+        return $this;
     }
 }

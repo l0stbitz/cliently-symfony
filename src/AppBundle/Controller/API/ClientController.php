@@ -25,45 +25,45 @@ class ClientController extends Controller
             $update = false;
             foreach ($data as $k => $v) {
                 switch ($k) {
-                case 'email':
-                    //TODO: Proper validation of email using forms
-                    $client->setEmail($v);
-                    $update = true;
-                    break;
-                case 'occupation':
-                    $client->setOccupation($v);
-                    $update = true;
-                    break;   
-                case 'phone':
-                    $client->setPhone($v);
-                    $update = true;
-                    break;                    
-                case 'address1':
-                    $client->setAddressLine1($v);
-                    $update = true;
-                    break;
-                case 'address2':
-                    $client->setAddressLine2($v);
-                    $update = true;
-                    break;
-                case 'city':
-                    $client->setCity($v);
-                    $update = true;
-                    break;
-                case 'state':
-                    $client->setState($v);
-                    $update = true;
-                    break;
-                case 'zip':
-                    $client->setZip($v);
-                    $update = true;
-                    break;    
-                case 'country':
-                    $client->setCountry($v);
-                    $update = true;
-                    break;                    
-                default:
-                    break;
+                    case 'email':
+                        //TODO: Proper validation of email using forms
+                        $client->setEmail($v);
+                        $update = true;
+                        break;
+                    case 'occupation':
+                        $client->setOccupation($v);
+                        $update = true;
+                        break;
+                    case 'phone':
+                        $client->setPhone($v);
+                        $update = true;
+                        break;
+                    case 'address1':
+                        $client->setAddressLine1($v);
+                        $update = true;
+                        break;
+                    case 'address2':
+                        $client->setAddressLine2($v);
+                        $update = true;
+                        break;
+                    case 'city':
+                        $client->setCity($v);
+                        $update = true;
+                        break;
+                    case 'state':
+                        $client->setState($v);
+                        $update = true;
+                        break;
+                    case 'zip':
+                        $client->setZip($v);
+                        $update = true;
+                        break;
+                    case 'country':
+                        $client->setCountry($v);
+                        $update = true;
+                        break;
+                    default:
+                        break;
                 }
             }
             if ($update) {
@@ -73,5 +73,23 @@ class ClientController extends Controller
             }
         }
         return new JsonResponse($client->toArray());
+    }
+
+    /**
+     * Finds and displays a Workspace entity.
+     */
+    public function twitterMessagesAction(Request $request, Client $client)
+    {
+        $this->denyAccessUnlessGranted('view', $client);
+        if ($request->isMethod('POST')) {
+            $em = $this->getDoctrine()->getManager();
+            $data = $request->request;
+            $type = $data->get('type');
+            $description = $data->get('description');
+            $id = $data->get('source_id');
+
+            $this->get('app.twitter_service')->handleAction($user, $client, $type, $description, $source_id);
+        }
+        return new JsonResponse($data);
     }
 }

@@ -157,7 +157,7 @@ class Workspace
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Account", inversedBy="workspaceMembers")
+     * @ORM\ManyToOne(targetEntity="Account", inversedBy="workspaces")
      * @ORM\JoinColumn(name="account_id", referencedColumnName="id")
      */
     private $account;

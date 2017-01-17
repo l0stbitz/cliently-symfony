@@ -146,12 +146,12 @@ class Deal
      * @ORM\OneToMany(targetEntity="Note", mappedBy="deal")
      */
     private $notes = [];
-    
+
     /**
      *
      * @ORM\OneToMany(targetEntity="Msg", mappedBy="deal")
      */
-    private $mails = [];    
+    private $mails = [];
 
     /**
      * @var integer
@@ -160,7 +160,7 @@ class Deal
      * @ORM\JoinColumn(name="stage_id", referencedColumnName="id")
      */
     private $stage;
-    
+
     /**
      * @var integer
      *
@@ -168,7 +168,14 @@ class Deal
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
     private $user;
-    
+
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="Source", inversedBy="deals")
+     * @ORM\JoinColumn(name="source_id", referencedColumnName="id")
+     */
+    private $source;
 
     /**
      * __construct
@@ -697,7 +704,7 @@ class Deal
         $this->notes = $notes;
         return $this;
     }
-    
+
     /**
      *
      * @return type
@@ -750,5 +757,24 @@ class Deal
         $this->user = $user;
         return $this;
     }
-    
+        
+    /**
+     *
+     * @return type
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     *
+     * @param type $source
+     * @return \AppBundle\Entity\Source
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+        return $this;
+    }
 }

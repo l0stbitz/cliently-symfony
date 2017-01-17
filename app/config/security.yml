@@ -16,8 +16,9 @@ security:
         main:
             pattern: ^/
             form_login:
+                require_previous_session: false
                 provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
+                #csrf_token_generator: security.csrf.token_manager
                 # if you are using Symfony < 2.8, use the following config instead:
                 #csrf_provider: form.csrf_provider
                 success_handler: authentication_handler
@@ -25,15 +26,7 @@ security:
 
             logout:       true
             anonymous:    true
-            oauth:
-                resource_owners:
-                    twitter:           "/login/check-twitter"
-                    google:             "/login/check-google"
-                login_path:        /login
-                use_forward:       false
-                failure_path:      /login
-                oauth_user_provider:
-                    service: hwi_oauth.user.provider
+
         app_secured:
             pattern: ^/
             host: app.%domain%
@@ -47,17 +40,8 @@ security:
 
             logout:
                 path: fos_logout
-                target: site_home
+                target: site_homepage
             anonymous:    ~
-            oauth:
-                resource_owners:
-                    twitter:           "/login/check-twitter"
-                    google:             "/login/check-google"
-                login_path:        /login
-                use_forward:       false
-                failure_path:      /login
-                oauth_user_provider:
-                    service: hwi_oauth.user.provider
         
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

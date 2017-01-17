@@ -62,6 +62,48 @@ class Source
      * @ORM\Column(name="updated_at", type="integer", nullable=false)
      */
     private $updatedAt;
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Integration", mappedBy="source")
+     */
+    private $integrations;
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="ClientTwitter", mappedBy="source")
+     */
+    private $clientTwitters;    
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Client", mappedBy="source")
+     */
+    private $clients;    
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Company", mappedBy="source")
+     */
+    private $companies;        
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Deal", mappedBy="source")
+     */
+    private $deals;      
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Lead", mappedBy="source")
+     */
+    private $leads;     
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Msg", mappedBy="source")
+     */
+    private $msgs;       
 
     /**
      * Get id
@@ -215,5 +257,28 @@ class Source
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+    
+        /**
+     * 
+     * @return array
+     */
+    public function toArray()
+    {
+        $arr = [];
+        $arr['id'] = $this->getId();
+        $arr['code'] = json_decode($this->getCode());
+        $arr['type'] = $this->getType();
+        $arr['extra'] = json_decode($this->getExtra());
+        //$arr['avatar'] = $this->getAvatar();
+        //$arr['handle'] = $this->getHandle();
+        //$arr['user_id'] = $this->getUser()->getId();
+        //$arr['source'] = $this->getSource()->toArray();
+        //$arr['values'] = json_decode($this->getValues());
+        //$arr['is_primary'] = $this->getIsPrimary();
+        $arr['is_enabled'] = $this->getIsEnabled();
+        $arr['created_at'] = $this->getCreatedAt();
+        $arr['updated_at'] = $this->getUpdatedAt();
+        return $arr;
     }
 }

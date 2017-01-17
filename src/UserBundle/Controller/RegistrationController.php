@@ -8,7 +8,6 @@ use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -43,6 +42,8 @@ class RegistrationController extends Controller
         $formFactory = $this->get('fos_user.registration.form.factory');
 
         $userService = $this->get('app.user_service');
+        $userManager = $this->get('fos_user.user_manager');
+
         /**
          * @var $dispatcher EventDispatcherInterface 
          */
@@ -61,19 +62,33 @@ class RegistrationController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
+                $data = $request->request;
+                $email = $data->get('register')['email'];
+                $email_exist = $userManager->findUserByEmail($email);
+
+                // Check if the user exists to prevent Integrity constraint violation error in the insertion
+                if ($email_exist) {
+                    return false;
+                }
+
+                $user = $userManager->createUser();
+                
+                //print_r($form->getData());
+                
+
+                $user->setEmail($email);
+                $user->setEmailCanonical($email);
+                $user->setUsername($email);
+                $user->setUsernameCanonical($email);
+                $user->setPlainPassword($data->get('register')['password']);
+                $user->setEnabled(1);
+                //$user->setRoles(array('ROLE_USER'));
+                $userManager->updateUser($user);
+                $userService->createUser($user);
 
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
-                //print_r($form->getData());
-                $data = $request->request;
-
-                $user->setEmail($data->get('register')['email']);
-                $user->setEmailCanonical($data->get('register')['email']);
-                $user->setUsername($data->get('register')['email']);
-                $user->setUsernameCanonical($data->get('register')['email']);
-                $user->setPlainPassword($data->get('register')['password']);
-                $userService->createUser($user);
-
+                
                 // Here, "public" is the name of the firewall in your security.yml
                 $token = new UsernamePasswordToken($user, $user->getPassword(), "public", $user->getRoles());
 
@@ -84,7 +99,7 @@ class RegistrationController extends Controller
                 // Logging the user in above the way we do it doesn't do this automatically
                 $intEvent = new InteractiveLoginEvent($request, $token);
                 $this->get("event_dispatcher")->dispatch("security.interactive_login", $intEvent);
-                
+
                 if (null === $response = $event->getResponse()) {
                     $url = $this->generateUrl('fos_user_registration_confirmed');
                     $response = new RedirectResponse($url);

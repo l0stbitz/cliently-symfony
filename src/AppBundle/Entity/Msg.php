@@ -220,6 +220,14 @@ class Msg
     private $deal;
 
     /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="Source", inversedBy="msgs")
+     * @ORM\JoinColumn(name="source_id", referencedColumnName="id")
+     */
+    private $source;
+
+    /**
      * __construct
      * Insert description here
      *
@@ -814,5 +822,25 @@ class Msg
         $arr['updated_at'] = $this->getUpdatedAt();
 
         return $arr;
+    }
+        
+    /**
+     *
+     * @return type
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     *
+     * @param type $source
+     * @return \AppBundle\Entity\Source
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+        return $this;
     }
 }

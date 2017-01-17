@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Integration
 {
+
     /**
      * @var integer
      *
@@ -112,7 +112,21 @@ class Integration
      */
     private $updatedAt;
 
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="integrations")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
 
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="Source", inversedBy="integrations")
+     * @ORM\JoinColumn(name="source_id", referencedColumnName="id")
+     */
+    private $source;
 
     /**
      * Get id
@@ -434,5 +448,67 @@ class Integration
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     *
+     * @return type
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     *
+     * @param type $source
+     * @return \AppBundle\Entity\Source
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+        return $this;
+    }
+    
+
+    /**
+     *
+     * @return type
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     *
+     * @param type $user
+     * @return \AppBundle\Entity\User
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+        return $this;
+    }    
+
+    /**
+     * 
+     * @return array
+     */
+    public function toArray()
+    {
+        $arr = [];
+        $arr['id'] = $this->getId();
+        $arr['name'] = $this->getName();
+        $arr['avatar'] = $this->getAvatar();
+        $arr['handle'] = $this->getHandle();
+        $arr['user_id'] = $this->getUser()->getId();
+        $arr['source'] = $this->getSource()->toArray();
+        $arr['values'] = json_decode($this->getValues());
+        $arr['is_primary'] = $this->getIsPrimary();
+        $arr['is_suspended'] = $this->getIsSuspended();
+        $arr['created_at'] = $this->getCreatedAt();
+        $arr['updated_at'] = $this->getUpdatedAt();
+        return $arr;
     }
 }

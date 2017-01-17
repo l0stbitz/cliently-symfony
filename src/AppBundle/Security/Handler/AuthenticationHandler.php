@@ -49,6 +49,8 @@ implements AuthenticationSuccessHandlerInterface,
             return new JsonResponse($result);
         } else {
             // Handle non XmlHttp request here
+            $result = array('success' => true);
+            return new JsonResponse($result);
         }
     }
 
@@ -74,7 +76,8 @@ implements AuthenticationSuccessHandlerInterface,
             $result = array('success' => false);
             return new JsonResponse($result);
         } else {
-            // Handle non XmlHttp request here
+            $result = array('success' => false);
+            return new JsonResponse($result);
         }
     }
 }

@@ -59,7 +59,7 @@ class TwitterCommand extends ContainerAwareCommand
             $this->output->writeln('<info>Dryrun Enabled</info>');
         }
         //get all twitter integrations
-        
+        $this->getContainer()->get('app.twitter_service')->scan();
     }
 
 }

@@ -30,7 +30,7 @@ framework:
     trusted_proxies: ~
     session:
         cookie_lifetime: 0
-        save_path: %kernel.root_dir%/var/sessions
+        #save_path: %kernel.root_dir%/var/sessions
         cookie_domain: .%domain%
         name: SFSESSID
     fragments:       ~
@@ -80,16 +80,16 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-hwi_oauth:
-    firewall_names: [main, app_secured]
-    resource_owners:
-        twitter:
-            type:                twitter
-            client_id:           <consumer-key>
-            client_secret:       <consumer-secret>
-            options:
-                include_email: true
-        google:
-            type:                google
-            client_id:           <consumer-key>
-            client_secret:       <consumer-secret>             
+#hwi_oauth:
+#    firewall_names: [main]
+#    resource_owners:
+#        twitter:
+#            type:                twitter
+#            client_id:           7F0IX0juiVE8BfThmLB4vA
+#            client_secret:       FCrFk2Zcg8q0g5X4kI8HLJDtkYkGNDsqsxomT6TaU
+#            options:
+#                include_email: true
+#        google:
+#            type:                google
+#            client_id:           <consumer-key>
+#            client_secret:       <consumer-secret>             

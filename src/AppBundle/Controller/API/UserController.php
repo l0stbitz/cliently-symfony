@@ -170,7 +170,7 @@ class UserController extends Controller
             $user['accounts'][] = $a->toArray();
         }
         $user['workspaces'] = $this->getUser()->getWorkspacesArray();
-        $user['integrations'] = [];
+        //$user['integrations'] = [];
         return new JsonResponse($user);
     }
 

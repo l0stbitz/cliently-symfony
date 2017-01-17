@@ -162,6 +162,12 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Account", mappedBy="user")
      */
     private $accounts;
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Integration", mappedBy="user")
+     */
+    private $integrations;    
 
     /**
      *
@@ -174,6 +180,12 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Deal", mappedBy="user")
      */
     private $deals;
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Company", mappedBy="user")
+     */
+    private $companies;    
 
     /**
      * Get id
@@ -574,7 +586,7 @@ class User extends BaseUser
         $arr['coords'] = $this->getCoords();
         $arr['wizard'] = $this->getWizard();
         $arr['industries'] = ["1"];
-        $arr['integrations'] = [];
+        $arr['integrations'] = $this->getIntegrationsArray();
         $arr['integration_avatar'] = '';
         $arr['integration_type'] = '';
         $arr['accounts'] = [];
@@ -632,6 +644,40 @@ class User extends BaseUser
     public function setAccounts($accounts)
     {
         $this->accounts = $accounts;
+        return $this;
+    }
+    
+    
+    /**
+     *
+     * @return type
+     */
+    public function getIntegrationsArray()
+    {
+        $integrations = [];
+        foreach ($this->getIntegrations() as $integration) {
+            $integrations[] = $integration->toArray();
+        }
+        return $integrations;
+    }
+
+    /**
+     *
+     * @return type
+     */
+    public function getIntegrations()
+    {
+        return $this->integrations;
+    }
+
+    /**
+     *
+     * @param type $integrations
+     * @return \AppBundle\Entity\Integration
+     */
+    public function setIntegrations($integrations)
+    {
+        $this->integrations = $integrations;
         return $this;
     }
 }

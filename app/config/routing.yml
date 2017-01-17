@@ -1,14 +1,17 @@
-hwi_oauth_redirect:
-    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-    prefix:   /connect
+#hwi_oauth_redirect:
+#    host:     "{domain}"
+#    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+#    prefix:   /connect
 
-hwi_oauth_connect:
-    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
-    prefix:   /connect
+#hwi_oauth_connect:
+#    host:     "{domain}"
+#    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+#    prefix:   /connect
 
-hwi_oauth_login:
-    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
-    prefix:   /login
+#hwi_oauth_login:
+#    host:     "{domain}"
+ #   resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+#    prefix:   /integration/login
 
 user:
     resource: "@UserBundle/Resources/config/routing.yml"

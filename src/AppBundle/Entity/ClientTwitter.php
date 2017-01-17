@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,11 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ClientTwitter
  *
- * @ORM\Table(name="client_twitter", uniqueConstraints={@ORM\UniqueConstraint(name="_key", columns={"client_id", "source_id"})}, indexes={@ORM\Index(name="owner_id", columns={"owner_id"}), @ORM\Index(name="status", columns={"status"})})
+ * @ORM\Table(name="client_twitter", 
+ *      uniqueConstraints={@ORM\UniqueConstraint(name="_key", columns={"client_id", "source_id"})}, 
+ *      indexes={@ORM\Index(name="owner_id", columns={"owner_id"}), 
+ *               @ORM\Index(name="status", columns={"status"})})
  * @ORM\Entity
  */
 class ClientTwitter
 {
+
     /**
      * @var integer
      *
@@ -40,21 +43,21 @@ class ClientTwitter
      *
      * @ORM\Column(name="is_follower", type="boolean", nullable=false)
      */
-    private $isFollower;
+    private $isFollower = false;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="is_followed", type="boolean", nullable=false)
      */
-    private $isFollowed;
+    private $isFollowed = false;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="new_events_count", type="integer", nullable=false)
      */
-    private $newEventsCount;
+    private $newEventsCount = 0;
 
     /**
      * @var integer
@@ -75,30 +78,44 @@ class ClientTwitter
      *
      * @ORM\Column(name="status", type="integer", nullable=false)
      */
-    private $status;
+    private $status = 0;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="created_at", type="integer", nullable=false)
      */
-    private $createdAt;
+    private $createdAt = 0;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="updated_at", type="integer", nullable=false)
      */
-    private $updatedAt;
+    private $updatedAt = 0;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="accessed_at", type="integer", nullable=false)
      */
-    private $accessedAt;
+    private $accessedAt = 0;
 
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="Source", inversedBy="clientTwitters")
+     * @ORM\JoinColumn(name="source_id", referencedColumnName="id")
+     */
+    private $source;
 
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="accounts")
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+     */
+    private $user;
 
     /**
      * Get id
@@ -372,5 +389,25 @@ class ClientTwitter
     public function getAccessedAt()
     {
         return $this->accessedAt;
+    }
+
+    /**
+     *
+     * @return type
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     *
+     * @param type $source
+     * @return \AppBundle\Entity\Source
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+        return $this;
     }
 }

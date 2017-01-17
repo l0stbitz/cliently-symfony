@@ -1,17 +1,15 @@
 <?php
-
 namespace AppBundle\Service;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Cookie\CookieJar;
+use Abraham\TwitterOAuth\TwitterOAuth;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Description of SlackService
+ * Description of TwitterService
  *
  * @author Josh Murphy
  */
-class SlackService
+class TwitterService
 {
 
     /**
@@ -21,14 +19,200 @@ class SlackService
     public function __construct($container)
     {
         $this->container = $container;
-        $this->tokenUrl = 'https://hooks.slack.com/services/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';
+        $this->key = '7F0IX0juiVE8BfThmLB4vA';
+        $this->secret = 'FCrFk2Zcg8q0g5X4kI8HLJDtkYkGNDsqsxomT6TaU';
+        $this->em = $this->container->get('doctrine')->getManager();
     }
 
-    
+    public function handleAction($user, $client, $type = 1, $description = '', $source_id = 0)
+    {
+        $integration = $this->em->getRepository('AppBundle:Integration')->findBy(['userId' => $this->getUser()->getId()]);
+        if (!$integration) {
+            return JsonResponse('fail');
+        }
+        $clientTwitter = $this->em->getRepository('AppBundle:ClientTwitter')->find($client->getId());
+        if (!$clientTwitter) {
+            return JsonResponse('fail');
+        }
+        $source = $clientTwitter->getSource();
+        echo $source->getId();exit;
+        $twitter_values = json_decode($integration['values'], TRUE);
+        $source_extra = json_decode($client_twitter['source_extra'], TRUE);
+        $user_source_extra = json_decode($integration['source_extra'], TRUE);
+        $user_source_code = $integration['source_code'];
+
+        $types = array(
+            'twitter_tweet',
+            'twitter_retweet',
+            'twitter_follow',
+            'twitter_unfollow',
+            'twitter_favorite',
+            'twitter_direct',
+            'twitter_quote'
+        );
+
+        if ($type === 'twitter_retweet' OR $type === 'twitter_follow' OR $type === 'twitter_unfollow' OR $type === 'twitter_favorite')
+            $description = FALSE;
+
+        if ($type === NULL OR $description === NULL) {
+            return ajax_code(App_core::CODE_BAD_REQUEST, TRUE);
+        } else {
+            if (!in_array($type, $types)) {
+                return ajax_code(App_core::CODE_BAD_INPUT, TRUE);
+            } else {
+                $authed = $this->twitter->auth($twitter_values['access_token'], $twitter_values['access_token_secret']);
+                if (!$authed) {
+                    $this->app_core->log(App_core::CODE_MAIL_ERROR, 'twitter failed (' . $integration['code'] . '), client_id = ' . $client_id);
+                } else {
+
+                    $own_username = $user_source_extra['username'];
+                    $own_fullname = $user_source_extra['fullname'];
+                    $own_id = $user_source_code;
+                    $own_ava = PROTOCOL . '://' . $user_source_extra['avatar'];
+                    $lead_username = $source_extra['username'];
+                    $lead_fullname = $source_extra['fullname'];
+                    $lead_id = $client_twitter['source_code'];
+                    $lead_ava = PROTOCOL . '://' . $source_extra['avatar'];
+
+                    $own = array(
+                        'id' => $own_id,
+                        'username' => $own_username,
+                        'fullname' => $own_fullname,
+                        'avatar' => $own_ava
+                    );
+
+                    $lead = array(
+                        'id' => $lead_id,
+                        'username' => $lead_username,
+                        'fullname' => $lead_fullname,
+                        'avatar' => $lead_ava
+                    );
+
+                    $recipient = $lead;
+                    $sender = $own;
+
+                    if ($type === 'twitter_tweet') {
+                        $msg_info = $this->Msg_model->get_msg_info($id);
+                        $msg_data = $this->twitter->create('@' . $source_extra['username'] . ' ' . $description, $msg_info['code']);
+                    } elseif ($type === 'twitter_retweet') {
+                        $msg_info = $this->Msg_model->get_msg_info($id);
+
+                        $msg_data = $this->twitter->retweet($msg_info['code']);
+                    } elseif ($type === 'twitter_follow') {
+                        $msg_data = $this->twitter->follow($lead_id, $client_id);
+                    } elseif ($type === 'twitter_unfollow') {
+                        $msg_data = $this->twitter->unfollow($lead_id, $client_id);
+                    } elseif ($type === 'twitter_favorite') {
+                        // $this->twitter->create('@' . $source_extra['username'] . ' ' . $description);
+                    } elseif ($type === 'twitter_direct') {
+                        $msg_data = $this->twitter->direct_create($lead_id, $description);
+                    } elseif ($type === 'twitter_quote') {
+                        $msg_info = $this->Msg_model->get_msg_info($id);
+                        // $msg_data = $this->twitter->create($description . ' https://twitter.com/statuses/' . $msg_info['code']);
+                        $msg_data = $this->twitter->create($description . ' https://twitter.com/' . $msg_info['sender_source_code'] . '/status/' . $msg_info['code']);
+                    }
+
+                    if (!$msg_data)
+                        return ajax_code(App_core::CODE_INTERNAL_ERROR, TRUE);
+                    else {
+
+
+                        $type_code = Msg_model::$types[$type];
+                        $row = array(
+                            'description' => $msg_data['text'],
+                            'code' => $msg_data['status_id'],
+                            'email' => $client_twitter['source_id'],
+                            'handle' => $integration['handle'],
+                            'integration_type' => 2,
+                            'created_at' => $msg_data['created_at'],
+                            'sender_source_id' => $integration['source_id'],
+                            'recipient_source_id' => $client_twitter['source_id'],
+                            'is_own' => 1,
+                            'type' => $type_code
+                        );
+
+                        if ($type === 'twitter_retweet' OR $type === 'twitter_quote') {
+                            $row['attachments'] = $msg_data['attachments'];
+                        }
+
+                        $msg_id = $this->Msg_model->create_msg($_SESSION['user_id'], $client_id, 0, $row);
+                        if (!$msg_id) {
+                            return ajax_code(App_core::CODE_DB_ERROR, 'Msg_model->create_msg');
+                        } else {
+                            if ($type === 'twitter_follow') {
+                                $this->Client_twitter_model->update_by_client_id($client_id, array('is_followed' => 1));
+                            } elseif ($type === 'twitter_unfollow') {
+                                $this->Client_twitter_model->update_by_client_id($client_id, array('is_followed' => 0));
+                            }
+
+                            $msg = array(
+                                'id' => $msg_id,
+                                'description' => $msg_data['text'],
+                                'is_own' => TRUE,
+                                'type' => $type,
+                                'recipient' => $recipient,
+                                'sender' => $sender,
+                                'created_at' => $msg_data['created_at']
+                            );
+                            if ($type === 'twitter_retweet' OR $type === 'twitter_quote') {
+                                $msg['attachments'] = json_decode($msg_data['attachments'], TRUE);
+                                $msg['attachments']['retweet']['sender']['avatar'] = PROTOCOL . '://' . $msg['attachments']['retweet']['sender']['avatar'];
+                            }
+
+                            return ajax_output(App_core::CODE_CREATED, $msg, TRUE);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public function scan()
+    {
+        $token = '553966583-vhOVD5lsYAfX5MQ39vS09jQqFyf6X9GPusEsFmMF';
+        $secret = 'CQWSM8v28YIiUgm7AFxkBuRzihgBBPjMqHXo9XazI';
+        $this->connection = new TwitterOAuth($this->key, $this->secret, $token, $secret);
+        $content = $this->connection->get("account/verify_credentials");
+        $twitter_ids = $this->em->getRepository('AppBundle:ClientTwitter')->findAll();
+        print_r($twitter_ids);
+        exit;
+        print_r($content);
+        $user_id = 553966583;
+        $data = array(
+            'user_id' => $user_id,
+            'count' => 200,
+            'stringify_ids' => TRUE
+        );
+        $friends = $this->connection->get('friends/ids', $data);
+        print_r($friends);
+        $followers = $result = $this->connection->get('followers/ids', $data);
+        print_r($followers);
+        $data = array(
+            'count' => 200,
+            'include_rts' => TRUE // this actually doesn't provide any retweeted tweets, that belong to the authenticated user. ps: and even if belong to others
+        );
+        $clients1 = $this->connection->get('statuses/mentions_timeline', $data); //$this->twitter->mentions_timeline($collected_ids_ready, $client_twitter['twitter_code']); // TODO: need check this for FALSE
+        print_r($clients1);
+        $data = array(
+            'user_id' => $user_id,
+            'count' => 200
+        );
+        $clients2 = $this->connection->get('statuses/user_timeline', $data); //$this->twitter->user_timeline($collected_ids_ready, $client_twitter['twitter_code'], $retrieve_retweets); // TODO: need check this for FALSE
+        print_r($clients2);
+        $data = array(
+            'count' => 200,
+        );
+        $direct_messages = $this->connection->get('direct_messages', $data); //$this->twitter->direct_messages($collected_ids_ready); // TODO: need check this for FALSE
+        print_r($direct_messages);
+        $direct_messages_sent = $this->connection->get('direct_messages/sent', $data);
+        print_r($direct_messages_sent);
+        ; //$this->twitter->direct_messages_sent($collected_ids_ready); // TODO: need check this for FALSE
+    }
+
     public function scanTwitter()
     {
         //get last 50 twitter accounts that hasn't been updated recently
-        
+
         $this->load->model(array('Client_twitter_model', 'Msg_model'));
         $start_time = time();
 
