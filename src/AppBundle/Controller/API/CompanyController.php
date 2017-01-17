@@ -1,10 +1,9 @@
 <?php
-
 namespace AppBundle\Controller\API;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use AppBundle\Entity\Company;
 use AppBundle\Form\CompanyType;
 
@@ -13,6 +12,7 @@ use AppBundle\Form\CompanyType;
  */
 class CompanyController extends Controller
 {
+
     /**
      * Lists all Company entities.
      */
@@ -23,9 +23,9 @@ class CompanyController extends Controller
         $companies = $em->getRepository('AppBundle:Company')->findAll();
 
         return $this->render(
-            'company/index.html.twig', array(
-            'companies' => $companies,
-            )
+                'company/index.html.twig', array(
+                'companies' => $companies,
+                )
         );
     }
 
@@ -47,26 +47,85 @@ class CompanyController extends Controller
         }
 
         return $this->render(
-            'company/new.html.twig', array(
-            'company' => $company,
-            'form' => $form->createView(),
-            )
+                'company/new.html.twig', array(
+                'company' => $company,
+                'form' => $form->createView(),
+                )
         );
     }
 
     /**
      * Finds and displays a Company entity.
      */
-    public function showAction(Company $company)
+    public function showAction(Request $request, Company $company)
     {
-        $deleteForm = $this->createDeleteForm($company);
-
-        return $this->render(
-            'company/show.html.twig', array(
-            'company' => $company,
-            'delete_form' => $deleteForm->createView(),
-            )
-        );
+        //$this->denyAccessUnlessGranted('view', $company);
+        $em = $this->getDoctrine()->getManager();
+        if ($request->isMethod('PUT')) {
+            $data = $request->request;
+            $update = false;
+            foreach ($data as $k => $v) {
+                switch ($k) {
+                    case 'name':
+                        $company->setName($v);
+                        $update = true;
+                        break;
+                    case 'description':
+                        $company->setDescription($v);
+                        $update = true;
+                        break;
+                    case 'phone':
+                        $company->setPhone($v);
+                        $update = true;
+                        break;
+                    case 'address1':
+                        $company->setAddressLine1($v);
+                        $update = true;
+                        break;
+                    case 'address2':
+                        $company->setAddressLine2($v);
+                        $update = true;
+                        break;
+                    case 'city':
+                        $company->setCity($v);
+                        $update = true;
+                        break;
+                    case 'state':
+                        $company->setState($v);
+                        $update = true;
+                        break;
+                    case 'zip':
+                        $company->setZip($v);
+                        $update = true;
+                        break;
+                    case 'country':
+                        $company->setCountry($v);
+                        $update = true;
+                        break;
+                    case 'website':
+                        $company->setWebsite($v);
+                        $update = true;
+                        break;       
+                    case 'foundation_year':
+                        //TODO:: Timestamp?
+                        $company->setFoundationYear($v);
+                        $update = true;
+                        break;                         
+                    case 'workspace_id':
+                        $company->setWorkspaceId($v);
+                        $update = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if ($update) {
+                $company->setUpdatedAt(time());
+                $em->persist($company);
+                $em->flush();
+            }
+        }
+        return new JsonResponse($company->toArray());
     }
 
     /**
@@ -87,11 +146,11 @@ class CompanyController extends Controller
         }
 
         return $this->render(
-            'company/edit.html.twig', array(
-            'company' => $company,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-            )
+                'company/edit.html.twig', array(
+                'company' => $company,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+                )
         );
     }
 
@@ -122,8 +181,8 @@ class CompanyController extends Controller
     private function createDeleteForm(Company $company)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('company_delete', array('id' => $company->getId())))
-            ->setMethod('DELETE')
-            ->getForm();
+                ->setAction($this->generateUrl('company_delete', array('id' => $company->getId())))
+                ->setMethod('DELETE')
+                ->getForm();
     }
 }

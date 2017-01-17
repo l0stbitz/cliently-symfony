@@ -26,98 +26,98 @@ class Company
      *
      * @ORM\Column(name="name", type="string", length=100, nullable=false)
      */
-    private $name;
+    private $name = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="address_line1", type="string", length=100, nullable=false)
      */
-    private $addressLine1;
+    private $addressLine1 = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="address_line2", type="string", length=50, nullable=false)
      */
-    private $addressLine2;
+    private $addressLine2 = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="city", type="string", length=50, nullable=false)
      */
-    private $city;
+    private $city = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="state", type="string", length=50, nullable=false)
      */
-    private $state;
+    private $state = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="zip", type="string", length=50, nullable=false)
      */
-    private $zip;
+    private $zip = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=50, nullable=false)
      */
-    private $country;
+    private $country = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="coords", type="string", length=100, nullable=false)
      */
-    private $coords;
+    private $coords = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="google_location", type="text", length=65535, nullable=false)
      */
-    private $googleLocation;
+    private $googleLocation = '';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="foundation_year", type="integer", nullable=false)
      */
-    private $foundationYear;
+    private $foundationYear = 0;
 
     /**
      * @var string
      *
      * @ORM\Column(name="phone", type="string", length=100, nullable=false)
      */
-    private $phone;
+    private $phone = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="website", type="string", length=100, nullable=false)
      */
-    private $website;
+    private $website = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="text", length=65535, nullable=false)
      */
-    private $description;
+    private $description = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="logo", type="string", length=20, nullable=false)
      */
-    private $logo;
+    private $logo = '';
 
     /**
      * @var integer
@@ -138,28 +138,41 @@ class Company
      *
      * @ORM\Column(name="source_id", type="integer", nullable=false)
      */
-    private $sourceId;
+    private $sourceId = 0;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="is_enabled", type="integer", nullable=false)
      */
-    private $isEnabled;
+    private $isEnabled = 0;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="created_at", type="integer", nullable=false)
      */
-    private $createdAt;
+    private $createdAt = 0;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="updated_at", type="integer", nullable=false)
      */
-    private $updatedAt;
+    private $updatedAt = 0;
+
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="deals")
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+     */
+    private $user;
+
+    public function __construct()
+    {
+        $this->setCreatedAt(time());
+    }
 
     /**
      * Get id
@@ -649,6 +662,26 @@ class Company
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     *
+     * @return type
+     */
+    public function getOwner()
+    {
+        return $this->user;
+    }
+
+    /**
+     *
+     * @param type $user
+     * @return \AppBundle\Entity\User
+     */
+    public function setOwner($user)
+    {
+        $this->user = $user;
+        return $this;
     }
 
     /**

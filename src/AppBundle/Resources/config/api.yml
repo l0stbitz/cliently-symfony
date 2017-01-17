@@ -22,7 +22,11 @@ api_workspacemembers:
         
 api_clients:
         resource: "@AppBundle/Resources/config/routing/client.yml"
-        prefix:   /clients        
+        prefix:   /clients  
+        
+api_companies:
+        resource: "@AppBundle/Resources/config/routing/company.yml"
+        prefix:   /companies          
         
 api_accounts:
         resource: "@AppBundle/Resources/config/routing/account.yml"
@@ -45,8 +49,11 @@ api_notes:
         prefix:   /notes
         
 api_industries:
-        resource: "@AppBundle/Resources/config/routing/industry.yml"
-        prefix:   /industries
+        path:   /industries
+        defaults: { _controller: "AppBundle:API/Industry:index" }
+        methods:  GET
+        #resource: "@AppBundle/Resources/config/routing/industry.yml"
+        #prefix:   /industries
         
 api_integrations:
         resource: "@AppBundle/Resources/config/routing/integration.yml"

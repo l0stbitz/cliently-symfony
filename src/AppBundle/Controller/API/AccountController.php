@@ -43,6 +43,8 @@ class AccountController extends Controller
             $member->setIsConfirmed(1);
             $member->setWorkspace($workspace);
             $member->setOwnerId($user->getId());
+            
+            //TODO: Default work thru
             $em->persist($member);
             $em->flush();
             return new JsonResponse(["success" => ["code" => 0, "message" => "success"]]);

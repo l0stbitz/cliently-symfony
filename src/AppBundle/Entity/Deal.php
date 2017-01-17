@@ -139,19 +139,19 @@ class Deal
      *
      * @ORM\OneToMany(targetEntity="Task", mappedBy="deal")
      */
-    private $tasks;
+    private $tasks = [];
 
     /**
      *
      * @ORM\OneToMany(targetEntity="Note", mappedBy="deal")
      */
-    private $notes;
+    private $notes = [];
     
     /**
      *
      * @ORM\OneToMany(targetEntity="Msg", mappedBy="deal")
      */
-    private $mails;    
+    private $mails = [];    
 
     /**
      * @var integer

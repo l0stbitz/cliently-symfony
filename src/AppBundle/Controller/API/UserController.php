@@ -33,16 +33,63 @@ class UserController extends Controller
         if ($request->isMethod('PUT')) {
             //TODO: Use proper validation form
             $data = $request->request;
-            $em = $this->getDoctrine()->getManager();
             $user = $this->getUser();
-            $user->setFirstName($data->get('first_name'));
-            $user->setLastName($data->get('last_name'));
-            $user->setCompanyName($data->get('company_name'));
-            $user->setEmail($data->get('email'));
-            $user->setPhone($data->get('phone'));
-            $em->persist($user);
-            $em->flush();
-            return new JsonResponse(["success"=>["code"=>0,"message"=>"success"]]);
+            $update = false;
+            foreach ($data as $k => $v) {
+                switch ($k) {
+                    case 'first_name':
+                        $user->setFirstName($v);
+                        $update = true;
+                        break;
+                    case 'last_name':
+                        $user->setLastName($v);
+                        $update = true;
+                        break;
+                    case 'company_name':
+                        $user->setCompanyName($v);
+                        $update = true;
+                        break;
+                    case 'company_size':
+                        $user->setCompanySize($v);
+                        $update = true;
+                        break;
+                    case 'email':
+                        //TODO: Validate email if present
+                        $user->setEmail($v);
+                        $update = true;
+                        break; 
+                    case 'password':
+                        //TODO: Validate password if present
+                        $user->setPassword($v);
+                        $update = true;
+                        break;                     
+                    case 'phone':
+                        $user->setPhone($v);
+                        $update = true;
+                        break;                    
+                    case 'wizard':
+                    case 'user_wizard':
+                        $user->setWizard($v);
+                        $update = true;
+                        break;
+                    case 'location':
+                        $user->setLocation($v);
+                        $update = true;
+                        break;
+                    case 'coords':
+                        $user->setCoords($v);
+                        $update = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if ($update) {
+                $user->setUpdatedAt(time());
+                $em->persist($user);
+                $em->flush();
+            }
+            return new JsonResponse(["success" => ["code" => 0, "message" => "success"]]);
 
             //TODO: Complete user update 
             // Perform validation
@@ -116,10 +163,10 @@ class UserController extends Controller
         }
         //Existing user
         $user = $this->getUser()->toArray();
-        $accounts = $em->getRepository('AppBundle:Account')->findBy(['ownerId'=>$user['id']]);
+        $accounts = $em->getRepository('AppBundle:Account')->findBy(['ownerId' => $user['id']]);
         //$user['accounts'] = json_decode('[{"id":1,"name":"","type":"main","plan_id":1,"plan_class":"free","next_plan_id":1,"next_plan_class":"free","member_count":1,"credit_balance":0,"accepted_deal_count":0,"workspace_count":0,"pipeline_count":0,"workflow_count":2,"source_count":1,"enabled_member_count":1,"enabled_workspace_count":0,"enabled_pipeline_count":0,"enabled_workflow_count":1,"enabled_source_count":0,"daily_leads_scanned":0,"plan_started_at":1483748729,"is_enabled":true,"created_at":1483748729,"updated_at":0,"membership":{"role":"owner","is_enabled":true}}]');
         $user['accounts'] = [];
-        foreach($accounts as $a){
+        foreach ($accounts as $a) {
             $user['accounts'][] = $a->toArray();
         }
         $user['workspaces'] = $this->getUser()->getWorkspacesArray();

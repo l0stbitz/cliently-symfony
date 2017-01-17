@@ -34,7 +34,7 @@ api_deal_show:
 api_deal_company:
     path:     /{id}/companies
     defaults: { _controller: "AppBundle:API/Deal:companies" }
-    methods:  [GET]    
+    methods:  [GET, POST]    
     
 api_deal_client_tasks:
     path:     /{id}/clients/{client_id}/tasks

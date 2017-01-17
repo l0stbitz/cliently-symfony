@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\Deal;
 use AppBundle\Entity\Client;
+use AppBundle\Entity\Company;
 use AppBundle\Entity\Task;
 use AppBundle\Entity\Note;
 use AppBundle\Entity\Msg;
@@ -38,25 +39,27 @@ class DealController extends Controller
             //TODO: Use proper validation form
             $data = $request->request;
             $em = $this->getDoctrine()->getManager();
-            $max_pos = $em->createQueryBuilder()
-                ->select('cp.id')
+            /*$max_pos = $em->createQueryBuilder()
+                ->select('c.id')
                 ->from('AppBundle:Deal', 'd')
                 ->join('AppBundle:XrefClientDeal', 'x', 'WITH', 'x.dealId = d.id')
-                ->join('AppBundle:Client', 'c', 'WITH', 'c.id = s.clientId')
-                ->join('AppBundle:Company', 'cp', 'WITH', 'cp.id = c.companyId')
+                ->join('AppBundle:Client', 'c', 'WITH', 'c.id = x.clientId')
+                //->join('AppBundle:Company', 'cp', 'WITH', 'cp.id = c.companyId')
                 ->where('d.id = :deal')
+                //->andWhere('x.isMain = 1')
                 ->setParameter('deal', $deal)
                 ->getQuery()
-                ->getSingleScalarResult();
-            echo $max_pos . ' test ';
+                ->getSingleScalarResult();*/
+            //TODO:How is the relationship managed?
             $company = new Company();
-            $company->setName($data->get('name'));
+            $company->setName($data->get('name', ''));
             $company->setIsEnabled(1);
-            $company->setOwnerId($this->getUser()->getId());
+            $company->setOwner($this->getUser());
+            $company->setWorkspaceId($deal->getStage()->getPipeline()->getWorkspace()->getId());
             $em->persist($company);
             $em->flush();
-            $companies = $em->getRepository('AppBundle:Company')->findBy(['pipelineId' => $pipeline->getId()]);
-            $deal->setCompanies($companies);
+            //$deal = $em->getRepository('AppBundle:Deal')->find($deal->getId());
+            //$deal->setCompanies($companies);
             return new JsonResponse($company->toArray());
         }
         //return new JsonResponse(json_decode('[{"id":1,"name":"Pipeline 1","position":1,"is_enabled":true,"created_at":1483748729,"updated_at":0,"stages":[{"id":1,"name":"New Lead","position":1,"value":0,"pipeline_id":1},{"id":2,"name":"Qualifying","position":2,"value":0,"pipeline_id":1},{"id":3,"name":"Validation","position":3,"value":0,"pipeline_id":1},{"id":4,"name":"Negotiation","position":4,"value":0,"pipeline_id":1},{"id":5,"name":"Closed Won","position":5,"value":0,"pipeline_id":1}]}]'));
@@ -75,24 +78,24 @@ class DealController extends Controller
             $update = false;
             foreach ($data as $k => $v) {
                 switch ($k) {
-                case 'name':
-                    $deal->setName($v);
-                    $update = true;
-                    break;
-                case 'stage_id':
-                    $deal->setStageId($v);
-                    $update = true;
-                    break;
-                case 'source_description':
-                    $deal->setSourceDescription($v);
-                    $update = true;
-                    break;
-                case 'value':
-                    $deal->setValue($v);
-                    $update = true;
-                    break;                    
-                default:
-                    break;
+                    case 'name':
+                        $deal->setName($v);
+                        $update = true;
+                        break;
+                    case 'stage_id':
+                        $deal->setStageId($v);
+                        $update = true;
+                        break;
+                    case 'source_description':
+                        $deal->setSourceDescription($v);
+                        $update = true;
+                        break;
+                    case 'value':
+                        $deal->setValue($v);
+                        $update = true;
+                        break;
+                    default:
+                        break;
                 }
             }
             if ($update) {

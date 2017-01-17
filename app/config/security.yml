@@ -25,6 +25,15 @@ security:
 
             logout:       true
             anonymous:    true
+            oauth:
+                resource_owners:
+                    twitter:           "/login/check-twitter"
+                    google:             "/login/check-google"
+                login_path:        /login
+                use_forward:       false
+                failure_path:      /login
+                oauth_user_provider:
+                    service: hwi_oauth.user.provider
         app_secured:
             pattern: ^/
             host: app.%domain%
@@ -40,6 +49,15 @@ security:
                 path: fos_logout
                 target: site_home
             anonymous:    ~
+            oauth:
+                resource_owners:
+                    twitter:           "/login/check-twitter"
+                    google:             "/login/check-google"
+                login_path:        /login
+                use_forward:       false
+                failure_path:      /login
+                oauth_user_provider:
+                    service: hwi_oauth.user.provider
         
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

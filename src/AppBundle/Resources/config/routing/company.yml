@@ -22,3 +22,9 @@ company_delete:
     path:     /{id}/delete
     defaults: { _controller: "AppBundle:Company:delete" }
     methods:  DELETE
+#-------
+
+api_companies_show:
+    path:     /{id}
+    defaults: { _controller: "AppBundle:API/Company:show" }
+    methods:  [GET, PUT, DELETE]    

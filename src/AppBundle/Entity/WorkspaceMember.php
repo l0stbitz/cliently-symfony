@@ -23,6 +23,11 @@ class WorkspaceMember
         'admin' => ['id' => 2, 'class' => 'admin'],
         'user' => ['id' => 3, 'class' => 'user'],
     ];
+    const ROLE = [
+        1 => 'owner',
+        2 => 'admin',
+        3 => 'user',
+    ];
 
     /**
      * @var integer
@@ -52,7 +57,7 @@ class WorkspaceMember
      *
      * @ORM\Column(name="role", type="integer", nullable=false)
      */
-    private $role;
+    private $role = 1;
 
     /**
      * @var integer
@@ -229,6 +234,19 @@ class WorkspaceMember
     public function getRole()
     {
         return $this->role;
+    }
+
+    /**
+     * Get role
+     *
+     * @return integer
+     */
+    public function getRoleString()
+    {
+        if ($this->role > 0) {
+            return self::ROLE_BY_ID[$this->role]['class'];
+        }
+        return 'user';
     }
 
     /**
@@ -483,7 +501,7 @@ class WorkspaceMember
         //{"id":2,"user_id":0,"workspace_id":1,"role":"admin","credit_balance":0,"accepted_deal_count":0,"extra":{"name":"asdfasdfa","email":"asdfasdf@asdfasdf.com"},"owner_id":1,"is_confirmed":false,"is_enabled":true,"created_at":1483756100,"updated_at":0,"user":null}]');
         $arr = [];
         $arr['id'] = $this->getId();
-        $arr['role'] = $this->getRole();
+        $arr['role'] = $this->getRoleString();
         $arr['user'] = $this->getUser() ? $this->getUser()->toArray() : null;
         $arr['user_id'] = $this->getUserId() ? $this->getUserId() : 0;
         $arr['owner_id'] = $this->getOwnerId();
