@@ -1,0 +1,24 @@
+node_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Node:index" }
+    methods:  GET
+
+node_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Node:show" }
+    methods:  GET
+
+node_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Node:new" }
+    methods:  [GET, POST]
+
+node_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Node:edit" }
+    methods:  [GET, POST]
+
+node_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Node:delete" }
+    methods:  DELETE

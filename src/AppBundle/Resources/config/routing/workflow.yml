@@ -1,0 +1,36 @@
+workflow_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Workflow:index" }
+    methods:  GET
+
+api_workflow_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Workflow:show" }
+    methods:  GET
+
+workflow_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Workflow:new" }
+    methods:  [GET, POST]
+
+workflow_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Workflow:edit" }
+    methods:  [GET, POST]
+
+workflow_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Workflow:delete" }
+    methods:  DELETE
+    
+#-----
+
+api_workflow_source:
+    path:     /{id}/sources/{source_id}
+    defaults: { _controller: "AppBundle:API/Workflow:source" }
+    methods:  [GET, PUT]
+    
+api_workflow_action:
+    path:     /{id}/actions
+    defaults: { _controller: "AppBundle:API/Workflow:action" }
+    methods:  [GET, POST]    

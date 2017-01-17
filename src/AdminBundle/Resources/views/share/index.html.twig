@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Share list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Key</th>
+                <th>Data</th>
+                <th>Type</th>
+                <th>Ownerid</th>
+                <th>Viewcount</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for share in shares %}
+            <tr>
+                <td><a href="{{ path('share_show', { 'id': share.id }) }}">{{ share.id }}</a></td>
+                <td>{{ share.key }}</td>
+                <td>{{ share.data }}</td>
+                <td>{{ share.type }}</td>
+                <td>{{ share.ownerId }}</td>
+                <td>{{ share.viewCount }}</td>
+                <td>{{ share.isEnabled }}</td>
+                <td>{{ share.createdAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('share_show', { 'id': share.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('share_edit', { 'id': share.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('share_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ClientTwitter list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Clientid</th>
+                <th>Sourceid</th>
+                <th>Isfollower</th>
+                <th>Isfollowed</th>
+                <th>Neweventscount</th>
+                <th>Ownerid</th>
+                <th>Workspaceid</th>
+                <th>Status</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Accessedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for clientTwitter in clientTwitters %}
+            <tr>
+                <td><a href="{{ path('clienttwitter_show', { 'id': clientTwitter.id }) }}">{{ clientTwitter.id }}</a></td>
+                <td>{{ clientTwitter.clientId }}</td>
+                <td>{{ clientTwitter.sourceId }}</td>
+                <td>{% if clientTwitter.isFollower %}Yes{% else %}No{% endif %}</td>
+                <td>{% if clientTwitter.isFollowed %}Yes{% else %}No{% endif %}</td>
+                <td>{{ clientTwitter.newEventsCount }}</td>
+                <td>{{ clientTwitter.ownerId }}</td>
+                <td>{{ clientTwitter.workspaceId }}</td>
+                <td>{{ clientTwitter.status }}</td>
+                <td>{{ clientTwitter.createdAt }}</td>
+                <td>{{ clientTwitter.updatedAt }}</td>
+                <td>{{ clientTwitter.accessedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('clienttwitter_show', { 'id': clientTwitter.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('clienttwitter_edit', { 'id': clientTwitter.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clienttwitter_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

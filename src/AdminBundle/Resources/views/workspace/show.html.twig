@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Workspace</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ workspace.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ workspace.name }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ workspace.type }}</td>
+            </tr>
+            <tr>
+                <th>Accountid</th>
+                <td>{{ workspace.accountId }}</td>
+            </tr>
+            <tr>
+                <th>Membercount</th>
+                <td>{{ workspace.memberCount }}</td>
+            </tr>
+            <tr>
+                <th>Creditbalance</th>
+                <td>{{ workspace.creditBalance }}</td>
+            </tr>
+            <tr>
+                <th>Accepteddealcount</th>
+                <td>{{ workspace.acceptedDealCount }}</td>
+            </tr>
+            <tr>
+                <th>Pipelinecount</th>
+                <td>{{ workspace.pipelineCount }}</td>
+            </tr>
+            <tr>
+                <th>Workflowcount</th>
+                <td>{{ workspace.workflowCount }}</td>
+            </tr>
+            <tr>
+                <th>Sourcecount</th>
+                <td>{{ workspace.sourceCount }}</td>
+            </tr>
+            <tr>
+                <th>Enabledmembercount</th>
+                <td>{{ workspace.enabledMemberCount }}</td>
+            </tr>
+            <tr>
+                <th>Enabledpipelinecount</th>
+                <td>{{ workspace.enabledPipelineCount }}</td>
+            </tr>
+            <tr>
+                <th>Enabledworkflowcount</th>
+                <td>{{ workspace.enabledWorkflowCount }}</td>
+            </tr>
+            <tr>
+                <th>Enabledsourcecount</th>
+                <td>{{ workspace.enabledSourceCount }}</td>
+            </tr>
+            <tr>
+                <th>Dailyleadsscanned</th>
+                <td>{{ workspace.dailyLeadsScanned }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ workspace.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{{ workspace.isEnabled }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ workspace.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ workspace.updatedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('workspace_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('workspace_edit', { 'id': workspace.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

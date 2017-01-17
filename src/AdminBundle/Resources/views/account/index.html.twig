@@ -1,0 +1,81 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+    <h1>Account list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Planid</th>
+                <th>Nextplanid</th>
+                <th>Membercount</th>
+                <th>Creditbalance</th>
+                <th>Accepteddealcount</th>
+                <th>Workspacecount</th>
+                <th>Pipelinecount</th>
+                <th>Workflowcount</th>
+                <th>Sourcecount</th>
+                <th>Enabledmembercount</th>
+                <th>Enabledworkspacecount</th>
+                <th>Enabledpipelinecount</th>
+                <th>Enabledworkflowcount</th>
+                <th>Enabledsourcecount</th>
+                <th>Dailyleadsscanned</th>
+                <th>Planstartedat</th>
+                <th>Ownerid</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for account in accounts %}
+            <tr>
+                <td><a href="{{ path('account_show', { 'id': account.id }) }}">{{ account.id }}</a></td>
+                <td>{{ account.name }}</td>
+                <td>{{ account.type }}</td>
+                <td>{{ account.planId }}</td>
+                <td>{{ account.nextPlanId }}</td>
+                <td>{{ account.memberCount }}</td>
+                <td>{{ account.creditBalance }}</td>
+                <td>{{ account.acceptedDealCount }}</td>
+                <td>{{ account.workspaceCount }}</td>
+                <td>{{ account.pipelineCount }}</td>
+                <td>{{ account.workflowCount }}</td>
+                <td>{{ account.sourceCount }}</td>
+                <td>{{ account.enabledMemberCount }}</td>
+                <td>{{ account.enabledWorkspaceCount }}</td>
+                <td>{{ account.enabledPipelineCount }}</td>
+                <td>{{ account.enabledWorkflowCount }}</td>
+                <td>{{ account.enabledSourceCount }}</td>
+                <td>{{ account.dailyLeadsScanned }}</td>
+                <td>{{ account.planStartedAt }}</td>
+                <td>{{ account.ownerId }}</td>
+                <td>{{ account.isEnabled }}</td>
+                <td>{{ account.createdAt }}</td>
+                <td>{{ account.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('account_show', { 'id': account.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('account_edit', { 'id': account.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('account_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

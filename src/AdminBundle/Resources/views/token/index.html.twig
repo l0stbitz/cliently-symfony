@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Token list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Typeid</th>
+                <th>Value</th>
+                <th>Ownerid</th>
+                <th>Createdat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for token in tokens %}
+            <tr>
+                <td><a href="{{ path('token_show', { 'id': token.id }) }}">{{ token.id }}</a></td>
+                <td>{{ token.type }}</td>
+                <td>{{ token.typeId }}</td>
+                <td>{{ token.value }}</td>
+                <td>{{ token.ownerId }}</td>
+                <td>{{ token.createdAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('token_show', { 'id': token.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('token_edit', { 'id': token.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('token_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

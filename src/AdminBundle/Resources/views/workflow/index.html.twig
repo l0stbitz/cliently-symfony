@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Workflow list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ownerid</th>
+                <th>Workspaceid</th>
+                <th>Name</th>
+                <th>Stoponrespond</th>
+                <th>Position</th>
+                <th>Originid</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for workflow in workflows %}
+            <tr>
+                <td><a href="{{ path('workflow_show', { 'id': workflow.id }) }}">{{ workflow.id }}</a></td>
+                <td>{{ workflow.ownerId }}</td>
+                <td>{{ workflow.workspaceId }}</td>
+                <td>{{ workflow.name }}</td>
+                <td>{{ workflow.stopOnRespond }}</td>
+                <td>{{ workflow.position }}</td>
+                <td>{{ workflow.originId }}</td>
+                <td>{{ workflow.isEnabled }}</td>
+                <td>{{ workflow.createdAt }}</td>
+                <td>{{ workflow.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('workflow_show', { 'id': workflow.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('workflow_edit', { 'id': workflow.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('workflow_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,209 @@
+admin_homepage:
+    path:     /
+    defaults: { _controller: AdminBundle:Default:index }
+    
+admin_account:
+    resource: "@AdminBundle/Resources/config/routing/account.yml"
+    prefix:   /account
+
+admin_accountmember:
+    resource: "@AdminBundle/Resources/config/routing/accountmember.yml"
+    prefix:   /accountmember
+
+admin_actiontype:
+        resource: "@AdminBundle/Resources/config/routing/actiontype.yml"
+        prefix:   /actiontype
+        
+admin_addpipe:
+    resource: "@AdminBundle/Resources/config/routing/addpipe.yml"
+    prefix:   /addpipe
+
+admin_auth:
+        resource: "@AdminBundle/Resources/config/routing/auth.yml"
+        prefix:   /auth
+
+admin_clientlycity:
+    resource: "@AdminBundle/Resources/config/routing/clientlycity.yml"
+    prefix:   /clientlycity
+
+admin_clientlyindustryleads:
+   resource: "@AdminBundle/Resources/config/routing/clientlyindustryleads.yml"
+   prefix:   /clientlyindustryleads
+
+admin_clientlykeywords:
+    resource: "@AdminBundle/Resources/config/routing/clientlykeywords.yml"
+    prefix:   /clientlykeywords
+
+admin_clientlyrevenue:
+        resource: "@AdminBundle/Resources/config/routing/clientlyrevenue.yml"
+        prefix:   /clientlyrevenue
+
+admin_clientlyroles:
+        resource: "@AdminBundle/Resources/config/routing/clientlyroles.yml"
+        prefix:   /clientlyroles
+
+admin_clientlyseniority:
+        resource: "@AdminBundle/Resources/config/routing/clientlyseniority.yml"
+        prefix:   /clientlyseniority
+
+admin_clientlysetting:
+        resource: "@AdminBundle/Resources/config/routing/clientlysetting.yml"
+        prefix:   /clientlysetting
+
+admin_clientlysize:
+        resource: "@AdminBundle/Resources/config/routing/clientlysize.yml"
+        prefix:   /clientlysize
+
+admin_clientlystate:
+        resource: "@AdminBundle/Resources/config/routing/clientlystate.yml"
+        prefix:   /clientlystate
+        
+admin_clientlysubindustries:
+        resource: "@AdminBundle/Resources/config/routing/clientlysubindustries.yml"
+        prefix:   /clientlysubindustries
+
+admin_clientlyusers:
+        resource: "@AdminBundle/Resources/config/routing/clientlyusers.yml"
+        prefix:   /clientlyusers
+
+admin_client:
+        resource: "@AdminBundle/Resources/config/routing/client.yml"
+        prefix:   /client
+
+admin_clienttwitter:
+        resource: "@AdminBundle/Resources/config/routing/clienttwitter.yml"
+        prefix:   /clienttwitter
+        
+admin_company:
+        resource: "@AdminBundle/Resources/config/routing/company.yml"
+        prefix:   /company
+
+admin_dealaction:
+        resource: "@AdminBundle/Resources/config/routing/dealaction.yml"
+        prefix:   /dealaction
+
+admin_deallog:
+        resource: "@AdminBundle/Resources/config/routing/deallog.yml"
+        prefix:   /deallog
+
+admin_dealworkflow:
+        resource: "@AdminBundle/Resources/config/routing/dealworkflow.yml"
+        prefix:   /dealworkflow
+        
+admin_industry:
+        resource: "@AdminBundle/Resources/config/routing/industry.yml"
+        prefix:   /industry
+        
+admin_integration:
+        resource: "@AdminBundle/Resources/config/routing/integration.yml"
+        prefix:   /integration
+
+admin_lead:
+        resource: "@AdminBundle/Resources/config/routing/lead.yml"
+        prefix:   /lead
+
+admin_location:
+        resource: "@AdminBundle/Resources/config/routing/location.yml"
+        prefix:   /location
+
+admin_modulecat:
+        resource: "@AdminBundle/Resources/config/routing/modulecat.yml"
+        prefix:   /modulecat
+
+admin_module:
+        resource: "@AdminBundle/Resources/config/routing/module.yml"
+        prefix:   /module
+
+admin_moduleprocess:
+        resource: "@AdminBundle/Resources/config/routing/moduleprocess.yml"
+        prefix:   /moduleprocess
+
+admin_msg:
+        resource: "@AdminBundle/Resources/config/routing/msg.yml"
+        prefix:   /msg
+
+admin_node:
+        resource: "@AdminBundle/Resources/config/routing/node.yml"
+        prefix:   /node
+
+admin_note:
+        resource: "@AdminBundle/Resources/config/routing/note.yml"
+        prefix:   /note
+
+admin_pipelinedefault:
+        resource: "@AdminBundle/Resources/config/routing/pipelinedefault.yml"
+        prefix:   /pipelinedefault
+
+admin_pipeline:
+        resource: "@AdminBundle/Resources/config/routing/pipeline.yml"
+        prefix:   /pipeline
+
+admin_plan:
+        resource: "@AdminBundle/Resources/config/routing/plan.yml"
+        prefix:   /plan
+
+admin_purchase:
+        resource: "@AdminBundle/Resources/config/routing/purchase.yml"
+        prefix:   /purchase
+        
+admin_share:
+        resource: "@AdminBundle/Resources/config/routing/share.yml"
+        prefix:   /share
+        
+admin_source:
+        resource: "@AdminBundle/Resources/config/routing/source.yml"
+        prefix:   /source
+
+admin_stagedefault:
+        resource: "@AdminBundle/Resources/config/routing/stagedefault.yml"
+        prefix:   /stagedefault
+
+admin_stage:
+        resource: "@AdminBundle/Resources/config/routing/stage.yml"
+        prefix:   /stage
+        
+admin_subscription:
+        resource: "@AdminBundle/Resources/config/routing/subscription.yml"
+        prefix:   /subscription
+
+admin_task:
+        resource: "@AdminBundle/Resources/config/routing/task.yml"
+        prefix:   /task
+
+admin_token:
+        resource: "@AdminBundle/Resources/config/routing/token.yml"
+        prefix:   /token
+
+admin_upload:
+        resource: "@AdminBundle/Resources/config/routing/upload.yml"
+        prefix:   /upload
+
+admin_userlog:
+        resource: "@AdminBundle/Resources/config/routing/userlog.yml"
+        prefix:   /userlog
+
+admin_user:
+        resource: "@AdminBundle/Resources/config/routing/user.yml"
+        prefix:   /user
+
+admin_workflowdefault:
+        resource: "@AdminBundle/Resources/config/routing/workflowdefault.yml"
+        prefix:   /workflowdefault
+
+admin_workflow:
+        resource: "@AdminBundle/Resources/config/routing/workflow.yml"
+        prefix:   /workflow
+
+admin_workspacemember:
+        resource: "@AdminBundle/Resources/config/routing/workspacemember.yml"
+        prefix:   /workspacemember
+        
+admin_workspace:
+        resource: "@AdminBundle/Resources/config/routing/workspace.yml"
+        prefix:   /workspace
+
+admin_xrefclientdeal:
+        resource: "@AdminBundle/Resources/config/routing/xrefclientdeal.yml"
+        prefix:   /xrefclientdeal
+             
+      

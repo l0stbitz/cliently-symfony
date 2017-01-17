@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ClientlyCity list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Cityid</th>
+                <th>Cityname</th>
+                <th>Cityslug</th>
+                <th>Citylatitude</th>
+                <th>Citylongitude</th>
+                <th>Citytsynced</th>
+                <th>Stateslug</th>
+                <th>Stateid</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for clientlyCity in clientlyCities %}
+            <tr>
+                <td><a href="{{ path('clientlycity_show', { 'id': clientlyCity.cityId }) }}">{{ clientlyCity.cityId }}</a></td>
+                <td>{{ clientlyCity.cityName }}</td>
+                <td>{{ clientlyCity.citySlug }}</td>
+                <td>{{ clientlyCity.cityLatitude }}</td>
+                <td>{{ clientlyCity.cityLongitude }}</td>
+                <td>{{ clientlyCity.cityTSynced }}</td>
+                <td>{{ clientlyCity.stateSlug }}</td>
+                <td>{{ clientlyCity.stateId }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('clientlycity_show', { 'id': clientlyCity.cityId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('clientlycity_edit', { 'id': clientlyCity.cityId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clientlycity_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

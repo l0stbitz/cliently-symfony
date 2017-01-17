@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AccountMember list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Userid</th>
+                <th>Accountid</th>
+                <th>Role</th>
+                <th>Extra</th>
+                <th>Ownerid</th>
+                <th>Isconfirmed</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for accountMember in accountMembers %}
+            <tr>
+                <td><a href="{{ path('accountmember_show', { 'id': accountMember.id }) }}">{{ accountMember.id }}</a></td>
+                <td>{{ accountMember.userId }}</td>
+                <td>{{ accountMember.accountId }}</td>
+                <td>{{ accountMember.role }}</td>
+                <td>{{ accountMember.extra }}</td>
+                <td>{{ accountMember.ownerId }}</td>
+                <td>{% if accountMember.isConfirmed %}Yes{% else %}No{% endif %}</td>
+                <td>{{ accountMember.isEnabled }}</td>
+                <td>{{ accountMember.createdAt }}</td>
+                <td>{{ accountMember.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('accountmember_show', { 'id': accountMember.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('accountmember_edit', { 'id': accountMember.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('accountmember_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /password-reset
+#Disallow: /categories
+#Disallow: /services
+
+#Sitemap: https://www.example.com/sitemap_index.xml.gz

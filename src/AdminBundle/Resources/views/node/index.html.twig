@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Node list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Group</th>
+                <th>Subgroup</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Extra</th>
+                <th>Parentid</th>
+                <th>Islast</th>
+                <th>Path</th>
+                <th>Alphapath</th>
+                <th>Pathposition</th>
+                <th>Level</th>
+                <th>Isenabled</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for node in nodes %}
+            <tr>
+                <td><a href="{{ path('node_show', { 'id': node.id }) }}">{{ node.id }}</a></td>
+                <td>{{ node.group }}</td>
+                <td>{{ node.subgroup }}</td>
+                <td>{{ node.code }}</td>
+                <td>{{ node.name }}</td>
+                <td>{{ node.extra }}</td>
+                <td>{{ node.parentId }}</td>
+                <td>{{ node.isLast }}</td>
+                <td>{{ node.path }}</td>
+                <td>{{ node.alphapath }}</td>
+                <td>{{ node.pathPosition }}</td>
+                <td>{{ node.level }}</td>
+                <td>{{ node.isEnabled }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('node_show', { 'id': node.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('node_edit', { 'id': node.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('node_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

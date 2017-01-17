@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ClientlyCity</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Cityid</th>
+                <td>{{ clientlyCity.cityId }}</td>
+            </tr>
+            <tr>
+                <th>Cityname</th>
+                <td>{{ clientlyCity.cityName }}</td>
+            </tr>
+            <tr>
+                <th>Cityslug</th>
+                <td>{{ clientlyCity.citySlug }}</td>
+            </tr>
+            <tr>
+                <th>Citylatitude</th>
+                <td>{{ clientlyCity.cityLatitude }}</td>
+            </tr>
+            <tr>
+                <th>Citylongitude</th>
+                <td>{{ clientlyCity.cityLongitude }}</td>
+            </tr>
+            <tr>
+                <th>Citytsynced</th>
+                <td>{{ clientlyCity.cityTSynced }}</td>
+            </tr>
+            <tr>
+                <th>Stateslug</th>
+                <td>{{ clientlyCity.stateSlug }}</td>
+            </tr>
+            <tr>
+                <th>Stateid</th>
+                <td>{{ clientlyCity.stateId }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clientlycity_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('clientlycity_edit', { 'id': clientlyCity.cityId }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

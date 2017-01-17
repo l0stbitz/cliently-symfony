@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Integration list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Userid</th>
+                <th>Type</th>
+                <th>Sourceid</th>
+                <th>Code</th>
+                <th>Values</th>
+                <th>Avatar</th>
+                <th>Handle</th>
+                <th>Isprimary</th>
+                <th>Issuspended</th>
+                <th>Status</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for integration in integrations %}
+            <tr>
+                <td><a href="{{ path('integration_show', { 'id': integration.id }) }}">{{ integration.id }}</a></td>
+                <td>{{ integration.name }}</td>
+                <td>{{ integration.userId }}</td>
+                <td>{{ integration.type }}</td>
+                <td>{{ integration.sourceId }}</td>
+                <td>{{ integration.code }}</td>
+                <td>{{ integration.values }}</td>
+                <td>{{ integration.avatar }}</td>
+                <td>{{ integration.handle }}</td>
+                <td>{{ integration.isPrimary }}</td>
+                <td>{% if integration.isSuspended %}Yes{% else %}No{% endif %}</td>
+                <td>{{ integration.status }}</td>
+                <td>{{ integration.createdAt }}</td>
+                <td>{{ integration.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('integration_show', { 'id': integration.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('integration_edit', { 'id': integration.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('integration_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

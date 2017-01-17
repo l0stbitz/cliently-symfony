@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ClientlyIndustryLeads</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Industryleadsid</th>
+                <td>{{ clientlyIndustryLead.industryLeadsId }}</td>
+            </tr>
+            <tr>
+                <th>Industryleadsjobtitle</th>
+                <td>{{ clientlyIndustryLead.industryLeadsJobTitle }}</td>
+            </tr>
+            <tr>
+                <th>Industryleadsrole</th>
+                <td>{{ clientlyIndustryLead.industryLeadsRole }}</td>
+            </tr>
+            <tr>
+                <th>Industryleadsseniority</th>
+                <td>{{ clientlyIndustryLead.industryLeadsSeniority }}</td>
+            </tr>
+            <tr>
+                <th>Industryleadsindustryid</th>
+                <td>{{ clientlyIndustryLead.industryLeadsIndustryId }}</td>
+            </tr>
+            <tr>
+                <th>Industryleadssize</th>
+                <td>{{ clientlyIndustryLead.industryLeadsSize }}</td>
+            </tr>
+            <tr>
+                <th>Industryleadsrevenue</th>
+                <td>{{ clientlyIndustryLead.industryLeadsRevenue }}</td>
+            </tr>
+            <tr>
+                <th>Industryleadscityid</th>
+                <td>{{ clientlyIndustryLead.industryLeadsCityId }}</td>
+            </tr>
+            <tr>
+                <th>Industryleadsstateid</th>
+                <td>{{ clientlyIndustryLead.industryLeadsStateId }}</td>
+            </tr>
+            <tr>
+                <th>Isactive</th>
+                <td>{% if clientlyIndustryLead.isActive %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Isdelete</th>
+                <td>{% if clientlyIndustryLead.isDelete %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Createddate</th>
+                <td>{% if clientlyIndustryLead.createdDate %}{{ clientlyIndustryLead.createdDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Modifieddate</th>
+                <td>{% if clientlyIndustryLead.modifiedDate %}{{ clientlyIndustryLead.modifiedDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clientlyindustryleads_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('clientlyindustryleads_edit', { 'id': clientlyIndustryLead.industryLeadsId }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

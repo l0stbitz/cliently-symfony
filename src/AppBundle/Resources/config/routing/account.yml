@@ -1,0 +1,40 @@
+account_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Account:index" }
+    methods:  GET
+
+account_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Account:show" }
+    methods:  GET
+
+account_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Account:new" }
+    methods:  [GET, POST]
+
+account_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Account:edit" }
+    methods:  [GET, POST]
+
+account_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Account:delete" }
+    methods:  DELETE
+    
+#------
+api_account_get:
+    path:     /{id}
+    defaults: { _controller: "AppBundle:API/Account:show" }
+    methods:  GET
+    
+api_account_workspaces:
+    path:     /{id}/workspaces
+    defaults: { _controller: "AppBundle:API/Account:workspace" }
+    methods:  [GET, POST]    
+    
+api_account_workspaces2:
+    path:     /{id}/workspaces/
+    defaults: { _controller: "AppBundle:API/Account:workspace" }
+    methods:  [GET, POST]      

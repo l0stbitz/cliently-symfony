@@ -1,0 +1,24 @@
+xrefclientdeal_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:XrefClientDeal:index" }
+    methods:  GET
+
+xrefclientdeal_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:XrefClientDeal:show" }
+    methods:  GET
+
+xrefclientdeal_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:XrefClientDeal:new" }
+    methods:  [GET, POST]
+
+xrefclientdeal_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:XrefClientDeal:edit" }
+    methods:  [GET, POST]
+
+xrefclientdeal_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:XrefClientDeal:delete" }
+    methods:  DELETE

@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ClientlySetting</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Settingid</th>
+                <td>{{ clientlySetting.settingId }}</td>
+            </tr>
+            <tr>
+                <th>Settingtitle</th>
+                <td>{{ clientlySetting.settingTitle }}</td>
+            </tr>
+            <tr>
+                <th>Settingcontent</th>
+                <td>{{ clientlySetting.settingContent }}</td>
+            </tr>
+            <tr>
+                <th>Isactive</th>
+                <td>{% if clientlySetting.isActive %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Isdelete</th>
+                <td>{% if clientlySetting.isDelete %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Createddate</th>
+                <td>{% if clientlySetting.createdDate %}{{ clientlySetting.createdDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Modifieddate</th>
+                <td>{% if clientlySetting.modifiedDate %}{{ clientlySetting.modifiedDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clientlysetting_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('clientlysetting_edit', { 'id': clientlySetting.settingId }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

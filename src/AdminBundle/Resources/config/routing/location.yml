@@ -1,0 +1,24 @@
+location_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:Location:index" }
+    methods:  GET
+
+location_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:Location:show" }
+    methods:  GET
+
+location_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:Location:new" }
+    methods:  [GET, POST]
+
+location_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:Location:edit" }
+    methods:  [GET, POST]
+
+location_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:Location:delete" }
+    methods:  DELETE

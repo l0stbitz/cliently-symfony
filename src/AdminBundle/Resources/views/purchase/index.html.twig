@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Purchase list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ownerid</th>
+                <th>Accountid</th>
+                <th>Type</th>
+                <th>Engine</th>
+                <th>Transactioncode</th>
+                <th>Customercode</th>
+                <th>Productid</th>
+                <th>Value</th>
+                <th>Quantity</th>
+                <th>Issucceeded</th>
+                <th>Createdat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for purchase in purchases %}
+            <tr>
+                <td><a href="{{ path('purchase_show', { 'id': purchase.id }) }}">{{ purchase.id }}</a></td>
+                <td>{{ purchase.ownerId }}</td>
+                <td>{{ purchase.accountId }}</td>
+                <td>{{ purchase.type }}</td>
+                <td>{{ purchase.engine }}</td>
+                <td>{{ purchase.transactionCode }}</td>
+                <td>{{ purchase.customerCode }}</td>
+                <td>{{ purchase.productId }}</td>
+                <td>{{ purchase.value }}</td>
+                <td>{{ purchase.quantity }}</td>
+                <td>{{ purchase.isSucceeded }}</td>
+                <td>{{ purchase.createdAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('purchase_show', { 'id': purchase.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('purchase_edit', { 'id': purchase.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('purchase_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

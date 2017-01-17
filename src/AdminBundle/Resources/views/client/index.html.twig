@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Client list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Avatar</th>
+                <th>Occupation</th>
+                <th>Description</th>
+                <th>Email</th>
+                <th>Addressline1</th>
+                <th>Addressline2</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>Country</th>
+                <th>Coords</th>
+                <th>Googlelocation</th>
+                <th>Phone</th>
+                <th>Social</th>
+                <th>Contacts</th>
+                <th>Value</th>
+                <th>Neweventscount</th>
+                <th>Companyid</th>
+                <th>Ownerid</th>
+                <th>Workspaceid</th>
+                <th>Sourceid</th>
+                <th>Isverified</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for client in clients %}
+            <tr>
+                <td><a href="{{ path('client_show', { 'id': client.id }) }}">{{ client.id }}</a></td>
+                <td>{{ client.name }}</td>
+                <td>{{ client.avatar }}</td>
+                <td>{{ client.occupation }}</td>
+                <td>{{ client.description }}</td>
+                <td>{{ client.email }}</td>
+                <td>{{ client.addressLine1 }}</td>
+                <td>{{ client.addressLine2 }}</td>
+                <td>{{ client.city }}</td>
+                <td>{{ client.state }}</td>
+                <td>{{ client.zip }}</td>
+                <td>{{ client.country }}</td>
+                <td>{{ client.coords }}</td>
+                <td>{{ client.googleLocation }}</td>
+                <td>{{ client.phone }}</td>
+                <td>{{ client.social }}</td>
+                <td>{{ client.contacts }}</td>
+                <td>{{ client.value }}</td>
+                <td>{{ client.newEventsCount }}</td>
+                <td>{{ client.companyId }}</td>
+                <td>{{ client.ownerId }}</td>
+                <td>{{ client.workspaceId }}</td>
+                <td>{{ client.sourceId }}</td>
+                <td>{% if client.isVerified %}Yes{% else %}No{% endif %}</td>
+                <td>{{ client.isEnabled }}</td>
+                <td>{{ client.createdAt }}</td>
+                <td>{{ client.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('client_show', { 'id': client.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('client_edit', { 'id': client.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('client_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

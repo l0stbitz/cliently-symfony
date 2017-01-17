@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ClientlySize list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Sizeid</th>
+                <th>Sizename</th>
+                <th>Isactive</th>
+                <th>Isdelete</th>
+                <th>Createddate</th>
+                <th>Modifieddate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for clientlySize in clientlySizes %}
+            <tr>
+                <td><a href="{{ path('clientlysize_show', { 'id': clientlySize.sizeId }) }}">{{ clientlySize.sizeId }}</a></td>
+                <td>{{ clientlySize.sizeName }}</td>
+                <td>{% if clientlySize.isActive %}Yes{% else %}No{% endif %}</td>
+                <td>{% if clientlySize.isDelete %}Yes{% else %}No{% endif %}</td>
+                <td>{% if clientlySize.createdDate %}{{ clientlySize.createdDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if clientlySize.modifiedDate %}{{ clientlySize.modifiedDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('clientlysize_show', { 'id': clientlySize.sizeId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('clientlysize_edit', { 'id': clientlySize.sizeId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clientlysize_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

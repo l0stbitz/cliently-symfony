@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Location list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Addressline1</th>
+                <th>Addressline2</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>Country</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for location in locations %}
+            <tr>
+                <td><a href="{{ path('location_show', { 'id': location.id }) }}">{{ location.id }}</a></td>
+                <td>{{ location.addressLine1 }}</td>
+                <td>{{ location.addressLine2 }}</td>
+                <td>{{ location.city }}</td>
+                <td>{{ location.state }}</td>
+                <td>{{ location.zip }}</td>
+                <td>{{ location.country }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('location_show', { 'id': location.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('location_edit', { 'id': location.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('location_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

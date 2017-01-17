@@ -1,0 +1,14 @@
+api_workspacemember_show:
+    path:     /{id}
+    defaults: { _controller: "AppBundle:API/WorkspaceMember:show" }
+    methods:  [GET, PUT]
+
+api_workspacemember_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:API/WorkspaceMember:new" }
+    methods:  [GET, POST]
+
+api_workspacemember_delete:
+    path:     /_delete
+    defaults: { _controller: "AppBundle:API/WorkspaceMember:delete" }
+    methods:  [POST, DELETE]

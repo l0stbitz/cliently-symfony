@@ -1,0 +1,24 @@
+clientlycity_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:ClientlyCity:index" }
+    methods:  GET
+
+clientlycity_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:ClientlyCity:show" }
+    methods:  GET
+
+clientlycity_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:ClientlyCity:new" }
+    methods:  [GET, POST]
+
+clientlycity_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:ClientlyCity:edit" }
+    methods:  [GET, POST]
+
+clientlycity_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:ClientlyCity:delete" }
+    methods:  DELETE

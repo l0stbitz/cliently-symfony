@@ -1,0 +1,24 @@
+api_subscription_index:
+    path:     /
+    defaults: { _controller: "AppBundle:API/Subscription:index" }
+    methods:  GET
+
+subscription_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Subscription:show" }
+    methods:  GET
+
+subscription_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Subscription:new" }
+    methods:  [GET, POST]
+
+subscription_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Subscription:edit" }
+    methods:  [GET, POST]
+
+subscription_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Subscription:delete" }
+    methods:  DELETE

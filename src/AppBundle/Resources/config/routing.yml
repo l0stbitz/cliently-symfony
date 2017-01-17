@@ -1,0 +1,56 @@
+app_home:
+    path:     /
+    defaults: { _controller: "AppBundle:Default:index" }
+    methods:  GET
+    
+app_search:
+    path:     /search
+    defaults: { _controller: "AppBundle:Default:search" }
+    methods:  GET    
+    
+app_clients:
+    path:     /clients
+    defaults: { _controller: "AppBundle:Default:clients" }
+    methods:  GET      
+    
+app_sources:
+    path:     /sources
+    defaults: { _controller: "AppBundle:Default:sources" }
+    methods:  GET    
+    
+app_settings:
+    path:     /settings
+    defaults: { _controller: "AppBundle:Default:settings" }
+    methods:  GET    
+    
+app_settings_teammembers:
+    path:     /settings/team-members
+    defaults: { _controller: "AppBundle:Default:teamMembers" }
+    methods:  GET       
+    
+app_user:
+    path:     /settings/user
+    defaults: { _controller: "AppBundle:Default:user" }
+    methods:  GET    
+     
+app_billing:
+    path:     /settings/billing
+    defaults: { _controller: "AppBundle:Default:billing" }
+    methods:  GET    
+    
+app_integrations:
+    path:     /settings/integrations
+    defaults: { _controller: "AppBundle:Default:integrations" }
+    methods:  GET       
+    
+app_integrations_google_connect:
+    path:     /integrations/google/connect 
+    defaults: { _controller: "AppBundle:Default:integrations" }
+    methods:  GET     
+    
+    
+app_message_suspended_workspace_membership:
+    path:     /message/suspended-workspace-membership
+    defaults: { _controller: "AppBundle:Default:integrations" }
+    methods:  GET       
+   

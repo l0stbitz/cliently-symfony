@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Pipeline list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Workspaceid</th>
+                <th>Ownerid</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pipeline in pipelines %}
+            <tr>
+                <td><a href="{{ path('pipeline_show', { 'id': pipeline.id }) }}">{{ pipeline.id }}</a></td>
+                <td>{{ pipeline.name }}</td>
+                <td>{{ pipeline.position }}</td>
+                <td>{{ pipeline.workspaceId }}</td>
+                <td>{{ pipeline.ownerId }}</td>
+                <td>{{ pipeline.isEnabled }}</td>
+                <td>{{ pipeline.createdAt }}</td>
+                <td>{{ pipeline.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('pipeline_show', { 'id': pipeline.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('pipeline_edit', { 'id': pipeline.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('pipeline_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

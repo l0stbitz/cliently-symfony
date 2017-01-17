@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ActionDefault list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actiontypeid</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Workflowid</th>
+                <th>Ownerid</th>
+                <th>Position</th>
+                <th>Values</th>
+                <th>Sort</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for actionDefault in actionDefaults %}
+            <tr>
+                <td><a href="{{ path('actiondefault_show', { 'id': actionDefault.id }) }}">{{ actionDefault.id }}</a></td>
+                <td>{{ actionDefault.actionTypeId }}</td>
+                <td>{{ actionDefault.name }}</td>
+                <td>{{ actionDefault.description }}</td>
+                <td>{{ actionDefault.workflowId }}</td>
+                <td>{{ actionDefault.ownerId }}</td>
+                <td>{{ actionDefault.position }}</td>
+                <td>{{ actionDefault.values }}</td>
+                <td>{{ actionDefault.sort }}</td>
+                <td>{{ actionDefault.isEnabled }}</td>
+                <td>{{ actionDefault.createdAt }}</td>
+                <td>{{ actionDefault.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('actiondefault_show', { 'id': actionDefault.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('actiondefault_edit', { 'id': actionDefault.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('actiondefault_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

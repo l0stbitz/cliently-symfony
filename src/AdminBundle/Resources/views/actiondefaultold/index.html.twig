@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ActionDefaultOld list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actiontypeid</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Workflowid</th>
+                <th>Ownerid</th>
+                <th>Position</th>
+                <th>Values</th>
+                <th>Sort</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for actionDefaultOld in actionDefaultOlds %}
+            <tr>
+                <td><a href="{{ path('actiondefaultold_show', { 'id': actionDefaultOld.id }) }}">{{ actionDefaultOld.id }}</a></td>
+                <td>{{ actionDefaultOld.actionTypeId }}</td>
+                <td>{{ actionDefaultOld.name }}</td>
+                <td>{{ actionDefaultOld.description }}</td>
+                <td>{{ actionDefaultOld.workflowId }}</td>
+                <td>{{ actionDefaultOld.ownerId }}</td>
+                <td>{{ actionDefaultOld.position }}</td>
+                <td>{{ actionDefaultOld.values }}</td>
+                <td>{{ actionDefaultOld.sort }}</td>
+                <td>{{ actionDefaultOld.isEnabled }}</td>
+                <td>{{ actionDefaultOld.createdAt }}</td>
+                <td>{{ actionDefaultOld.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('actiondefaultold_show', { 'id': actionDefaultOld.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('actiondefaultold_edit', { 'id': actionDefaultOld.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('actiondefaultold_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Auth list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Userid</th>
+                <th>Key</th>
+                <th>Keyprev</th>
+                <th>Ip</th>
+                <th>Ua</th>
+                <th>Uahash</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for auth in auths %}
+            <tr>
+                <td><a href="{{ path('auth_show', { 'id': auth.id }) }}">{{ auth.id }}</a></td>
+                <td>{{ auth.userId }}</td>
+                <td>{{ auth.key }}</td>
+                <td>{{ auth.keyPrev }}</td>
+                <td>{{ auth.ip }}</td>
+                <td>{{ auth.ua }}</td>
+                <td>{{ auth.uaHash }}</td>
+                <td>{{ auth.createdAt }}</td>
+                <td>{{ auth.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('auth_show', { 'id': auth.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('auth_edit', { 'id': auth.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('auth_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

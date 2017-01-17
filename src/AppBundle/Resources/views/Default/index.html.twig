@@ -1,0 +1,438 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Cliently - Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ed6e6e">
+<meta name="apple-mobile-web-app-title" content="Cliently">
+<meta name="application-name" content="Cliently">
+<meta name="theme-color" content="#00aaf0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+    <link rel="stylesheet" href="/bower_components/tag-it/css/jquery.tagit.css">
+    <link rel="stylesheet" href="/bower_components/tag-it/css/tagit.ui-zendesk.css">
+    <link rel="stylesheet" href="/bower_components/shepherd/css/shepherd-theme-arrows.css">
+    <link rel="stylesheet" href="/bower_components/icheck/skins/flat/blue.css">
+    <link rel="stylesheet" href="/bower_components/ion.rangeSlider/css/ion.rangeSlider.css">
+    <link rel="stylesheet" href="/bower_components/ion.rangeSlider/css/ion.rangeSlider.skinNice.css">
+    <link rel="stylesheet" href="/bower_components/jquery.bonsai/jquery.bonsai.css">
+    <link rel="stylesheet" href="/bower_components/x-editable/bootstrap3-editable/css/bootstrap-editable.css">
+    <link rel="stylesheet" href="/bower_components/metroNotification/css/MetroNotificationStyle.min.css">
+    <link rel="stylesheet" href="/bower_components/jquery.qtip/jquery.qtip.min.css">
+    <link rel="stylesheet" href="/css/style.css?v=1483748124">
+    <link rel="stylesheet" href="/css/timline.css">
+    <script src="/bower_components/vunit-0.2.0.min.js"></script>
+    <script>
+      new vUnit({
+      	CSSMap: {
+      		// The selector (vUnit will create rules ranging from .selector1 to .selector100)
+      		'.vmh': {
+      			// The CSS property (any CSS property that accepts px as units)
+      			property: 'max-height',
+      			// What to base the value on (vh, vw, vmin or vmax)
+      			reference: 'vh'
+      		},
+      		// Wanted to have a font-size based on the viewport width? You got it.
+      		'.vmw': {
+      			property: 'max-width',
+      			reference: 'vw'
+      		},
+      		'.vh': {
+      			// The CSS property (any CSS property that accepts px as units)
+      			property: 'height',
+      			// What to base the value on (vh, vw, vmin or vmax)
+      			reference: 'vh'
+      		},
+      		// Wanted to have a font-size based on the viewport width? You got it.
+      		'.vw': {
+      			property: 'width',
+      			reference: 'vw'
+      		},
+      		/*
+      		 // vmin and vmax can be used as well.
+      		 '.vmin_margin-top': {
+      		 property: 'margin-top',
+      		 reference: 'vmin'
+      		 }
+      		 */
+      	}/*,
+      	 onResize: function() {
+      	 console.log('A screen resize just happened, yo.');
+      	 }*/
+      }).init(); // call the public init() method
+      
+    </script>
+  </head>
+  <body id="body" data-type="home">
+
+	<script> var $stripe_key = 'pk_test_NrbzidguNRW4mBxUWV0OvIP2';</script>
+
+    <div id="layout">
+      <div class="page-sidebar">
+        <div class="page-logo"><img src="/images/logo.png" alt="Cliently"></div>
+        <h3 class="workspace-name"></h3>
+        <ul class="page-menu">
+          <li class="page-menu-item page-menu-item-clients" data-page="clients"><img src="/images/icons/clients.png">
+            <label>My Clients</label>
+          </li>
+          <li class="page-menu-item page-menu-item-search" data-page="search"><img src="/images/icons/lead-source.png">
+            <label>Find Leads</label>
+          </li>
+          <li class="page-menu-item page-menu-item-sources " data-page="sources"><img src="/images/icons/flow.png">
+            <label>Flows</label>
+          </li>
+          <li class="page-menu-item page-menu-item-settings" data-page="settings"><i class="fa fa-gear fa-2x"></i></li>
+        </ul>
+      </div>
+      <div id="content">
+        <div class="page-container-wrapper">
+          <div class="page-container">
+            <div class="page-container-inner">
+              <header class="page-header" id="header">
+                <div class="page-header-inner">
+                  <div class="page-quick-searchbar">
+                    <div class="input-group"><span class="input-group-addon" id="basic-addon1">
+                        <div class="dropdown">
+                          <button class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="search-mode-icon"><img src="/images/icons/clients-colored.png"></span></button>
+                        </div></span>
+                      <input class="form-control" id="search_input" type="text" placeholder="Search..." aria-describedby="basic-addon1">
+                    </div>
+                  </div>
+                  <div class="top-menu">
+                    <ul class="nav navbar-nav navbar-right">
+                      <li class="plan-upgrade-recommender"><a href="#">Upgrade to Add More Leads</a></li>
+                      <li class="available-deal-counter"><a href="javascript:void(0)" data-toggle="tooltip" data-container="body" title="10 Leads Remaining" data-placement="bottom">50</a></li>
+                      <li class="add-lead-source-li"><a href="javascript:void(0)">Add a Lead Source</a></li>
+                      <li class="image-li"><a class="dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" role="button" aria-haspopup="true" style="margin-right: 0"><img class="img-reponsive img-rounded" id="user-profile-image" alt="person"></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#settings">Settings</a></li>
+                          <li><a href="#logout">Logout</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </header>
+              <div class="page-content">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="layout_footer"></div>
+    </div>
+    <footer id="footer"></footer>
+    <script id="tpl_dom_option" type="text/template">
+      <option></option>
+    </script>
+    <script id="tpl_page_search" type="text/template">
+      <div id="page_search">
+        <div class="search-result" id="people-search-result">
+          <div class="people-search-result-inner row">
+            <form class="form dbperson-search-form col-md-4">
+              <div class="source-type">
+                <h4>Choose your Lead Source</h4><img src="/images/company-gray.png"/>
+                <div class="total-count-container invisible"><span class="total-count"></span> leads</div>
+              </div>
+              <div class="form-inner">
+                <h4 class="form-section">Company/People</h4>
+                <div class="company-people-filter-panes filter-panes">
+                  <div class="filter-pane">
+                    <div class="form-group">
+                      <input class="form-control" type="text" name="person_name" placeholder="Person:"/>
+                    </div>
+                    <div class="form-group">
+                      <input class="form-control" type="text" name="company_names" placeholder="Company:"/>
+                    </div>
+                    <div class="form-group">
+                      <input class="form-control" type="text" name="person_title" placeholder="Job Title:"/>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-control role-list-container dbperson-list-container">
+                        <div class="form-control-static">Role:</div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-control seniority-list-container dbperson-list-container">
+                        <div class="form-control-static">Seniority:</div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-control industry-list-container dbperson-list-container">
+                        <div class="form-control-static">Industry:</div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-control size-list-container dbperson-list-container">
+                        <div class="form-control-static">Size:</div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-control revenue-list-container dbperson-list-container">
+                        <div class="form-control-static">Revenue:</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <h4 class="form-section">Location</h4>
+                <div class="location-filter-panes filter-panes">
+                  <div class="filter-pane">
+                    <div class="form-group">
+                      <div class="form-control country-list-container dbperson-list-container">
+                        <div class="form-control-static">Location:</div>
+                      </div>
+                    </div>
+                    <div class="form-group location-input-container">
+                      <label> - OR - </label>
+                      <input class="form-control input-inline" type="text" name="location" placeholder="City/State/ZIP/Country:"/>
+                    </div>
+                    <ul class="location-match-type-list">
+                      <li>
+                        <input id="search-location-match-type-person-or-hq" type="radio" name="location_match_type" value="PersonOrHQ"/>
+                        <label for="search-location-match-type-person-or-hq">Either the Person or Company HQ is at selected location</label>
+                      </li>
+                      <li>
+                        <input id="search-location-match-type-person-and-hq" type="radio" name="location_match_type" value="PersonAndHQ"/>
+                        <label for="search-location-match-type-person-and-hq">Both the Person or Company HQ are at selected location</label>
+                      </li>
+                      <li>
+                        <input id="search-location-match-type-person" type="radio" name="location_match_type" value="Person"/>
+                        <label for="search-location-match-type-person">Person is at selected location</label>
+                      </li>
+                      <li>
+                        <input id="search-location-match-type-hq" type="radio" name="location_match_type" value="HQ"/>
+                        <label for="search-location-match-type-hq">Company HQ is at selected location</label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <div class="search-result col-md-8">
+              <div class="search-result-inner is-empty">
+                <div class="search-result-header">
+                  <h3 class="company-info">Company</h3>
+                  <h3 class="people-info">People</h3>
+                  <h3 class="metrics-info">Info</h3>
+                </div>
+                <div class="search-result-info">Search over 150M business contacts.<br/>See results instantly!<br/><span class="glyphicon glyphicon-arrow-left"></span></div>
+                <ul class="search-result-list"></ul>
+                <div class="search-result-footer"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+    <script id="tpl_modal_deal_import_export" type="text/template">
+      <div class="modal fade" id="modal_deal_import_export" role="dialog" data-ui-tab="tab_deal_import" data-ui-import-step="step_deal_import_file">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button class="close" type="button" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Import/Export Leads</h4>
+            </div>
+            <div class="modal-body">
+              <div class="nav-container">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab" href="#tab_deal_import">Import</a></li>
+                  <li><a data-toggle="tab" href="#tab_deal_export">Export</a></li>
+                </ul>
+              </div>
+              <div class="tab-content">
+                <div class="tab-pane fade in active" id="tab_deal_import">
+                  <div id="step_deal_import_file">
+                    <input class="inputfile" id="input_deal_import_file" type="file"/>
+                    <label for="input_deal_import_file"><i class="fa fa-upload"></i><span>Choose a file&hellip;</span></label>
+                    <h4>&nbsp;</h4>
+                    <p>Upload a CSV file to import leads. It will map based on the fields in the 1st row. Max upload at one time is 500 Contacts. Cliently will automatically detect for duplicates based on email address.</p>
+                  </div>
+                  <div id="step_deal_import_fields_match">
+                    <h4></h4>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>From your CSV File</th>
+                          <th>Map to Cliently</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                  <div id="step_deal_import_dst">
+                    <h4></h4>
+                    <p class="row-count-inner">You are importing <span></span> leads.</p>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <th>
+                            <label>Add leads to Pipeline:</label>
+                          </th>
+                          <td>
+                            <select id="select_deal_import_dst_pipeline"></select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>
+                            <label>Add leads to Stage:</label>
+                          </th>
+                          <td>
+                            <select id="select_deal_import_dst_stage"></select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>
+                            <label>
+                              <input type="checkbox"/><span>Add leads to Workflow?</span>
+                            </label>
+                          </th>
+                          <td>
+                            <select id="select_deal_import_dst_workflow" disabled="disabled"></select>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p>Adding to Workflows will start all email, video message, and postcard actions instantly.</p>
+                  </div>
+                  <div id="step_deal_import_success">
+                    <p>Success!</p>
+                    <p class="row-count-final">Imported total <span></span> leads.</p>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="tab_deal_export"><a class="btn btn-default export-btn">Export to CSV</a>
+                  <p>Import leads from a CSV into your dashboard.</p>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="row-count">Importing <span></span> leads</div>
+              <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+              <button class="btn btn-primary btn-next" type="button">Next</button>
+              <button class="btn btn-primary btn-import" type="button"><span class="main">Import</span><span class="pending"><i class="fa fa-spin fa-spinner"></i>Importing...</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+    <script id="tpl_tblrow_deal_import_fields" type="text/template">
+      <tr>
+        <td class="csv-col-name"></td>
+        <td>
+          <select>
+            <option value="">--Ignore--</option>
+            <option value="client_first_name">Contact First Name</option>
+            <option value="client_last_name">Contact Last Name</option>
+            <option value="client_occupation">Contact Job Title</option>
+            <option value="client_phone">Contact Phone #</option>
+            <option value="client_email">Contact Email Address</option>
+            <option value="client_address_line1">Contact Street Address</option>
+            <option value="client_address_line2">Contact Street Address Two</option>
+            <option value="client_city">Contact City</option>
+            <option value="client_state">Contact State</option>
+            <option value="client_zip">Contact Zip Code</option>
+            <option value="client_country">Contact Country</option>
+            <option value="client_social_twitter">Contact Twitter Handle</option>
+            <option value="client_social_facebook">Contact Facebook Handle</option>
+            <option value="client_social_linkedin">Contact Linkedin Handle</option>
+            <option value="company_name">Company Name</option>
+            <option value="company_address_line1">Company Street Address</option>
+            <option value="company_address_line2">Company Street Address Two</option>
+            <option value="company_city">Company City</option>
+            <option value="company_state">Company State</option>
+            <option value="company_zip">Company Zip Code</option>
+            <option value="company_country">Company Country</option>
+            <option value="company_phone">Company Phone</option>
+            <option value="company_foundation_year">Company Founded</option>
+            <option value="company_website">Company URL</option>
+            <option value="company_description">Company Description</option>
+          </select>
+        </td>
+      </tr>
+    </script>
+    <div class="back" id="global-loader-back"></div>
+    <div id="global-loader"><i class="fa fa-spin fa-spinner fa-5x"></i></div>
+    <div id="global-loader-text"></div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.8/jquery.form-validator.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script type="text/javascript" src="/js/transition.js"></script>
+    <script type="text/javascript" src="/js/collapse.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="/bower_components/metroNotification/js/MetroNotification.min.js"></script>
+    <script type="text/javascript" src="/bower_components/jquery.qtip/jquery.qtip.min.js"></script>
+    <script type="text/javascript" src="/bower_components/SimpleAjaxUploader/SimpleAjaxUploader.min.js"></script>
+    <script type="text/javascript" src="/bower_components/tag-it/js/tag-it.min.js"></script>
+    <script type="text/javascript" src="/bower_components/shepherd/js/tether.js"></script>
+    <script type="text/javascript" src="/bower_components/shepherd/js/shepherd.js"></script>
+    <script type="text/javascript" src="/bower_components/jquery.animateNumber/jquery.animateNumber.min.js"></script>
+    <script type="text/javascript" src="/bower_components/jquery.pulsate.min.js"></script>
+    <script type="text/javascript" src="/bower_components/icheck/icheck.min.js"></script>
+    <script type="text/javascript" src="/bower_components/bootbox.min.js"></script>
+    <script type="text/javascript" src="/bower_components/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
+    <script type="text/javascript" src="/bower_components/jquery.slimscroll.js"></script>
+    <script type="text/javascript" src="/bower_components/jquery.qubit/jquery.qubit.js"></script>
+    <script type="text/javascript" src="/bower_components/jquery.bonsai/jquery.bonsai.js"></script>
+    <script type="text/javascript" src="/bower_components/x-editable/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/x-editable-address2.js"></script>
+    <script type="text/javascript" src="/bower_components/RecordRTC/RecordRTC.js"></script>
+    <script type="text/javascript" src="/bower_components/RecordRTC/gumadapter.js"></script>
+    <script type="text/javascript" src="/js/papaparse.min.js"></script>
+    <script type="text/javascript" src="/old_js/app.js"></script>
+    <script type="text/javascript" src="/js/jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-wysiwyg.js"></script>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script>
+      window.twttr = (function (d, s, id) {
+      	var js, fjs = d.getElementsByTagName(s)[0],
+      			t = window.twttr || {};
+      	if (d.getElementById(id))
+      		return t;
+      	js = d.createElement(s);
+      	js.id = id;
+      	js.src = "https://platform.twitter.com/widgets.js";
+      	fjs.parentNode.insertBefore(js, fjs);
+      
+      	t._e = [];
+      	t.ready = function (f) {
+      		t._e.push(f);
+      	};
+      
+      	return t;
+      }(document, "script", "twitter-wjs"));
+      
+    </script>
+    <script type="text/javascript" src="/js/layout.js?v=1483741883"></script>
+    <script type="text/javascript" src="/js/app.js?v=1483741873"></script>
+    <script type="text/javascript" src="/js/modules/social-integrator.js?v=1483554633"></script>
+    <script type="text/javascript" src="/js/modules/twitter.js?v=1483554633"></script>
+    <script type="text/javascript" src="/js/modules/workflow.js?v=1483554633"></script>
+    <script type="text/javascript" src="/js/modules/timeline.js?v=1483554633"></script>
+    <script type="text/javascript" src="/js/modules/tasks.js?v=1483554633"></script>
+    <script type="text/javascript" src="/js/modules/notes.js?v=1483554633"></script>
+    <script type="text/javascript" src="/js/modules/mails.js?v=1483554633"></script>
+    <script type="text/javascript" src="/js/modules/contacts.js?v=1483554633"></script>
+    <script type="text/javascript" src="/js/modules/search.js?v=1483741873"></script>
+    <script type="text/javascript" src="/js/modules/user-info.js?v=1483554633"></script>
+    <script type="text/javascript" src="/js/modules/user-connector.js?v=1483554633"></script>
+    <script type="text/javascript" src="/js/modules/dbperson.js?v=1483554626"></script>
+    <script type="text/javascript" src="/js/modules/sidebar.js?v=1483741873"></script>
+    <script type="text/javascript" src="/js/modules/leads.js?v=1483741873"></script>
+    <script type="text/javascript" src="/js/modules/sources.js?v=1483554633"></script>
+    <script type="text/javascript" src="/js/modules/settings.js?v=1483741883"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/geocomplete/1.6.5/jquery.geocomplete.min.js"></script>
+        </body>
+</html>

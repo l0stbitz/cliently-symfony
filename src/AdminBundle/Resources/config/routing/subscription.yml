@@ -1,0 +1,24 @@
+subscription_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:Subscription:index" }
+    methods:  GET
+
+subscription_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:Subscription:show" }
+    methods:  GET
+
+subscription_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:Subscription:new" }
+    methods:  [GET, POST]
+
+subscription_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:Subscription:edit" }
+    methods:  [GET, POST]
+
+subscription_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:Subscription:delete" }
+    methods:  DELETE

@@ -1,0 +1,482 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Cliently</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ed6e6e">
+<meta name="apple-mobile-web-app-title" content="Cliently">
+<meta name="application-name" content="Cliently">
+<meta name="theme-color" content="#00aaf0">
+<meta property="og:title" content="The fastest way to find a new freelance gig on Twitter" />
+<meta property="og:description" content="There are 55 million freelancers out there and competition is extremely fierce. Our web-based app helps freelancers find new relevant gigs automatically in seconds, scouring millions of opportunities around the web, posted by real companies." />
+<meta property="og:url" content="https://cliently.com" />
+<meta property="og:image" content="https://cliently.com/images/Hero-Image-Twitter.png" />
+
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link href="/css/public_style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+<script type="text/javascript" src="/js/richhtmlticker.js"></script>
+<!-- Load ScrollTo -->
+<script type="text/javascript" src="https://flesler-plugins.googlecode.com/files/jquery.scrollTo-1.4.2-min.js"></script>
+
+<!-- Load LocalScroll -->
+<script type="text/javascript" src="https://flesler-plugins.googlecode.com/files/jquery.localscroll-1.2.7-min.js"></script>
+<script type="text/javascript">
+<!-- javascript that will initiate jQuery and the LocalScroll plugin --><script type="text/javascript">// <![CDATA[
+    // When the document is loaded...
+    $(document).ready(function()
+    {
+        // Scroll the whole document
+        $('#nav-links').localScroll({
+           target:'body'
+        });
+
+        $('#btn_readysetgo').click(function (event) {
+            
+
+            if (typeof analytics !== 'undefined' && analytics !== null) {
+                event.preventDefault();
+                
+                analytics.track('Clicked Ready.Set.Go', {}, function() {
+                    // location.href = '/sign-up';
+                    location.href = '/auth/twitter?self';
+                });
+            }
+        });
+    });
+ 
+// ]]></script>
+
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+	
+	function monthly(id) {
+       var e = document.getElementById(id);
+	   var f = document.getElementById('yearly');
+       f.style.display = 'none';
+       e.style.display = 'block';
+    }
+	
+	function yearly(id) {
+       var e = document.getElementById(id);
+	   var f = document.getElementById('monthly');
+       f.style.display = 'none';
+       e.style.display = 'block';
+    }
+//-->
+</script>
+
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+
+<!-- <link rel="apple-touch-icon" href="https://www.ibm.com/developerworks/mydeveloperworks/blogs/bobleah/resource/dw-phone.gif" /> -->
+
+</head>
+
+<body>
+    <?php
+        if (ENVIRONMENT === 'production')
+        {
+            $gtm_key = 'GTM-M5C2ML';
+            $stripe_key = 'pk_live_yNP51WBNdbFB6JD2NVC3bNer';
+        }
+        elseif (ENVIRONMENT === 'staging')
+        {
+            $gtm_key = 'GTM-W7P855';
+            $stripe_key = 'pk_test_NrbzidguNRW4mBxUWV0OvIP2';
+        }
+        else
+        {
+            $gtm_key = FALSE;
+            $stripe_key = 'pk_test_NrbzidguNRW4mBxUWV0OvIP2';
+        }
+    ?>
+
+    <?php if ($gtm_key) : ?>
+        <!-- Google Tag Manager -->
+        <noscript>
+            <iframe src="//www.googletagmanager.com/ns.html?id=<?php echo $gtm_key; ?>" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
+        <script>
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({'gtm.start':
+                            new Date().getTime(), event: 'gtm.js'});
+                var f = d.getElementsByTagName(s)[0],
+                        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src =
+                        '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', '<?php echo $gtm_key; ?>');
+        </script>
+        <!-- End Google Tag Manager -->
+    <?php endif; ?>
+    
+    <?php if ($stripe_key) : ?>
+        <script> var $stripe_key = '<?php echo $stripe_key; ?>';</script>
+    <?php endif; ?>
+
+<!-- Head Section Start -->
+<div class="header">
+	<div class="header_wrapper">
+    
+    	<!-- Main Header Start-->
+    	<div class="main_header">
+        	<div class="logo">
+            	<p><img src="/images/public/logo.png" /></p>
+            </div>
+            <div class="navigation" id="nav-links">
+            	<ul>
+                	<li><a href="#feature">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="/auth/twitter?self" style="border: 2px solid #fff;padding: 10px 15px;border-radius: 25px;">Get Cliently NOW</a></li>
+                    <li><a href="/sign-in">Login</a></li>
+                </ul>
+            </div>
+            
+        </div>
+        <!-- End Main Header -->
+
+		<!-- Responsive Navigation -->
+        <a href="#" onclick="toggle_visibility('foo');" class="mobile_menu">Menu</a>
+		<div id='foo'>
+			<ul>
+               	<li><a href="#feature">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="/auth/twitter?self" style="border: 2px solid #fff;padding: 10px 15px;border-radius: 25px;">Get Cliently NOW</a></li>
+                <li><a href="/sign-in">Login</a></li>
+            </ul>
+        </div>
+    	
+        <!-- Banner Caption Start -->
+        <div class="banner_wrapper">
+        	<p class="bsmall">The easiest visual CRM for freelancers with built-in gig generation</p>
+<!--             <p class="blarge">Find your next <span id="myhtmlticker" class="tickerstyle"><span class="messagediv"><b>Marketing</b></span>
+
+<span class="messagediv"><b>Web Development</b></span>
+
+<span class="messagediv"><b>Photography</b></span>
+
+<span class="messagediv"><b>Graphic Design</b></span>
+
+<span class="messagediv"><b>Accounting</b></span>
+
+<span class="messagediv"><b>Music Production</b></span>
+
+</span> gig<br />in less than a minute</p> -->
+            <p class="blarge">Find more gigs. Close more deals.</p>
+            <p class="btnspace"><a id="btn_readysetgo" href="/auth/twitter?self" class="bbutton"><i class="fa fa-cliently-twitter"></i> LET'S GO!</a></p>
+        </div>
+        <!-- Banner Caption End -->
+    </div>
+</div>
+<!-- End Head Section -->
+
+<!-- Service Section Start -->
+<div class="service">
+	<div class="services_wrapper">
+    	<h2>55 million freelancers are competing with you on the next project.</h2>
+        <p>
+            With a simple visual CRM we help you close more deals faster.<br />
+            While you are busy closing, our web-based app keeps searching for new relevant gigs automatically in the background, delivering new opportunities to your pipeline everyday.
+        </p>
+        
+        <div class="service_box">
+        	<div class="sbox">
+            	<p><img src="/images/public/more_projects.png" /></p>
+                <p>Find more projects in <br />less time with automated search</p>
+            </div>
+            <div class="sbox">
+            	<p><img src="/images/public/more_income.png" /></p>
+                <p>Close More deals and <br />secure More income from More projects</p>
+            </div>
+            <div class="sbox">
+            	<p><img src="/images/public/passion_work.png" /></p>
+                <p>Follow your passion and work <br />on the projects you like</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Service Section End -->
+
+<a id="feature"></a>
+<!-- Feature Section Start -->
+<div class="feature">
+	<div class="feature_wrapper">
+    	<h2>Features</h2>
+        
+        <!-- Feature 1 -->
+        <div class="feature_set">
+	    	<div class="feature_left">
+    	    	<p><img src="/images/public/skill_location.png" width="100%" /></p>
+        	</div>
+        	<div class="feature_right">
+            	<h3>Get opportunities based on <br />your skills and location</h3>
+            	<p>Tell us your skills and industry along with where you are based to get started.</p>
+                <p>We will look for critical business events to identify new opportunities and deliver them to your pipeline.</p>
+            </div>
+    	</div>
+        <!-- Feature 1 End-->
+        
+        <!-- Feature 2 -->
+        <div class="feature_set">
+	    	<div class="feature_left">
+                <h3>Choose the gigs you like <br />with a single click</h3>
+            	<p>Sort through the prospects and accept the ones you like.  Reject everything else.  That simple.</p>
+                <p>Qualifying clients has never been easier.</p>
+        	</div>
+        	<div class="feature_right">
+            	<p><img src="/images/public/prospect.png" width="100%" /></p>
+            </div>
+    	</div>
+        <!-- Feature 2 End-->
+        
+        <!-- Feature 3 -->
+        <div class="feature_set">
+	    	<div class="feature_left">
+    	    	<p><img src="/images/public/competition.png" /></p>
+        	</div>
+        	<div class="feature_right">
+            	<h3>Be the first to connect and beat <br />the competition</h3>
+            	<p>You will be one of the first to connect with the customer, giving you an advantage over millions of other freelancers looking for a new gig.</p>
+                <p>Contact a client through their preferred communication channel and add a personal touch.</p>
+            </div>
+    	</div>
+        <!-- Feature 3 End-->
+        
+        <!-- Feature 4 -->
+        <div class="feature_set">
+	    	<div class="feature_left">
+                <h3>Have all the information you need at your fingertips</h3>
+            	<p>We will give you email addresses, phone numbers, and any other relevant information so you can close the sale faster and easier.</p>
+                <p>A competitive advantage other freelancers simply do not have.</p>
+        	</div>
+        	<div class="feature_right">
+            	<p><img src="/images/public/fingertips.png" /></p>
+            </div>
+    	</div>
+        <!-- Feature 4 End-->
+        
+        <!-- Feature 5 -->
+        <div class="feature_set">
+	    	<div class="feature_left">
+    	    	<p><img src="/images/public/monitor_deal.png" width="100%" /></p>
+        	</div>
+        	<div class="feature_right">
+            	<p><span>Coming Soon</span></p>
+            	<h3>Automatically connect with clients<br />and monitor deal progress</h3>
+            	<p>What if there was an IFTTT built for freelancers to reach out to prospects?</p>
+                <p>Imagine all the new clients and projects you can land with smart software that reaches out, follows up and helps you close sales with minimal involvement from.</p>
+                <p>Do more of what you love.</p>
+            </div>
+    	</div>
+        <!-- Feature 5 End-->
+    </div>
+</div>
+<!-- Feature Section End -->
+
+<!-- Testimonial Start -->
+<div class="testimonial">
+	<div class="testimonial_wrapper">
+    	<h2>Freelancers giving us some love</h2>
+        <!-- Testimonial 1 -->
+    	<div class="testimonial_box">
+        	<div class="freelancer_img">
+            	<p><img src="/images/public/testi_1.png" /></p>
+            </div>
+            <div class="freelancer_text">
+            	<p>During this season I got overbooked<br /> thanks to Cliently!</p>
+                <p>It took me 3 minutes to find a new gig.<br />WOW!</p>
+                <p><b>Matt Pasker</b><br />Photographer</p>
+            </div>
+        </div>
+        <!-- Testimonial 1 End-->
+        
+        <!-- Testimonial 2 -->
+        <div class="testimonial_box">
+        	<div class="freelancer_img">
+            	<p><img src="/images/public/testi_2.png" /></p>
+            </div>
+            <div class="freelancer_text">
+            	<p>I landed a copywriting gig at one<br /> of Portland's startups.</p>
+                <p>Cliently helped me find it in about<br /> 10 minutes.</p>
+                <p><b>Kathy Chandler</b><br />Copywriter</p>
+            </div>
+        </div>
+        <!-- Testimonial 2 End -->
+        
+        <!-- Testimonial 3 -->
+        <div class="testimonial_box">
+        	<div class="freelancer_img">
+            	<p><img src="/images/public/testi_3.png" /></p>
+            </div>
+            <div class="freelancer_text">
+            	<p>Connected with a company that needed a logo design and nailed it.</p>
+                <p>Client search took less than<br /> 5 minutes.</p>
+                <p><b>Kaylee Gonzalez</b><br />Graphic Designer</p>
+            </div>
+        </div>
+        <!-- Testimonial 3 End -->
+        
+    </div>
+</div>
+<!-- Testimonial End -->
+
+<a id="pricing"></a>
+<!-- Get Cliently -->
+<div class="get_cliently">
+	<h2>Get Cliently</h2>
+    <p style="line-height:36px;">Find more projects.<br />Secure more income.</p>
+    
+    <div id="monthly">
+    	<p class="pricing_btn"><a class="active" style="cursor:pointer" >Monthy Plan</a> <a onclick="yearly('yearly');" style="cursor:pointer" >Yearly Plan</a></p>
+        <div class="plan_wrapper">
+            <div class="plan">
+                <h3>Free</h3>
+                <p><img src="/images/public/line.png" /></p>
+                <p><b>5 Free Leads</b></p>
+                <p><b>CRM</b></p>
+                <p><b>Unlimited Automated Workflows</b></p>
+                <p><b>Unlimited Lead Sources</b></p>
+                <p><b>Twitter Integration <i class="fa fa-cliently-twitter"></i></b></p>
+                <p><b>Gmail Integration <img src="/images/public/gmail.png" alt="" /></b></p>
+                <p>For passionate freelancers who want to find a project quickly</p>
+                <p class="btnspace"><a class="contactbtn" href="/auth/twitter?self">Sign me up</a></p>
+            </div>
+            <div class="plan blue">
+                <h3>Pro</h3>
+                <p><img src="/images/public/blue-line.png" /></p>
+                <p><b style="color:#00AAF0;font-family: 'Calibri';font-size: 22pt;">$29 per month</b></p>
+                <p><b>25 Leads</b></p>
+                <p><b>CRM</b></p>
+                <p><b>Unlimited Automated Workflows</b></p>
+                <p><b>Unlimited Lead Sources</b></p>
+                <p><b>Twitter Integration <i class="fa fa-cliently-twitter"></i></b></p>
+                <p><b>Gmail Integration <img src="/images/public/gmail.png" alt="" /></b></p>
+                <p>For passionate freelancers who want a lot of projects</p>
+                <p class="btnspace"><a class="contactbtn" href="/auth/twitter?self">Sign me up</a></p>
+            </div>
+            <div class="plan" style="margin-top: 29px;">
+                <h3>Business</h3>
+                <p><img src="/images/public/line.png" /></p>
+                <p><b style="color:#00AAF0;font-family: 'Calibri';font-size: 22pt;">$49 per month</b></p>
+                <p><b>50 Leads</b></p>
+                <p><b>CRM</b></p>
+                <p><b>Unlimited Automated Workflows</b></p>
+                <p><b>Unlimited Lead Sources</b></p>
+                <p><b>Twitter Integration <i class="fa fa-cliently-twitter"></i></b></p>
+                <p><b>Gmail Integration <img src="/images/public/gmail.png" alt="" /></b></p>
+                <p>For small to medium businesses</p>
+                <!-- <p class="btnspace"><a class="contactbtn" style="cursor: pointer" onclick="Intercom('show');">Contact Us</a></p> -->
+                <p class="btnspace"><a class="contactbtn" href="/auth/twitter?self">Sign me up</a></p>
+            </div>
+        </div>
+    </div>
+    <!-- Yearly Pricing-->
+ 	<div id="yearly" style="display:none;">
+        <p class="pricing_btn"><a style="cursor:pointer" onclick="monthly('monthly');">Monthy Plan</a> <a style="cursor:pointer" class="active">Yearly Plan</a></p>
+        <div class="plan_wrapper">
+            <div class="plan" style="margin-top:112px">
+                <h3>Free</h3>
+                <p><img src="/images/public/line.png" /></p>
+                <p><b>5 Free Leads</b></p>
+                <p><b>CRM</b></p>
+                <p><b>Unlimited Automated Workflows</b></p>
+                <p><b>Unlimited Lead Sources</b></p>
+                <p><b>Twitter Integration <i class="fa fa-cliently-twitter"></i></b></p>
+                <p><b>Gmail Integration <img src="/images/public/gmail.png" alt="" /></b></p>
+                <p>For passionate freelancers who want to find a project quickly</p>
+                <p class="btnspace"><a class="contactbtn" href="/auth/twitter?self">Sign me up</a></p>
+            </div>
+            <div class="plan blue">
+                <h3>Pro</h3>
+                <p><img src="/images/public/blue-line.png" /></p>
+                <p><b style="color:#00AAF0;font-family: 'Calibri';font-size: 22pt;">$19 per month</b></p>
+                <p><b>25 Leads</b></p>
+                <p><b>CRM</b></p>
+                <p><b>Unlimited Automated Workflows</b></p>
+                <p><b>Unlimited Lead Sources</b></p>
+                <p><b>Twitter Integration <i class="fa fa-cliently-twitter"></i></b></p>
+                <p><b>Gmail Integration <img src="/images/public/gmail.png" alt="" /></b></p>
+                <p>For passionate freelancers who want a lot of projects</p>
+                <p style="line-height:46px;" class="btnspace"><a class="contactbtn" href="/auth/twitter?self">Sign me up</a><br /><span style="font-size:18pt;font-weight:bold;">Save over 30%!</span></p>
+            </div>
+            <div class="plan" style="margin-top: 96px;">
+                <h3>Business</h3>
+                <p><img src="/images/public/line.png" /></p>
+                <p><b style="color:#00AAF0;font-family: 'Calibri';font-size: 22pt;">$39 per month</b></p>
+                <p><b>50 Leads</b></p>
+                <p><b>CRM</b></p>
+                <p><b>Unlimited Automated Workflows</b></p>
+                <p><b>Unlimited Lead Sources</b></p>
+                <p><b>Twitter Integration <i class="fa fa-cliently-twitter"></i></b></p>
+                <p><b>Gmail Integration <img src="/images/public/gmail.png" alt="" /></b></p>
+                <p>For small to medium businesses</p>
+                <!-- <p class="btnspace"><a class="contactbtn" style="cursor: pointer" onclick="Intercom('show');">Contact Us</a></p> -->
+                <p style="line-height:46px;" class="btnspace"><a class="contactbtn" href="/auth/twitter?self">Sign me up</a><br /><span style="font-size:18pt;font-weight:bold;">Save 20%!</span></p>
+            </div>
+    	</div>
+    </div>
+    <!-- Yearly Pricing End -->
+    <p style="font-size:12pt;">* Need More Prospects - Contact us for details on custom plans to fit your business</p>
+    <p style="font-size:12pt;">** Annual Plans paid for the entire year in advance</p>
+</div>
+<!-- Get Cliently End-->
+
+<!-- Footer -->
+<div class="footer">
+	<div class="footer_wrapper">
+    	<div class="footer_section">
+        	<h3>Support</h3>
+            <p><a style="cursor: pointer" onclick="Intercom('show');">Help & Support</a></p>
+        </div>
+        <div class="footer_section">
+        	<h3>Contact Us</h3>
+            <!-- <p>@: <a href="" style="color:#00aaf0"></a></p> -->
+            <p><a style="color:#00aaf0; cursor: pointer" onclick="Intercom('show');">Chat with Us</a></p>
+            <!--<p>p: 1-888-498-9420</p>-->
+        </div>
+        <div class="footer_section">
+        	<h3>Connect With Us</h3>
+            <p><a href="https://www.facebook.com/getcliently">Facebook</a></p>
+            <p><a href="https://twitter.com/getcliently">Twitter</a></p>
+        </div>
+    </div>
+    <div class="linee"></div>
+    <div class="footer_wrapper">
+    	<h2>Cliently.com</h2>
+        <p>Copyright © Cliently 2016. All Rights Reserved</p>
+    </div>
+</div>
+<!-- Footer End -->
+
+<?php if (ENVIRONMENT === 'production') : ?>
+<script>
+    <?php if ($usertrack['segment']) : ?>
+        window.onload = function() {
+            window.segment_user = <?php echo $usertrack['segment']['userId']; ?>;
+            window.segment_traits = <?php echo json_encode($usertrack['segment']['traits']); ?>;
+            window.analytics.identify(window.segment_user, window.segment_traits);
+        };
+    <?php endif; ?>
+
+    window.intercomSettings = <?php echo json_encode($usertrack['intercom']); ?>;
+</script>
+<script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/rk2dm1cg';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
+<?php endif; ?>
+
+</body>
+</html>

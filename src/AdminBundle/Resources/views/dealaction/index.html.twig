@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>DealAction list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actiontypeid</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actionid</th>
+                <th>Dealworkflowid</th>
+                <th>Ownerid</th>
+                <th>Position</th>
+                <th>Values</th>
+                <th>Extra</th>
+                <th>Isenabled</th>
+                <th>Isfailed</th>
+                <th>Runtime</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Executedat</th>
+                <th>Dueat</th>
+                <th>Startedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for dealAction in dealActions %}
+            <tr>
+                <td><a href="{{ path('dealaction_show', { 'id': dealAction.id }) }}">{{ dealAction.id }}</a></td>
+                <td>{{ dealAction.actionTypeId }}</td>
+                <td>{{ dealAction.name }}</td>
+                <td>{{ dealAction.description }}</td>
+                <td>{{ dealAction.actionId }}</td>
+                <td>{{ dealAction.dealWorkflowId }}</td>
+                <td>{{ dealAction.ownerId }}</td>
+                <td>{{ dealAction.position }}</td>
+                <td>{{ dealAction.values }}</td>
+                <td>{{ dealAction.extra }}</td>
+                <td>{% if dealAction.isEnabled %}Yes{% else %}No{% endif %}</td>
+                <td>{{ dealAction.isFailed }}</td>
+                <td>{{ dealAction.runTime }}</td>
+                <td>{{ dealAction.createdAt }}</td>
+                <td>{{ dealAction.updatedAt }}</td>
+                <td>{{ dealAction.executedAt }}</td>
+                <td>{{ dealAction.dueAt }}</td>
+                <td>{{ dealAction.startedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('dealaction_show', { 'id': dealAction.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('dealaction_edit', { 'id': dealAction.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('dealaction_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

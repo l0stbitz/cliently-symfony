@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Lead list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Sourceid</th>
+                <th>Clientsourceid</th>
+                <th>Companysourceid</th>
+                <th>Workflowid</th>
+                <th>Actionid</th>
+                <th>Actionvalues</th>
+                <th>Workspaceid</th>
+                <th>Ownerid</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Accessedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for lead in leads %}
+            <tr>
+                <td><a href="{{ path('lead_show', { 'id': lead.id }) }}">{{ lead.id }}</a></td>
+                <td>{{ lead.sourceId }}</td>
+                <td>{{ lead.clientSourceId }}</td>
+                <td>{{ lead.companySourceId }}</td>
+                <td>{{ lead.workflowId }}</td>
+                <td>{{ lead.actionId }}</td>
+                <td>{{ lead.actionValues }}</td>
+                <td>{{ lead.workspaceId }}</td>
+                <td>{{ lead.ownerId }}</td>
+                <td>{% if lead.isEnabled %}Yes{% else %}No{% endif %}</td>
+                <td>{{ lead.createdAt }}</td>
+                <td>{{ lead.updatedAt }}</td>
+                <td>{{ lead.accessedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('lead_show', { 'id': lead.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('lead_edit', { 'id': lead.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('lead_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

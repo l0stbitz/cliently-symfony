@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Token</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ token.id }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ token.type }}</td>
+            </tr>
+            <tr>
+                <th>Typeid</th>
+                <td>{{ token.typeId }}</td>
+            </tr>
+            <tr>
+                <th>Value</th>
+                <td>{{ token.value }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ token.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ token.createdAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('token_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('token_edit', { 'id': token.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

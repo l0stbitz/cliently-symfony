@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ModuleCat list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Isevent</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for moduleCat in moduleCats %}
+            <tr>
+                <td><a href="{{ path('modulecat_show', { 'id': moduleCat.id }) }}">{{ moduleCat.id }}</a></td>
+                <td>{{ moduleCat.name }}</td>
+                <td>{{ moduleCat.isEvent }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('modulecat_show', { 'id': moduleCat.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('modulecat_edit', { 'id': moduleCat.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('modulecat_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ActionDefaultOld</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ actionDefaultOld.id }}</td>
+            </tr>
+            <tr>
+                <th>Actiontypeid</th>
+                <td>{{ actionDefaultOld.actionTypeId }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ actionDefaultOld.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ actionDefaultOld.description }}</td>
+            </tr>
+            <tr>
+                <th>Workflowid</th>
+                <td>{{ actionDefaultOld.workflowId }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ actionDefaultOld.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Position</th>
+                <td>{{ actionDefaultOld.position }}</td>
+            </tr>
+            <tr>
+                <th>Values</th>
+                <td>{{ actionDefaultOld.values }}</td>
+            </tr>
+            <tr>
+                <th>Sort</th>
+                <td>{{ actionDefaultOld.sort }}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{{ actionDefaultOld.isEnabled }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ actionDefaultOld.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ actionDefaultOld.updatedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('actiondefaultold_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('actiondefaultold_edit', { 'id': actionDefaultOld.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

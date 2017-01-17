@@ -1,0 +1,24 @@
+dealworkflow_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:DealWorkflow:index" }
+    methods:  GET
+
+dealworkflow_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:DealWorkflow:show" }
+    methods:  GET
+
+dealworkflow_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:DealWorkflow:new" }
+    methods:  [GET, POST]
+
+dealworkflow_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:DealWorkflow:edit" }
+    methods:  [GET, POST]
+
+dealworkflow_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:DealWorkflow:delete" }
+    methods:  DELETE

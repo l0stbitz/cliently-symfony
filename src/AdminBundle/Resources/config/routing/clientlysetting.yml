@@ -1,0 +1,24 @@
+clientlysetting_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:ClientlySetting:index" }
+    methods:  GET
+
+clientlysetting_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:ClientlySetting:show" }
+    methods:  GET
+
+clientlysetting_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:ClientlySetting:new" }
+    methods:  [GET, POST]
+
+clientlysetting_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:ClientlySetting:edit" }
+    methods:  [GET, POST]
+
+clientlysetting_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:ClientlySetting:delete" }
+    methods:  DELETE

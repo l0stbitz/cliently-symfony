@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>WorkspaceMember</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ workspaceMember.id }}</td>
+            </tr>
+            <tr>
+                <th>Userid</th>
+                <td>{{ workspaceMember.userId }}</td>
+            </tr>
+            <tr>
+                <th>Workspaceid</th>
+                <td>{{ workspaceMember.workspaceId }}</td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td>{{ workspaceMember.role }}</td>
+            </tr>
+            <tr>
+                <th>Creditbalance</th>
+                <td>{{ workspaceMember.creditBalance }}</td>
+            </tr>
+            <tr>
+                <th>Accepteddealcount</th>
+                <td>{{ workspaceMember.acceptedDealCount }}</td>
+            </tr>
+            <tr>
+                <th>Extra</th>
+                <td>{{ workspaceMember.extra }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ workspaceMember.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Isconfirmed</th>
+                <td>{% if workspaceMember.isConfirmed %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{{ workspaceMember.isEnabled }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ workspaceMember.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ workspaceMember.updatedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('workspacemember_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('workspacemember_edit', { 'id': workspaceMember.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

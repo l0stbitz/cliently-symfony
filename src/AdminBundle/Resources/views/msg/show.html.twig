@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Msg</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ msg.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ msg.name }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ msg.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ msg.description }}</td>
+            </tr>
+            <tr>
+                <th>Attachments</th>
+                <td>{{ msg.attachments }}</td>
+            </tr>
+            <tr>
+                <th>Clientid</th>
+                <td>{{ msg.clientId }}</td>
+            </tr>
+            <tr>
+                <th>Dealid</th>
+                <td>{{ msg.dealId }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ msg.email }}</td>
+            </tr>
+            <tr>
+                <th>Handle</th>
+                <td>{{ msg.handle }}</td>
+            </tr>
+            <tr>
+                <th>Integrationtype</th>
+                <td>{{ msg.integrationType }}</td>
+            </tr>
+            <tr>
+                <th>Sendersourceid</th>
+                <td>{{ msg.senderSourceId }}</td>
+            </tr>
+            <tr>
+                <th>Recipientsourceid</th>
+                <td>{{ msg.recipientSourceId }}</td>
+            </tr>
+            <tr>
+                <th>Cc</th>
+                <td>{{ msg.cc }}</td>
+            </tr>
+            <tr>
+                <th>Bcc</th>
+                <td>{{ msg.bcc }}</td>
+            </tr>
+            <tr>
+                <th>Uid</th>
+                <td>{{ msg.uid }}</td>
+            </tr>
+            <tr>
+                <th>References</th>
+                <td>{{ msg.references }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ msg.code }}</td>
+            </tr>
+            <tr>
+                <th>Threadcode</th>
+                <td>{{ msg.threadCode }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ msg.type }}</td>
+            </tr>
+            <tr>
+                <th>Isown</th>
+                <td>{{ msg.isOwn }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ msg.status }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ msg.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ msg.updatedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('msg_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('msg_edit', { 'id': msg.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

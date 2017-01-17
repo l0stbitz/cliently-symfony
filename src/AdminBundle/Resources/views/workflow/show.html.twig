@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Workflow</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ workflow.id }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ workflow.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Workspaceid</th>
+                <td>{{ workflow.workspaceId }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ workflow.name }}</td>
+            </tr>
+            <tr>
+                <th>Stoponrespond</th>
+                <td>{{ workflow.stopOnRespond }}</td>
+            </tr>
+            <tr>
+                <th>Position</th>
+                <td>{{ workflow.position }}</td>
+            </tr>
+            <tr>
+                <th>Originid</th>
+                <td>{{ workflow.originId }}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{{ workflow.isEnabled }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ workflow.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ workflow.updatedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('workflow_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('workflow_edit', { 'id': workflow.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

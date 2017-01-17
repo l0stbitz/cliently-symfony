@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>PipelineDefault list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Workspaceid</th>
+                <th>Ownerid</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pipelineDefault in pipelineDefaults %}
+            <tr>
+                <td><a href="{{ path('pipelinedefault_show', { 'id': pipelineDefault.id }) }}">{{ pipelineDefault.id }}</a></td>
+                <td>{{ pipelineDefault.name }}</td>
+                <td>{{ pipelineDefault.position }}</td>
+                <td>{{ pipelineDefault.workspaceId }}</td>
+                <td>{{ pipelineDefault.ownerId }}</td>
+                <td>{{ pipelineDefault.isEnabled }}</td>
+                <td>{{ pipelineDefault.createdAt }}</td>
+                <td>{{ pipelineDefault.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('pipelinedefault_show', { 'id': pipelineDefault.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('pipelinedefault_edit', { 'id': pipelineDefault.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('pipelinedefault_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

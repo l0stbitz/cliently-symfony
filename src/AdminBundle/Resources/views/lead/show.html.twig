@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Lead</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ lead.id }}</td>
+            </tr>
+            <tr>
+                <th>Sourceid</th>
+                <td>{{ lead.sourceId }}</td>
+            </tr>
+            <tr>
+                <th>Clientsourceid</th>
+                <td>{{ lead.clientSourceId }}</td>
+            </tr>
+            <tr>
+                <th>Companysourceid</th>
+                <td>{{ lead.companySourceId }}</td>
+            </tr>
+            <tr>
+                <th>Workflowid</th>
+                <td>{{ lead.workflowId }}</td>
+            </tr>
+            <tr>
+                <th>Actionid</th>
+                <td>{{ lead.actionId }}</td>
+            </tr>
+            <tr>
+                <th>Actionvalues</th>
+                <td>{{ lead.actionValues }}</td>
+            </tr>
+            <tr>
+                <th>Workspaceid</th>
+                <td>{{ lead.workspaceId }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ lead.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{% if lead.isEnabled %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ lead.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ lead.updatedAt }}</td>
+            </tr>
+            <tr>
+                <th>Accessedat</th>
+                <td>{{ lead.accessedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('lead_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('lead_edit', { 'id': lead.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

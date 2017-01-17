@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>DealLog</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ dealLog.id }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ dealLog.type }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ dealLog.description }}</td>
+            </tr>
+            <tr>
+                <th>Originid</th>
+                <td>{{ dealLog.originId }}</td>
+            </tr>
+            <tr>
+                <th>Dealid</th>
+                <td>{{ dealLog.dealId }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ dealLog.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Workspaceid</th>
+                <td>{{ dealLog.workspaceId }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ dealLog.status }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ dealLog.createdAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('deallog_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('deallog_edit', { 'id': dealLog.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

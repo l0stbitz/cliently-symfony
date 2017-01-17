@@ -1,0 +1,24 @@
+deal_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:Deal:index" }
+    methods:  GET
+
+deal_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:Deal:show" }
+    methods:  GET
+
+deal_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:Deal:new" }
+    methods:  [GET, POST]
+
+deal_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:Deal:edit" }
+    methods:  [GET, POST]
+
+deal_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:Deal:delete" }
+    methods:  DELETE

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Subscription</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ subscription.id }}</td>
+            </tr>
+            <tr>
+                <th>Class</th>
+                <td>{{ subscription.class }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ subscription.name }}</td>
+            </tr>
+            <tr>
+                <th>Users</th>
+                <td>{{ subscription.users }}</td>
+            </tr>
+            <tr>
+                <th>Workspacelimit</th>
+                <td>{{ subscription.workspaceLimit }}</td>
+            </tr>
+            <tr>
+                <th>Pipelinelimit</th>
+                <td>{{ subscription.pipelineLimit }}</td>
+            </tr>
+            <tr>
+                <th>Deals</th>
+                <td>{{ subscription.deals }}</td>
+            </tr>
+            <tr>
+                <th>Workflows</th>
+                <td>{{ subscription.workflows }}</td>
+            </tr>
+            <tr>
+                <th>Sources</th>
+                <td>{{ subscription.sources }}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{{ subscription.isEnabled }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('subscription_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('subscription_edit', { 'id': subscription.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

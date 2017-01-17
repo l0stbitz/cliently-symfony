@@ -1,0 +1,24 @@
+clientlyrevenue_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:ClientlyRevenue:index" }
+    methods:  GET
+
+clientlyrevenue_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:ClientlyRevenue:show" }
+    methods:  GET
+
+clientlyrevenue_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:ClientlyRevenue:new" }
+    methods:  [GET, POST]
+
+clientlyrevenue_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:ClientlyRevenue:edit" }
+    methods:  [GET, POST]
+
+clientlyrevenue_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:ClientlyRevenue:delete" }
+    methods:  DELETE

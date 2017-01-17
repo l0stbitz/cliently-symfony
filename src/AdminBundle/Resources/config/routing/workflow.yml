@@ -1,0 +1,24 @@
+workflow_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:Workflow:index" }
+    methods:  GET
+
+workflow_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:Workflow:show" }
+    methods:  GET
+
+workflow_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:Workflow:new" }
+    methods:  [GET, POST]
+
+workflow_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:Workflow:edit" }
+    methods:  [GET, POST]
+
+workflow_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:Workflow:delete" }
+    methods:  DELETE

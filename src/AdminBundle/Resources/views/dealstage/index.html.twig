@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>DealStage list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Dealid</th>
+                <th>Stageid</th>
+                <th>Durationtotal</th>
+                <th>Durationlast</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Accessedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for dealStage in dealStages %}
+            <tr>
+                <td><a href="{{ path('dealstage_show', { 'id': dealStage.id }) }}">{{ dealStage.id }}</a></td>
+                <td>{{ dealStage.dealId }}</td>
+                <td>{{ dealStage.stageId }}</td>
+                <td>{{ dealStage.durationTotal }}</td>
+                <td>{{ dealStage.durationLast }}</td>
+                <td>{{ dealStage.createdAt }}</td>
+                <td>{{ dealStage.updatedAt }}</td>
+                <td>{{ dealStage.accessedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('dealstage_show', { 'id': dealStage.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('dealstage_edit', { 'id': dealStage.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('dealstage_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

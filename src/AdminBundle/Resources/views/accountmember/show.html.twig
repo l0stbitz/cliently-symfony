@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>AccountMember</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ accountMember.id }}</td>
+            </tr>
+            <tr>
+                <th>Userid</th>
+                <td>{{ accountMember.userId }}</td>
+            </tr>
+            <tr>
+                <th>Accountid</th>
+                <td>{{ accountMember.accountId }}</td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td>{{ accountMember.role }}</td>
+            </tr>
+            <tr>
+                <th>Extra</th>
+                <td>{{ accountMember.extra }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ accountMember.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Isconfirmed</th>
+                <td>{% if accountMember.isConfirmed %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{{ accountMember.isEnabled }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ accountMember.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ accountMember.updatedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('accountmember_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('accountmember_edit', { 'id': accountMember.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

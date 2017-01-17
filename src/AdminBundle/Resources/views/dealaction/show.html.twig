@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>DealAction</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ dealAction.id }}</td>
+            </tr>
+            <tr>
+                <th>Actiontypeid</th>
+                <td>{{ dealAction.actionTypeId }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ dealAction.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ dealAction.description }}</td>
+            </tr>
+            <tr>
+                <th>Actionid</th>
+                <td>{{ dealAction.actionId }}</td>
+            </tr>
+            <tr>
+                <th>Dealworkflowid</th>
+                <td>{{ dealAction.dealWorkflowId }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ dealAction.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Position</th>
+                <td>{{ dealAction.position }}</td>
+            </tr>
+            <tr>
+                <th>Values</th>
+                <td>{{ dealAction.values }}</td>
+            </tr>
+            <tr>
+                <th>Extra</th>
+                <td>{{ dealAction.extra }}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{% if dealAction.isEnabled %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Isfailed</th>
+                <td>{{ dealAction.isFailed }}</td>
+            </tr>
+            <tr>
+                <th>Runtime</th>
+                <td>{{ dealAction.runTime }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ dealAction.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ dealAction.updatedAt }}</td>
+            </tr>
+            <tr>
+                <th>Executedat</th>
+                <td>{{ dealAction.executedAt }}</td>
+            </tr>
+            <tr>
+                <th>Dueat</th>
+                <td>{{ dealAction.dueAt }}</td>
+            </tr>
+            <tr>
+                <th>Startedat</th>
+                <td>{{ dealAction.startedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('dealaction_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('dealaction_edit', { 'id': dealAction.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

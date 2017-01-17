@@ -1,0 +1,24 @@
+clientlyroles_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:ClientlyRoles:index" }
+    methods:  GET
+
+clientlyroles_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:ClientlyRoles:show" }
+    methods:  GET
+
+clientlyroles_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:ClientlyRoles:new" }
+    methods:  [GET, POST]
+
+clientlyroles_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:ClientlyRoles:edit" }
+    methods:  [GET, POST]
+
+clientlyroles_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:ClientlyRoles:delete" }
+    methods:  DELETE

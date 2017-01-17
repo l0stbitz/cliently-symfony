@@ -1,0 +1,24 @@
+industry_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:API/Industry:index" }
+    methods:  GET
+
+industry_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:Industry:show" }
+    methods:  GET
+
+industry_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:Industry:new" }
+    methods:  [GET, POST]
+
+industry_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:Industry:edit" }
+    methods:  [GET, POST]
+
+industry_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:Industry:delete" }
+    methods:  DELETE

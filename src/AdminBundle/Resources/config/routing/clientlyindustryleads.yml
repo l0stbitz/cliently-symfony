@@ -1,0 +1,24 @@
+clientlyindustryleads_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:ClientlyIndustryLeads:index" }
+    methods:  GET
+
+clientlyindustryleads_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:ClientlyIndustryLeads:show" }
+    methods:  GET
+
+clientlyindustryleads_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:ClientlyIndustryLeads:new" }
+    methods:  [GET, POST]
+
+clientlyindustryleads_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:ClientlyIndustryLeads:edit" }
+    methods:  [GET, POST]
+
+clientlyindustryleads_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:ClientlyIndustryLeads:delete" }
+    methods:  DELETE

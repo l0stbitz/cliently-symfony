@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Country list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Geonameid</th>
+                <th>Iso</th>
+                <th>Iso3</th>
+                <th>Isonumeric</th>
+                <th>Fips</th>
+                <th>Name</th>
+                <th>Capital</th>
+                <th>Area</th>
+                <th>Population</th>
+                <th>Continent</th>
+                <th>Tld</th>
+                <th>Currencycode</th>
+                <th>Currencyname</th>
+                <th>Phone</th>
+                <th>Postalcodeformat</th>
+                <th>Postalcoderegex</th>
+                <th>Languages</th>
+                <th>Neighbours</th>
+                <th>Equivalentfipscode</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for country in countries %}
+            <tr>
+                <td><a href="{{ path('country_show', { 'id': country.geonameId }) }}">{{ country.geonameId }}</a></td>
+                <td>{{ country.iso }}</td>
+                <td>{{ country.iso3 }}</td>
+                <td>{{ country.isoNumeric }}</td>
+                <td>{{ country.fips }}</td>
+                <td>{{ country.name }}</td>
+                <td>{{ country.capital }}</td>
+                <td>{{ country.area }}</td>
+                <td>{{ country.population }}</td>
+                <td>{{ country.continent }}</td>
+                <td>{{ country.tld }}</td>
+                <td>{{ country.currencyCode }}</td>
+                <td>{{ country.currencyName }}</td>
+                <td>{{ country.phone }}</td>
+                <td>{{ country.postalCodeFormat }}</td>
+                <td>{{ country.postalCodeRegex }}</td>
+                <td>{{ country.languages }}</td>
+                <td>{{ country.neighbours }}</td>
+                <td>{{ country.equivalentFipsCode }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('country_show', { 'id': country.geonameId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('country_edit', { 'id': country.geonameId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('country_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

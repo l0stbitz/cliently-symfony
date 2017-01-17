@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>UserLog list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Sectionid</th>
+                <th>Ownerid</th>
+                <th>Accessedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for userLog in userLogs %}
+            <tr>
+                <td><a href="{{ path('userlog_show', { 'id': userLog.id }) }}">{{ userLog.id }}</a></td>
+                <td>{{ userLog.type }}</td>
+                <td>{{ userLog.sectionId }}</td>
+                <td>{{ userLog.ownerId }}</td>
+                <td>{{ userLog.accessedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('userlog_show', { 'id': userLog.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('userlog_edit', { 'id': userLog.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('userlog_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

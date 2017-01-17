@@ -1,0 +1,24 @@
+confirm_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:Confirm:index" }
+    methods:  GET
+
+confirm_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:Confirm:show" }
+    methods:  GET
+
+confirm_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:Confirm:new" }
+    methods:  [GET, POST]
+
+confirm_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:Confirm:edit" }
+    methods:  [GET, POST]
+
+confirm_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:Confirm:delete" }
+    methods:  DELETE

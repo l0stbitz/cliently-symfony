@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>PipelineDefault</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ pipelineDefault.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ pipelineDefault.name }}</td>
+            </tr>
+            <tr>
+                <th>Position</th>
+                <td>{{ pipelineDefault.position }}</td>
+            </tr>
+            <tr>
+                <th>Workspaceid</th>
+                <td>{{ pipelineDefault.workspaceId }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ pipelineDefault.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{{ pipelineDefault.isEnabled }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ pipelineDefault.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ pipelineDefault.updatedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('pipelinedefault_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('pipelinedefault_edit', { 'id': pipelineDefault.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

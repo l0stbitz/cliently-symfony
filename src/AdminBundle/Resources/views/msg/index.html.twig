@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Msg list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Ownerid</th>
+                <th>Description</th>
+                <th>Attachments</th>
+                <th>Clientid</th>
+                <th>Dealid</th>
+                <th>Email</th>
+                <th>Handle</th>
+                <th>Integrationtype</th>
+                <th>Sendersourceid</th>
+                <th>Recipientsourceid</th>
+                <th>Cc</th>
+                <th>Bcc</th>
+                <th>Uid</th>
+                <th>References</th>
+                <th>Code</th>
+                <th>Threadcode</th>
+                <th>Type</th>
+                <th>Isown</th>
+                <th>Status</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for msg in msgs %}
+            <tr>
+                <td><a href="{{ path('msg_show', { 'id': msg.id }) }}">{{ msg.id }}</a></td>
+                <td>{{ msg.name }}</td>
+                <td>{{ msg.ownerId }}</td>
+                <td>{{ msg.description }}</td>
+                <td>{{ msg.attachments }}</td>
+                <td>{{ msg.clientId }}</td>
+                <td>{{ msg.dealId }}</td>
+                <td>{{ msg.email }}</td>
+                <td>{{ msg.handle }}</td>
+                <td>{{ msg.integrationType }}</td>
+                <td>{{ msg.senderSourceId }}</td>
+                <td>{{ msg.recipientSourceId }}</td>
+                <td>{{ msg.cc }}</td>
+                <td>{{ msg.bcc }}</td>
+                <td>{{ msg.uid }}</td>
+                <td>{{ msg.references }}</td>
+                <td>{{ msg.code }}</td>
+                <td>{{ msg.threadCode }}</td>
+                <td>{{ msg.type }}</td>
+                <td>{{ msg.isOwn }}</td>
+                <td>{{ msg.status }}</td>
+                <td>{{ msg.createdAt }}</td>
+                <td>{{ msg.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('msg_show', { 'id': msg.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('msg_edit', { 'id': msg.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('msg_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>UserLog</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ userLog.id }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ userLog.type }}</td>
+            </tr>
+            <tr>
+                <th>Sectionid</th>
+                <td>{{ userLog.sectionId }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ userLog.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Accessedat</th>
+                <td>{{ userLog.accessedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('userlog_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('userlog_edit', { 'id': userLog.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

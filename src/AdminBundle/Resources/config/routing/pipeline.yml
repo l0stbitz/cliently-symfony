@@ -1,0 +1,36 @@
+pipeline_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:Pipeline:index" }
+    methods:  GET
+
+pipeline_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:Pipeline:show" }
+    methods:  GET
+
+pipeline_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:Pipeline:new" }
+    methods:  [GET, POST]
+
+pipeline_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:Pipeline:edit" }
+    methods:  [GET, POST]
+
+pipeline_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:Pipeline:delete" }
+    methods:  DELETE
+    
+#----
+
+pipeline_stages:
+    path:     /{id}/stages
+    defaults: { _controller: "AdminBundle:API/Pipeline:stages" }
+    methods:  [GET, POST]
+    
+pipeline_deal_list:
+    path:     /{id}/deals/list
+    defaults: { _controller: "AdminBundle:API/Pipeline:deals" }
+    methods:  [GET, POST]    

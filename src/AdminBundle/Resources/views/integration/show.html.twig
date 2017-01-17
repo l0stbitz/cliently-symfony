@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Integration</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ integration.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ integration.name }}</td>
+            </tr>
+            <tr>
+                <th>Userid</th>
+                <td>{{ integration.userId }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ integration.type }}</td>
+            </tr>
+            <tr>
+                <th>Sourceid</th>
+                <td>{{ integration.sourceId }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ integration.code }}</td>
+            </tr>
+            <tr>
+                <th>Values</th>
+                <td>{{ integration.values }}</td>
+            </tr>
+            <tr>
+                <th>Avatar</th>
+                <td>{{ integration.avatar }}</td>
+            </tr>
+            <tr>
+                <th>Handle</th>
+                <td>{{ integration.handle }}</td>
+            </tr>
+            <tr>
+                <th>Isprimary</th>
+                <td>{{ integration.isPrimary }}</td>
+            </tr>
+            <tr>
+                <th>Issuspended</th>
+                <td>{% if integration.isSuspended %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ integration.status }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ integration.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ integration.updatedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('integration_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('integration_edit', { 'id': integration.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

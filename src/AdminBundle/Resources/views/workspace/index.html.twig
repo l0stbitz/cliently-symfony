@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Workspace list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Accountid</th>
+                <th>Membercount</th>
+                <th>Creditbalance</th>
+                <th>Accepteddealcount</th>
+                <th>Pipelinecount</th>
+                <th>Workflowcount</th>
+                <th>Sourcecount</th>
+                <th>Enabledmembercount</th>
+                <th>Enabledpipelinecount</th>
+                <th>Enabledworkflowcount</th>
+                <th>Enabledsourcecount</th>
+                <th>Dailyleadsscanned</th>
+                <th>Ownerid</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for workspace in workspaces %}
+            <tr>
+                <td><a href="{{ path('workspace_show', { 'id': workspace.id }) }}">{{ workspace.id }}</a></td>
+                <td>{{ workspace.name }}</td>
+                <td>{{ workspace.type }}</td>
+                <td>{{ workspace.accountId }}</td>
+                <td>{{ workspace.memberCount }}</td>
+                <td>{{ workspace.creditBalance }}</td>
+                <td>{{ workspace.acceptedDealCount }}</td>
+                <td>{{ workspace.pipelineCount }}</td>
+                <td>{{ workspace.workflowCount }}</td>
+                <td>{{ workspace.sourceCount }}</td>
+                <td>{{ workspace.enabledMemberCount }}</td>
+                <td>{{ workspace.enabledPipelineCount }}</td>
+                <td>{{ workspace.enabledWorkflowCount }}</td>
+                <td>{{ workspace.enabledSourceCount }}</td>
+                <td>{{ workspace.dailyLeadsScanned }}</td>
+                <td>{{ workspace.ownerId }}</td>
+                <td>{{ workspace.isEnabled }}</td>
+                <td>{{ workspace.createdAt }}</td>
+                <td>{{ workspace.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('workspace_show', { 'id': workspace.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('workspace_edit', { 'id': workspace.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('workspace_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

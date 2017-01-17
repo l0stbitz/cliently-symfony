@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ClientTwitter</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ clientTwitter.id }}</td>
+            </tr>
+            <tr>
+                <th>Clientid</th>
+                <td>{{ clientTwitter.clientId }}</td>
+            </tr>
+            <tr>
+                <th>Sourceid</th>
+                <td>{{ clientTwitter.sourceId }}</td>
+            </tr>
+            <tr>
+                <th>Isfollower</th>
+                <td>{% if clientTwitter.isFollower %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Isfollowed</th>
+                <td>{% if clientTwitter.isFollowed %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Neweventscount</th>
+                <td>{{ clientTwitter.newEventsCount }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ clientTwitter.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Workspaceid</th>
+                <td>{{ clientTwitter.workspaceId }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ clientTwitter.status }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ clientTwitter.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ clientTwitter.updatedAt }}</td>
+            </tr>
+            <tr>
+                <th>Accessedat</th>
+                <td>{{ clientTwitter.accessedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clienttwitter_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('clienttwitter_edit', { 'id': clientTwitter.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

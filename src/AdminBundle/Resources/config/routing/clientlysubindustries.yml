@@ -1,0 +1,24 @@
+clientlysubindustries_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:ClientlySubIndustries:index" }
+    methods:  GET
+
+clientlysubindustries_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:ClientlySubIndustries:show" }
+    methods:  GET
+
+clientlysubindustries_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:ClientlySubIndustries:new" }
+    methods:  [GET, POST]
+
+clientlysubindustries_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:ClientlySubIndustries:edit" }
+    methods:  [GET, POST]
+
+clientlysubindustries_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:ClientlySubIndustries:delete" }
+    methods:  DELETE

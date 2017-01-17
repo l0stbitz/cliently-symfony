@@ -1,0 +1,138 @@
+services:
+    app.deal_service:
+        class: AppBundle\Service\DealService
+        arguments: ["@service_container"]
+        
+    app.user_service:
+        class: AppBundle\Service\UserService
+        arguments: ["@service_container"]        
+
+    app.slack_service:
+        class: AppBundle\Service\SlackService
+        arguments: ["@service_container"]  
+        
+    app.account_voter:
+        class: AppBundle\Security\Voter\AccountVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false
+        
+    app.account_member_voter:
+        class: AppBundle\Security\Voter\AccountMemberVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false        
+        
+    app.action_voter:
+        class: AppBundle\Security\Voter\ActionVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false  
+        
+    app.client_twitter_voter:
+        class: AppBundle\Security\Voter\ClientTwitterVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false 
+        
+    app.client_voter:
+        class: AppBundle\Security\Voter\ClientVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false    
+        
+    app.company_voter:
+        class: AppBundle\Security\Voter\CompanyVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false    
+        
+    app.deal_voter:
+        class: AppBundle\Security\Voter\DealVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false  
+        
+    app.lead_voter:
+        class: AppBundle\Security\Voter\LeadVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false    
+        
+    app.msg_voter:
+        class: AppBundle\Security\Voter\MsgVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false    
+        
+    app.note_voter:
+        class: AppBundle\Security\Voter\NoteVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false   
+        
+    app.pipeline_voter:
+        class: AppBundle\Security\Voter\PipelineVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false
+        
+    app.purchase_voter:
+        class: AppBundle\Security\Voter\PurchaseVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false      
+        
+    app.stage_voter:
+        class: AppBundle\Security\Voter\StageVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false    
+        
+    app.task_voter:
+        class: AppBundle\Security\Voter\TaskVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false   
+        
+    app.upload_voter:
+        class: AppBundle\Security\Voter\UploadVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false    
+        
+    app.workflow_voter:
+        class: AppBundle\Security\Voter\WorkflowVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false         
+        
+    app.workspace_voter:
+        class: AppBundle\Security\Voter\WorkspaceVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false    
+        
+    app.workspace_member_voter:
+        class: AppBundle\Security\Voter\WorkspaceMemberVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false     

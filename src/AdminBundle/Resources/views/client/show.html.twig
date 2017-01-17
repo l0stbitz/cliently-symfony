@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Client</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ client.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ client.name }}</td>
+            </tr>
+            <tr>
+                <th>Avatar</th>
+                <td>{{ client.avatar }}</td>
+            </tr>
+            <tr>
+                <th>Occupation</th>
+                <td>{{ client.occupation }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ client.description }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ client.email }}</td>
+            </tr>
+            <tr>
+                <th>Addressline1</th>
+                <td>{{ client.addressLine1 }}</td>
+            </tr>
+            <tr>
+                <th>Addressline2</th>
+                <td>{{ client.addressLine2 }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ client.city }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ client.state }}</td>
+            </tr>
+            <tr>
+                <th>Zip</th>
+                <td>{{ client.zip }}</td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td>{{ client.country }}</td>
+            </tr>
+            <tr>
+                <th>Coords</th>
+                <td>{{ client.coords }}</td>
+            </tr>
+            <tr>
+                <th>Googlelocation</th>
+                <td>{{ client.googleLocation }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ client.phone }}</td>
+            </tr>
+            <tr>
+                <th>Social</th>
+                <td>{{ client.social }}</td>
+            </tr>
+            <tr>
+                <th>Contacts</th>
+                <td>{{ client.contacts }}</td>
+            </tr>
+            <tr>
+                <th>Value</th>
+                <td>{{ client.value }}</td>
+            </tr>
+            <tr>
+                <th>Neweventscount</th>
+                <td>{{ client.newEventsCount }}</td>
+            </tr>
+            <tr>
+                <th>Companyid</th>
+                <td>{{ client.companyId }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ client.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Workspaceid</th>
+                <td>{{ client.workspaceId }}</td>
+            </tr>
+            <tr>
+                <th>Sourceid</th>
+                <td>{{ client.sourceId }}</td>
+            </tr>
+            <tr>
+                <th>Isverified</th>
+                <td>{% if client.isVerified %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{{ client.isEnabled }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ client.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ client.updatedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('client_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('client_edit', { 'id': client.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

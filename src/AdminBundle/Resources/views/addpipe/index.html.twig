@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Addpipe list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Videoid</th>
+                <th>Videourl</th>
+                <th>Thumburl</th>
+                <th>Data</th>
+                <th>Token</th>
+                <th>Ownerid</th>
+                <th>Createdat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for addpipe in addpipes %}
+            <tr>
+                <td><a href="{{ path('addpipe_show', { 'id': addpipe.id }) }}">{{ addpipe.id }}</a></td>
+                <td>{{ addpipe.videoId }}</td>
+                <td>{{ addpipe.videoUrl }}</td>
+                <td>{{ addpipe.thumbUrl }}</td>
+                <td>{{ addpipe.data }}</td>
+                <td>{{ addpipe.token }}</td>
+                <td>{{ addpipe.ownerId }}</td>
+                <td>{{ addpipe.createdAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('addpipe_show', { 'id': addpipe.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('addpipe_edit', { 'id': addpipe.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('addpipe_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

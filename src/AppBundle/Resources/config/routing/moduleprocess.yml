@@ -1,0 +1,24 @@
+moduleprocess_index:
+    path:     /
+    defaults: { _controller: "AppBundle:ModuleProcess:index" }
+    methods:  GET
+
+moduleprocess_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:ModuleProcess:show" }
+    methods:  GET
+
+moduleprocess_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:ModuleProcess:new" }
+    methods:  [GET, POST]
+
+moduleprocess_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:ModuleProcess:edit" }
+    methods:  [GET, POST]
+
+moduleprocess_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:ModuleProcess:delete" }
+    methods:  DELETE

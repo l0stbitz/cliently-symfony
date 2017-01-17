@@ -1,0 +1,205 @@
+<div class="col-md-12" id="main-block">
+
+    <div class="main-block">
+
+        <div class="row main-header">
+            <div>
+                <h1>Billing</h1>
+            </div>
+
+            <div class="sub-header">
+                Short Description
+            </div>
+        </div>
+
+        <div class="h20"></div>
+
+        <div class="main-content" id="billing-page">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="info-card row text-center">
+                        <div class="col-md-4">
+                            <h1>Users</h1>
+                            <div id="billing_member_count" class="num">&nbsp;</div>
+                            <h2>Manage Users (coming soon)</h2>
+                        </div>
+                        <div class="col-md-4">
+                            <h1><span id="billing_period_word">&nbsp;</span></h1>
+                            <div id="billing_price" class="num">&nbsp;</div>
+                            <h2 style="display: none" id="billing_next_payment">Next Payment in: <span id="billing_days">&nbsp;</span> days</h2>
+                            <h2 style="display: none" id="billing_next_plan"><span id="next_plan">&nbsp;</span> will start on next billing period</h2>
+                        </div>
+                        <div class="col-md-4">
+                            <h1>Credits Left</h1>
+                            <div id="billing_credit_balance" class="num">&nbsp;</div>
+                            <h2 style="display: none" id="billing_ends_on">Ends on: <span id="billing_expire_at">&nbsp;</span></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- <div class="col-md-5">
+                    <div class="row">
+                        <h1>Billing Information</h1>
+                        <div class="card">
+                            <table>
+                                <tr>
+                                    <td width="50%">Card Type</td>
+                                    <td width="50%">Visa</td>
+                                </tr>
+                                <tr>
+                                    <td width="50%">Cardholder Name</td>
+                                    <td width="50%">Ivan Dzelebzic</td>
+                                </tr>
+                                <tr>
+                                    <td width="50%">Card Number</td>
+                                    <td width="50%">**** **** **** **98</td>
+                                </tr>
+                                <tr>
+                                    <td width="50%">Expiry</td>
+                                    <td width="50%">09/16</td>
+                                </tr>
+                            </table>
+                            <a class="delete" href="javascript:void(0)" onclick="openPaymentPage()">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row invoices">
+                        <h1>Invoices</h1>
+                        <div class="card">
+                            <table>
+                                <tr>
+                                    <td width="40%">01/07/2015</td>
+                                    <td>543543543</td>
+                                    <td width="20%">-$9.99</td>
+                                </tr>
+                                <tr>
+                                    <td width="40%">01/07/2015</td>
+                                    <td>543543543</td>
+                                    <td class="text-green" width="20%">+$3000</td>
+                                </tr>
+                                <tr>
+                                    <td width="40%">01/07/2015</td>
+                                    <td>543543543</td>
+                                    <td width="20%">-$200</td>
+                                </tr>
+                                <tr>
+                                    <td width="40%">01/07/2015</td>
+                                    <td>Activation</td>
+                                    <td width="20%">-$99</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-md-12">
+                    <h1>Plans: </h1>
+                    <ul id="billing-list-outside" class="nav nav-tabs text-center" role="tablist">
+                        <li role="presentation" id="monthly-billing-outside">
+                            <a href="#monthly-billing-outside" aria-controls="monthly-billing" role="tab" data-toggle="tab">Monthly Billing</a>
+                        </li>
+                        <li role="presentation" class="active" id="annual-billing-outside">
+                            <a href="#annual-billing-outside" aria-controls="annual-billing" role="tab" data-toggle="tab">Annual Billing</a>
+                        </li>
+                    </ul>
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <div class="card price-boxes-container">
+                                <div id="subscription_2" class="subscription-outside col-md-4">
+                                    <div class="price-box">
+                                        <h1>Pro</h1>
+                                        <em class="for">For passionate freelancers who want to find a project quickly</em>
+                                        <h2 class="price">$29</h2>
+                                        <span class="period">/month</span>
+                                        <div style="visibility: hidden;" class="total-price-container"><em class="total-price">$228</em>/<em class="total-period">year</em></div>
+                                        <div class="info">
+                                            <ul>
+                                                <!-- <li><span class="team-size">Unlimited User Account</span></li> -->
+                                                <li><span class="deal-count">75</span> Credits</li>
+                                                <li>CRM</li>
+                                                <li>3 Automated Workflows</li>
+                                                <li>3 Lead Sources</li>
+                                                <li>Twitter Integration <i class="fa fa-cliently-twitter"></i></li>
+                                                <li>Gmail Integration <img src="/images/public/gmail.png" alt="" /></li>
+                                            </ul>
+                                        </div>
+                                        <div class="select-plan">
+                                            <button class="btn-blue btn-primary btn-cliently btn-choose-plan" href="#">CONTACT US</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="subscription_3" class="subscription-outside col-md-4">
+                                    <div class="price-box">
+                                        <h1>Business</h1>
+                                        <em class="for">For passionate freelancers who want a lot of projects</em>
+                                        <h2 class="price">$49</h2>
+                                        <span class="period">/month</span>
+                                        <div style="visibility: hidden;" class="total-price-container"><em class="total-price">$468</em>/<em class="total-period">year</em></div>
+                                        <div class="info">
+                                            <ul>
+                                                <!-- <li><span class="team-size">Unlimited User Account</span></li> -->
+                                                <li><span class="deal-count">250</span> Credits</li>
+                                                <li>CRM</li>
+                                                <li>10 Automated Workflows</li>
+                                                <li>10 Lead Sources</li>
+                                                <li>Unlimited Workspaces</li>
+                                                <li>Twitter Integration <i class="fa fa-cliently-twitter"></i></li>
+                                                <li>Gmail Integration <img src="/images/public/gmail.png" alt="" /></li>
+                                            </ul>
+                                        </div>
+                                        <div class="select-plan">
+                                            <!-- <button class="btn-blue btn-primary btn-cliently btn-choose-plan" style="cursor: pointer" onclick="Intercom('show');">CONTACT US</button> -->
+                                            <button class="btn-blue btn-primary btn-cliently btn-choose-plan" href="#">CONTACT US</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="subscription_4" class="subscription-outside col-md-4">
+                                    <div class="price-box">
+                                        <h1>Enterprise</h1>
+                                        <em class="for">For small to medium businesses</em>
+                                        <h2 class="price">99</h2>
+                                        <span class="period">/month</span>
+                                        <div style="visibility: hidden;" class="total-price-container"><em class="total-price">$1188</em>/<em class="total-period">year</em></div>
+                                        <div class="info">
+                                            <ul>
+                                                <!-- <li><span class="team-size">Unlimited User Account</span></li> -->
+                                                <li><span class="deal-count">550</span> Credits</li>
+                                                <li>CRM</li>
+                                                <li>Unlimited Automated Workflows</li>
+                                                <li>Unlimited Lead Sources</li>
+                                                <li>Unlimited Workspaces</li>
+                                                <li>Twitter Integration <i class="fa fa-cliently-twitter"></i></li>
+                                                <li>Gmail Integration <img src="/images/public/gmail.png" alt="" /></li>
+                                                <li class="for-annual-only">Custom Campaign Creation</li>
+                                            </ul>
+                                        </div>
+                                        <div class="select-plan">
+                                            <button class="btn-blue btn-primary btn-cliently btn-choose-plan" href="#">CONTACT US</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    * Need More Prospects - Contact us for details on custom plans to fit your business
+                    <br />
+                    ** Annual Plans paid for the entire year in advance
+                    <br />
+                    *** All subscriptions will automatically recur/bill on a continual monthly or yearly basis of original subscription sign up date.
+                    <br />
+                    <br />
+                    <br />
+                    <a href="#signup-for-free">Sign up for the Free Plan</a><br />
+                    Click <a href="#cancel-subscription">Here</a> to Cancel Account
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

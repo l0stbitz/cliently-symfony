@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Addpipe</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ addpipe.id }}</td>
+            </tr>
+            <tr>
+                <th>Videoid</th>
+                <td>{{ addpipe.videoId }}</td>
+            </tr>
+            <tr>
+                <th>Videourl</th>
+                <td>{{ addpipe.videoUrl }}</td>
+            </tr>
+            <tr>
+                <th>Thumburl</th>
+                <td>{{ addpipe.thumbUrl }}</td>
+            </tr>
+            <tr>
+                <th>Data</th>
+                <td>{{ addpipe.data }}</td>
+            </tr>
+            <tr>
+                <th>Token</th>
+                <td>{{ addpipe.token }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ addpipe.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ addpipe.createdAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('addpipe_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('addpipe_edit', { 'id': addpipe.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

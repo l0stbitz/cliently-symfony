@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Module</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ module.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ module.name }}</td>
+            </tr>
+            <tr>
+                <th>Class</th>
+                <td>{{ module.class }}</td>
+            </tr>
+            <tr>
+                <th>Modulecatid</th>
+                <td>{{ module.moduleCatId }}</td>
+            </tr>
+            <tr>
+                <th>Moduleprocessid</th>
+                <td>{{ module.moduleProcessId }}</td>
+            </tr>
+            <tr>
+                <th>Isevent</th>
+                <td>{{ module.isEvent }}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{{ module.isEnabled }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ module.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ module.updatedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('module_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('module_edit', { 'id': module.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

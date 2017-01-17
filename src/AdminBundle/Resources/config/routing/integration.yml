@@ -1,0 +1,24 @@
+integration_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:API/Integration:index" }
+    methods:  GET
+
+integration_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:Integration:show" }
+    methods:  GET
+
+integration_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:Integration:new" }
+    methods:  [GET, POST]
+
+integration_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:Integration:edit" }
+    methods:  [GET, POST]
+
+integration_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:Integration:delete" }
+    methods:  DELETE

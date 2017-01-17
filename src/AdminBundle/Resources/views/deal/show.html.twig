@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Deal</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ deal.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ deal.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ deal.description }}</td>
+            </tr>
+            <tr>
+                <th>Sourcedescription</th>
+                <td>{{ deal.sourceDescription }}</td>
+            </tr>
+            <tr>
+                <th>Value</th>
+                <td>{{ deal.value }}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{{ deal.isEnabled }}</td>
+            </tr>
+            <tr>
+                <th>Initialclientid</th>
+                <td>{{ deal.initialClientId }}</td>
+            </tr>
+            <tr>
+                <th>Workflowid</th>
+                <td>{{ deal.workflowId }}</td>
+            </tr>
+            <tr>
+                <th>Stageid</th>
+                <td>{{ deal.stageId }}</td>
+            </tr>
+            <tr>
+                <th>Taskid</th>
+                <td>{{ deal.taskId }}</td>
+            </tr>
+            <tr>
+                <th>Actionid</th>
+                <td>{{ deal.actionId }}</td>
+            </tr>
+            <tr>
+                <th>Actionvalues</th>
+                <td>{{ deal.actionValues }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ deal.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Sourceid</th>
+                <td>{{ deal.sourceId }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ deal.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ deal.updatedAt }}</td>
+            </tr>
+            <tr>
+                <th>Accessedat</th>
+                <td>{{ deal.accessedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('deal_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('deal_edit', { 'id': deal.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,4 @@
+ui_dbperson:
+    path:     /sets/dbperson
+    defaults: { _controller: "AdminBundle:API/UI:dbperson" }
+    methods:  GET

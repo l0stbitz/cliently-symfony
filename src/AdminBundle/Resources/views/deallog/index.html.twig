@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>DealLog list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Originid</th>
+                <th>Dealid</th>
+                <th>Ownerid</th>
+                <th>Workspaceid</th>
+                <th>Status</th>
+                <th>Createdat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for dealLog in dealLogs %}
+            <tr>
+                <td><a href="{{ path('deallog_show', { 'id': dealLog.id }) }}">{{ dealLog.id }}</a></td>
+                <td>{{ dealLog.type }}</td>
+                <td>{{ dealLog.description }}</td>
+                <td>{{ dealLog.originId }}</td>
+                <td>{{ dealLog.dealId }}</td>
+                <td>{{ dealLog.ownerId }}</td>
+                <td>{{ dealLog.workspaceId }}</td>
+                <td>{{ dealLog.status }}</td>
+                <td>{{ dealLog.createdAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('deallog_show', { 'id': dealLog.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('deallog_edit', { 'id': dealLog.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('deallog_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

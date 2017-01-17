@@ -1,0 +1,24 @@
+location_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Location:index" }
+    methods:  GET
+
+location_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Location:show" }
+    methods:  GET
+
+location_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Location:new" }
+    methods:  [GET, POST]
+
+location_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Location:edit" }
+    methods:  [GET, POST]
+
+location_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Location:delete" }
+    methods:  DELETE

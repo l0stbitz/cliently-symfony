@@ -1,0 +1,24 @@
+plan_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Plan:index" }
+    methods:  GET
+
+plan_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Plan:show" }
+    methods:  GET
+
+plan_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Plan:new" }
+    methods:  [GET, POST]
+
+plan_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Plan:edit" }
+    methods:  [GET, POST]
+
+plan_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Plan:delete" }
+    methods:  DELETE

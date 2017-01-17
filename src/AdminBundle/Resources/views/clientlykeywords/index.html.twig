@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ClientlyKeywords list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Keywordsid</th>
+                <th>Keywordsindustryid</th>
+                <th>Keywordssubindustryid</th>
+                <th>Keywordsname</th>
+                <th>Keywordsshortdescription</th>
+                <th>Keywordsdescription</th>
+                <th>Isactive</th>
+                <th>Isdelete</th>
+                <th>Createddate</th>
+                <th>Modifieddate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for clientlyKeyword in clientlyKeywords %}
+            <tr>
+                <td><a href="{{ path('clientlykeywords_show', { 'id': clientlyKeyword.keywordsId }) }}">{{ clientlyKeyword.keywordsId }}</a></td>
+                <td>{{ clientlyKeyword.keywordsIndustryid }}</td>
+                <td>{{ clientlyKeyword.keywordsSubindustryid }}</td>
+                <td>{{ clientlyKeyword.keywordsName }}</td>
+                <td>{{ clientlyKeyword.keywordsShortDescription }}</td>
+                <td>{{ clientlyKeyword.keywordsDescription }}</td>
+                <td>{% if clientlyKeyword.isActive %}Yes{% else %}No{% endif %}</td>
+                <td>{% if clientlyKeyword.isDelete %}Yes{% else %}No{% endif %}</td>
+                <td>{% if clientlyKeyword.createdDate %}{{ clientlyKeyword.createdDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if clientlyKeyword.modifiedDate %}{{ clientlyKeyword.modifiedDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('clientlykeywords_show', { 'id': clientlyKeyword.keywordsId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('clientlykeywords_edit', { 'id': clientlyKeyword.keywordsId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clientlykeywords_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

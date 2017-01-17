@@ -1,0 +1,24 @@
+purchase_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:Purchase:index" }
+    methods:  GET
+
+purchase_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:Purchase:show" }
+    methods:  GET
+
+purchase_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:Purchase:new" }
+    methods:  [GET, POST]
+
+purchase_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:Purchase:edit" }
+    methods:  [GET, POST]
+
+purchase_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:Purchase:delete" }
+    methods:  DELETE

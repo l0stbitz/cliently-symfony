@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>WorkflowDefault</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ workflowDefault.id }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ workflowDefault.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ workflowDefault.name }}</td>
+            </tr>
+            <tr>
+                <th>Stoponrespond</th>
+                <td>{{ workflowDefault.stopOnRespond }}</td>
+            </tr>
+            <tr>
+                <th>Position</th>
+                <td>{{ workflowDefault.position }}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{{ workflowDefault.isEnabled }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ workflowDefault.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ workflowDefault.updatedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('workflowdefault_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('workflowdefault_edit', { 'id': workflowDefault.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

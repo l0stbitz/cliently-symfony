@@ -1,0 +1,24 @@
+addpipe_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Addpipe:index" }
+    methods:  GET
+
+addpipe_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Addpipe:show" }
+    methods:  GET
+
+addpipe_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Addpipe:new" }
+    methods:  [GET, POST]
+
+addpipe_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Addpipe:edit" }
+    methods:  [GET, POST]
+
+addpipe_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Addpipe:delete" }
+    methods:  DELETE

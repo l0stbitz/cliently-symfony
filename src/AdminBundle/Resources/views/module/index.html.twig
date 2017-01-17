@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Module list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Class</th>
+                <th>Modulecatid</th>
+                <th>Moduleprocessid</th>
+                <th>Isevent</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for module in modules %}
+            <tr>
+                <td><a href="{{ path('module_show', { 'id': module.id }) }}">{{ module.id }}</a></td>
+                <td>{{ module.name }}</td>
+                <td>{{ module.class }}</td>
+                <td>{{ module.moduleCatId }}</td>
+                <td>{{ module.moduleProcessId }}</td>
+                <td>{{ module.isEvent }}</td>
+                <td>{{ module.isEnabled }}</td>
+                <td>{{ module.createdAt }}</td>
+                <td>{{ module.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('module_show', { 'id': module.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('module_edit', { 'id': module.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('module_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

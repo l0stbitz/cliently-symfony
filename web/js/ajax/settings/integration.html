@@ -1,0 +1,498 @@
+<div class="col-md-12" id="main-block">
+
+    <div class="main-block">
+
+        <div class="row main-header">
+            <div>
+                <h1>Integrations</h1>
+            </div>
+
+            <div class="sub-header">
+                Connect social networks and email
+            </div>
+        </div>
+
+        <div class="h20"></div>
+
+        <div class="main-content" id="integration">
+
+            <div class="integration-head row">
+
+                <div class="col-md-5">
+                    <a href="#">Email ACCOUNTs</a>
+                </div>
+
+                <div class="col-md-3">
+                    <a href="#">Connected</a>
+                </div>
+
+                <div class="col-md-4">
+                    <a href="#">LINKED ON</a>
+                </div>
+
+            </div>
+
+            <div class="integration-list row">
+
+                <div class="table-body col-md-12">
+
+                    <div class="user row" id="integration-3" data-type="3">
+
+                        <div class="col-md-5">
+                            <img alt="Gmail" class="img-responsive" src="/images/gmail-icon.png" width="50">
+                            <h1>Gmail</h1>
+                            <span class="email">emailexample@gmail.com</span>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="checkbox-s google" type="checkbox">
+                        </div>
+                        <div class="col-md-4 date">December 7, 2015</div>
+                    </div>
+                    <hr>
+
+                    <div class="user row" id="integration-1" data-type="1">
+
+                        <div class="col-md-5">
+                            <img alt="Mail" class="img-responsive" src="/images/mail-icon-1.png" width="50">
+                            <h1>IMAP</h1>
+                            <span class="email">emailexample@gmail.com</span>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="checkbox-s imap" type="checkbox">
+                        </div>
+                        <div class="col-md-4 date">December 10, 2015</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="integration-head row">
+
+                <div class="col-md-5">
+                    <a href="#">Social ACCOUNTs</a>
+                </div>
+
+                <div class="col-md-3">
+                    <a href="#">Connected</a>
+                </div>
+
+                <div class="col-md-4">
+                    <a href="#">LINKED ON</a>
+                </div>
+
+            </div>
+
+            <div class="integration-list row">
+
+                <div class="table-body col-md-12">
+
+                    <div class="user row" id="integration-2" data-type="2">
+
+                        <div class="col-md-5">
+                            <img alt="Member" class="img-responsive cliently-twitter" src="/images/cliently_twitter_cliently.png" width="50">
+                            <h1>Twitter</h1>
+                            <span class="email">-</span>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="checkbox-s cliently-twitter" type="checkbox">
+                        </div>
+                        <div class="col-md-4 date">None</div>
+                    </div>
+                    <hr>
+
+                    <div class="user row" id="integration-4" data-type="4">
+
+                        <div class="col-md-5">
+                            <img alt="Slack Integration" class="img-responsive cliently-slack" src="/images/slack.png" width="50">
+                            <h1>Slack</h1>
+                            <span class="email">-</span>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="checkbox-s cliently-slack" type="checkbox">
+                        </div>
+                        <div class="col-md-4 date">None</div>
+                    </div>
+                    <hr>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div aria-labelledby="gridSystemModalLabel" class="modal fade" id="lead_mail_modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Edit Info</h4>
+            </div>
+            <form onsubmit="return saveImapInfo()">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 text-center">
+                            <div class="form-group">
+                                <label for="fullname">Real Name:</label>
+                                <input class="form-control" id="fullname" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input class="form-control" id="email" type="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input class="form-control" id="password" type="password">
+                            </div>
+                            <div class="form-group">
+                                <label for="email_autoconfig">
+                                    <input id="email_autoconfig" type="checkbox">
+                                    <span>Email autoconfiguration</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Incoming server (IMAP)</h5>
+                            <div class="form-group">
+                                <label for="imap_server">IMAP Server</label>
+                                <input class="form-control" id="imap_server" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="imap_port">IMAP Port</label>
+                                <input class="form-control" id="imap_port" type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Outgoing server (SMTP)</h5>
+                            <div class="form-group">
+                                <label for="smtp_server">SMTP Server</label>
+                                <input class="form-control" id="smtp_server" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="smtp_port">SMTP Port</label>
+                                <input class="form-control" id="smtp_port" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<script type="text/javascript">
+    var IntegrationTypes = {
+        IMAP: 1,
+        TWITTER: 2,
+        GOOGLE: 3,
+        SLACK: 4
+    };
+    var IntegrationNames = ['', 'imap', 'twitter', 'google', 'slack'];
+
+
+    $.fn.bootstrapSwitch.defaults.size = 'small';
+    $(".checkbox-s").bootstrapSwitch().on('switchChange.bootstrapSwitch', function (event, state) {
+        var type = $(this).closest('.user.row').data('type');
+        var name = IntegrationNames[type];
+        if (state) {
+            if (type == IntegrationTypes.IMAP) {
+                $('#lead_mail_modal').modal('show');
+                loadImapInfo();
+            } else if (type == IntegrationTypes.TWITTER) {
+                loginTwitter();
+            } else if (type == IntegrationTypes.GOOGLE) {
+                loginGoogle();
+            } else if (type == IntegrationTypes.SLACK) {
+                loginSlack();
+            }
+        } else {
+            if (confirm("Are you sure you want to deactivate " + name + " integration?")) {
+                if (type == IntegrationTypes.IMAP) {
+                    $.ajax({
+                        method: "PUT",
+                        url: '/api/v1/integrations/imap',
+                        data: {status: 0},
+                        success: function () {
+                            deactivateIntegration(type);
+                            showSuccessMessage("Success", "The " + name + " integration has been deactivated successfully.");
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        method: 'DELETE',
+                        url: '/api/v1/integrations/' + name,
+                        success: function () {
+                            deactivateIntegration(type);
+                            showSuccessMessage("Success", "The " + name + " has been deactivated successfully.");
+                        }
+                    });
+                }
+            } else {
+                $(this).bootstrapSwitch('state', true, true);
+            }
+        }
+    });
+
+    function deactivateAllIntegrations() {
+        for (var i = 0; i < IntegrationNames.lengh - 1; i++) {
+            deactivateIntegration(i + 1);
+        }
+    }
+
+    function reloadIntegrations(type) {
+        if (type == undefined) {
+            type = 0;
+        }
+        $.getJSON("/api/v1/integrations/" + IntegrationNames[type], function (data) {
+            if (type > 0) {
+                if (data && data.integration) {
+                    activateIntegration(data.integration);
+                    if (type != IntegrationTypes.TWITTER && data.integration.is_primary != 1) {
+                        checkAndSetPrimaryEmail(type);
+                    }
+                } else {
+                    deactivateIntegration(type);
+                }
+            } else {
+                for (var i = 0; i < data.length; i++) {
+                    activateIntegration(data[i]);
+                }
+            }
+        });
+    }
+
+    function activateIntegration(integration) {
+        if (integration.status != 2) {
+            return;
+        }
+
+        var date = new Date(integration.created_at * 1000);
+        $("#integration-" + integration.type)
+                .find("h1").html(integration.name).end()
+                .find(".email").html(integration.handle).end()
+                .find('.date').html(date.toLocaleString()).end()
+                .find(".checkbox-s").bootstrapSwitch('state', true, true);
+    }
+
+    function deactivateIntegration(type) {
+        $("#integration-" + type)
+                .find("h1").html('---').end()
+                .find(".email").html('---').end()
+                .find('.date').html('None').end()
+                .find(".checkbox-s").bootstrapSwitch('state', false, true);
+    }
+
+    var timerG = null;
+    var timerT = null;
+    var child = null;
+
+    function loginGoogle() {
+        child = SocialIntegrator.openIntegrationWindow('/integrations/google/connect', '', 626, 436);
+    }
+    function checkChildGoogle() {
+        if (child.closed) {
+            clearInterval(timerG);
+            reloadIntegrations(IntegrationTypes.GOOGLE);
+        }
+    }
+
+    function loginTwitter() {
+        child = SocialIntegrator.openIntegrationWindow('/integrations/twitter/connect', '', 626, 436);
+        timerT = setInterval(checkChildTwitter, 500);
+    }
+
+    function checkChildTwitter() {
+        if (child.closed) {
+            clearInterval(timerT);
+            reloadIntegrations(IntegrationTypes.TWITTER);
+        }
+    }
+
+    function loginSlack() {
+        child = SocialIntegrator.openIntegrationWindow('/integrations/slack/connect', '', 626, 436);
+        timerT = setInterval(checkChildSlack, 500);
+    }
+
+    function checkChildSlack() {
+        if (child.closed) {
+            clearInterval(timerT);
+            reloadIntegrations(IntegrationTypes.SLACK);
+        }
+    }
+
+    function loadImapInfo() {
+        $('#lead_mail_modal').find('.btn-primary').attr('disabled', true).html('<i class="fa fa-spin fa spinner"></i> Loading...');
+        $.get('/api/v1/integrations/imap', function (data) {
+            if (data.integration !== undefined) {
+                $('#fullname').val(data.integration.values.fullname);
+                $('#email').val(data.integration.values.email);
+                $('#password').val(data.integration.values.password);
+                $('#smtp_port').val(data.integration.values.smtp_port);
+                $('#smtp_server').val(data.integration.values.smtp_server);
+                $('#imap_port').val(data.integration.values.imap_port);
+                $('#imap_server').val(data.integration.values.imap_server);
+            }
+            $('#lead_mail_modal').find('.btn-primary').attr('disabled', false).html('<i class="fa fa-save"></i> Save Changes');
+        });
+    }
+
+    function saveImapInfo() {
+        var email_autoconfig = $('#email_autoconfig')[0].checked;
+        var fullname         = $('#fullname').val();
+        var email            = $('#email').val();
+        var password         = $('#password').val();
+        var imap_port        = email_autoconfig ? '' : $('#imap_port').val();
+        var imap_server      = email_autoconfig ? '' : $('#imap_server').val();
+        var port             = email_autoconfig ? '' : $('#smtp_port').val();
+        var smtp             = email_autoconfig ? '' : $('#smtp_server').val();
+
+        if (fullname == "") {
+            showErrorMessage('IMAP Info', 'Please enter full name.');
+            validateForm('#fullname');
+            return false;
+        }
+
+        if (email == "") {
+            showErrorMessage('IMAP Info', 'Please enter email.');
+            validateForm('#email');
+            return false;
+        }
+
+        if (password == "") {
+            showErrorMessage('IMAP Info', 'Please enter password.');
+            validateForm('#password');
+            return false;
+        }
+
+        if ( ! email_autoconfig) {
+            if (imap_port == "") {
+                showErrorMessage('IMAP Info', 'Please enter IMAP Port.');
+                validateForm('#imap_port');
+                return false;
+            }
+
+            if (imap_server == "") {
+                showErrorMessage('IMAP Info', 'Please enter IMAP Server.');
+                validateForm('#imap_server');
+                return false;
+            }
+
+            if (port == "") {
+                showErrorMessage('IMAP Info', 'Please enter SMTP Port.');
+                validateForm('#smtp_port');
+                return false;
+            }
+
+            if (smtp == "") {
+                showErrorMessage('IMAP Info', 'Please enter SMTP Server.');
+                validateForm('#smtp_server');
+                return false;
+            }
+        }
+
+        var isEmailAlreadyExisting = false;
+        $.ajax({
+            url: '/api/v1/validations/email/availability?q=' + email,
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                if ( ! data.success) {
+                    isEmailAlreadyExisting = true;
+                }
+            }
+        });
+
+        if (isEmailAlreadyExisting) {
+            showErrorMessage('IMAP Info', 'Email account already exists, please use a different one.');
+            return false;
+        }
+
+        $('#lead_mail_modal').find('.btn-primary').attr('disabled', true).html('<i class="fa fa-spin fa-spinner"></i> Saving...');
+        $.ajax({
+            method: "PUT",
+            url: '/api/v1/integrations/imap',
+            data: {
+                name: fullname,
+                values: {
+                    fullname: fullname,
+                    email: email,
+                    password: password,
+                    imap_server: imap_server,
+                    imap_port: imap_port,
+                    smtp_server: smtp,
+                    smtp_port: port
+                },
+                handle: email,
+                status: 2
+            },
+            success: function () {
+                $('#lead_mail_modal').modal('hide');
+                showSuccessMessage("Success", "The imap has been saved successfully.");
+                reloadIntegrations(IntegrationTypes.IMAP);
+            }
+        }).fail(function(jqXHR) {
+            var error = jqXHR.responseJSON.errors[0];
+            $('#lead_mail_modal').find('.btn-primary').removeAttr('disabled').html('Save changes');
+            if (error.code_class == null) {
+                showErrorMessage("Error", "Wrong input");
+            } else if (error.object === 'values.fullname') {
+                showErrorMessage("Error", "Invalid fullname");
+            } else if (error.object === 'values.email') {
+                showErrorMessage("Error", "Invalid email");
+            } else if (error.object === 'values.password') {
+                showErrorMessage("Error", "Invalid password");
+            } else if (error.object === 'values.imap_server') {
+                showErrorMessage("Error", "Invalid IMAP server");
+            } else if (error.object === 'values.imap_port') {
+                showErrorMessage("Error", "Invalid IMAP port");
+            } else if (error.object === 'values.smtp_server') {
+                showErrorMessage("Error", "Invalid SMTP server");
+            } else if (error.object === 'values.smtp_port') {
+                showErrorMessage("Error", "Invalid SMTP port");
+            } else if (error.object === 'email_autoconfig') {
+                if (error.reason === 'only_pop3') {
+                    showErrorMessage("Email Autoconfiguration", "Looks like your mail server doesn't have IMAP support");
+                } else if (error.reason === 'failure') {
+                    showErrorMessage("Email Autoconfiguration", "We couldn't autoconfigure your mailbox. Please input values manually");
+                }
+            }
+        });
+
+        return false;
+    }
+
+    function checkAndSetPrimaryEmail(type) {
+//        $.get('/api/v1/integrations/' + IntegrationNames[type], function (data) {
+//            if (data.integration !== undefined && data.integration.is_primary != 1) {
+                if (!confirm('Will you set this email as primary?')) {
+                    return;
+                }
+
+                $.ajax({
+                    method: "PUT",
+                    url: '/api/v1/integrations/' + IntegrationNames[type],
+                    data: {is_primary: 1},
+                    success: function () {
+                        showSuccessMessage("You have set primary email successfully.");
+                    }
+                });
+//            }
+//        });
+    }
+
+    deactivateAllIntegrations();
+    reloadIntegrations();
+</script>

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ClientlySeniority list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Seniorityid</th>
+                <th>Seniorityname</th>
+                <th>Isactive</th>
+                <th>Isdelete</th>
+                <th>Createddate</th>
+                <th>Modifieddate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for clientlySeniority in clientlySeniorities %}
+            <tr>
+                <td><a href="{{ path('clientlyseniority_show', { 'id': clientlySeniority.seniorityId }) }}">{{ clientlySeniority.seniorityId }}</a></td>
+                <td>{{ clientlySeniority.seniorityName }}</td>
+                <td>{% if clientlySeniority.isActive %}Yes{% else %}No{% endif %}</td>
+                <td>{% if clientlySeniority.isDelete %}Yes{% else %}No{% endif %}</td>
+                <td>{% if clientlySeniority.createdDate %}{{ clientlySeniority.createdDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if clientlySeniority.modifiedDate %}{{ clientlySeniority.modifiedDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('clientlyseniority_show', { 'id': clientlySeniority.seniorityId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('clientlyseniority_edit', { 'id': clientlySeniority.seniorityId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clientlyseniority_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

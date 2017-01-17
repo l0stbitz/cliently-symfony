@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Purchase</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ purchase.id }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ purchase.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Accountid</th>
+                <td>{{ purchase.accountId }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ purchase.type }}</td>
+            </tr>
+            <tr>
+                <th>Engine</th>
+                <td>{{ purchase.engine }}</td>
+            </tr>
+            <tr>
+                <th>Transactioncode</th>
+                <td>{{ purchase.transactionCode }}</td>
+            </tr>
+            <tr>
+                <th>Customercode</th>
+                <td>{{ purchase.customerCode }}</td>
+            </tr>
+            <tr>
+                <th>Productid</th>
+                <td>{{ purchase.productId }}</td>
+            </tr>
+            <tr>
+                <th>Value</th>
+                <td>{{ purchase.value }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ purchase.quantity }}</td>
+            </tr>
+            <tr>
+                <th>Issucceeded</th>
+                <td>{{ purchase.isSucceeded }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ purchase.createdAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('purchase_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('purchase_edit', { 'id': purchase.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

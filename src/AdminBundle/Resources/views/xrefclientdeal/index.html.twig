@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>XrefClientDeal list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Clientid</th>
+                <th>Dealid</th>
+                <th>Ismain</th>
+                <th>Ownerid</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for xrefClientDeal in xrefClientDeals %}
+            <tr>
+                <td><a href="{{ path('xrefclientdeal_show', { 'id': xrefClientDeal.id }) }}">{{ xrefClientDeal.id }}</a></td>
+                <td>{{ xrefClientDeal.clientId }}</td>
+                <td>{{ xrefClientDeal.dealId }}</td>
+                <td>{{ xrefClientDeal.isMain }}</td>
+                <td>{{ xrefClientDeal.ownerId }}</td>
+                <td>{{ xrefClientDeal.isEnabled }}</td>
+                <td>{{ xrefClientDeal.createdAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('xrefclientdeal_show', { 'id': xrefClientDeal.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('xrefclientdeal_edit', { 'id': xrefClientDeal.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('xrefclientdeal_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

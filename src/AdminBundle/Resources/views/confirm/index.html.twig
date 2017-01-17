@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Confirm list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Userid</th>
+                <th>Key</th>
+                <th>Type</th>
+                <th>Extra</th>
+                <th>Createdat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for confirm in confirms %}
+            <tr>
+                <td><a href="{{ path('confirm_show', { 'id': confirm.id }) }}">{{ confirm.id }}</a></td>
+                <td>{{ confirm.userId }}</td>
+                <td>{{ confirm.key }}</td>
+                <td>{{ confirm.type }}</td>
+                <td>{{ confirm.extra }}</td>
+                <td>{{ confirm.createdAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('confirm_show', { 'id': confirm.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('confirm_edit', { 'id': confirm.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('confirm_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

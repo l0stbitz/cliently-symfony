@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ClientlySubIndustries list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Subindustryid</th>
+                <th>Subindustryindustryid</th>
+                <th>Subindustryname</th>
+                <th>Subindustryshortdescription</th>
+                <th>Subindustrydescription</th>
+                <th>Isactive</th>
+                <th>Isdelete</th>
+                <th>Createddate</th>
+                <th>Modifieddate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for clientlySubIndustry in clientlySubIndustries %}
+            <tr>
+                <td><a href="{{ path('clientlysubindustries_show', { 'id': clientlySubIndustry.subIndustryId }) }}">{{ clientlySubIndustry.subIndustryId }}</a></td>
+                <td>{{ clientlySubIndustry.subIndustryIndustryid }}</td>
+                <td>{{ clientlySubIndustry.subIndustryName }}</td>
+                <td>{{ clientlySubIndustry.subIndustryShortDescription }}</td>
+                <td>{{ clientlySubIndustry.subIndustryDescription }}</td>
+                <td>{% if clientlySubIndustry.isActive %}Yes{% else %}No{% endif %}</td>
+                <td>{% if clientlySubIndustry.isDelete %}Yes{% else %}No{% endif %}</td>
+                <td>{% if clientlySubIndustry.createdDate %}{{ clientlySubIndustry.createdDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if clientlySubIndustry.modifiedDate %}{{ clientlySubIndustry.modifiedDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('clientlysubindustries_show', { 'id': clientlySubIndustry.subIndustryId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('clientlysubindustries_edit', { 'id': clientlySubIndustry.subIndustryId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clientlysubindustries_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

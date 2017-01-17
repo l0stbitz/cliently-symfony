@@ -1,0 +1,24 @@
+clientlysize_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:ClientlySize:index" }
+    methods:  GET
+
+clientlysize_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:ClientlySize:show" }
+    methods:  GET
+
+clientlysize_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:ClientlySize:new" }
+    methods:  [GET, POST]
+
+clientlysize_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:ClientlySize:edit" }
+    methods:  [GET, POST]
+
+clientlysize_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:ClientlySize:delete" }
+    methods:  DELETE

@@ -1,0 +1,24 @@
+clientlystate_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:ClientlyState:index" }
+    methods:  GET
+
+clientlystate_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:ClientlyState:show" }
+    methods:  GET
+
+clientlystate_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:ClientlyState:new" }
+    methods:  [GET, POST]
+
+clientlystate_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:ClientlyState:edit" }
+    methods:  [GET, POST]
+
+clientlystate_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:ClientlyState:delete" }
+    methods:  DELETE

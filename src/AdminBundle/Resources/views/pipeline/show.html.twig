@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Pipeline</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ pipeline.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ pipeline.name }}</td>
+            </tr>
+            <tr>
+                <th>Position</th>
+                <td>{{ pipeline.position }}</td>
+            </tr>
+            <tr>
+                <th>Workspaceid</th>
+                <td>{{ pipeline.workspaceId }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ pipeline.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{{ pipeline.isEnabled }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ pipeline.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ pipeline.updatedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('pipeline_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('pipeline_edit', { 'id': pipeline.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

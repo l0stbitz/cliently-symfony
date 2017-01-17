@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Auth</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ auth.id }}</td>
+            </tr>
+            <tr>
+                <th>Userid</th>
+                <td>{{ auth.userId }}</td>
+            </tr>
+            <tr>
+                <th>Key</th>
+                <td>{{ auth.key }}</td>
+            </tr>
+            <tr>
+                <th>Keyprev</th>
+                <td>{{ auth.keyPrev }}</td>
+            </tr>
+            <tr>
+                <th>Ip</th>
+                <td>{{ auth.ip }}</td>
+            </tr>
+            <tr>
+                <th>Ua</th>
+                <td>{{ auth.ua }}</td>
+            </tr>
+            <tr>
+                <th>Uahash</th>
+                <td>{{ auth.uaHash }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ auth.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ auth.updatedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('auth_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('auth_edit', { 'id': auth.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

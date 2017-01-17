@@ -1,0 +1,24 @@
+workspacemember_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:WorkspaceMember:index" }
+    methods:  GET
+
+workspacemember_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:WorkspaceMember:show" }
+    methods:  GET
+
+workspacemember_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:WorkspaceMember:new" }
+    methods:  [GET, POST]
+
+workspacemember_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:WorkspaceMember:edit" }
+    methods:  [GET, POST]
+
+workspacemember_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:WorkspaceMember:delete" }
+    methods:  DELETE

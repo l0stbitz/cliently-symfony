@@ -1,0 +1,24 @@
+stagedefault_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:StageDefault:index" }
+    methods:  GET
+
+stagedefault_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:StageDefault:show" }
+    methods:  GET
+
+stagedefault_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:StageDefault:new" }
+    methods:  [GET, POST]
+
+stagedefault_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:StageDefault:edit" }
+    methods:  [GET, POST]
+
+stagedefault_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:StageDefault:delete" }
+    methods:  DELETE

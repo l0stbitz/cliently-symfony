@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ClientlyRevenue list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Revenueid</th>
+                <th>Revenuename</th>
+                <th>Isactive</th>
+                <th>Isdelete</th>
+                <th>Createddate</th>
+                <th>Modifieddate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for clientlyRevenue in clientlyRevenues %}
+            <tr>
+                <td><a href="{{ path('clientlyrevenue_show', { 'id': clientlyRevenue.revenueId }) }}">{{ clientlyRevenue.revenueId }}</a></td>
+                <td>{{ clientlyRevenue.revenueName }}</td>
+                <td>{% if clientlyRevenue.isActive %}Yes{% else %}No{% endif %}</td>
+                <td>{% if clientlyRevenue.isDelete %}Yes{% else %}No{% endif %}</td>
+                <td>{% if clientlyRevenue.createdDate %}{{ clientlyRevenue.createdDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if clientlyRevenue.modifiedDate %}{{ clientlyRevenue.modifiedDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('clientlyrevenue_show', { 'id': clientlyRevenue.revenueId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('clientlyrevenue_edit', { 'id': clientlyRevenue.revenueId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clientlyrevenue_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

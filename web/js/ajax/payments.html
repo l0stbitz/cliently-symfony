@@ -1,0 +1,205 @@
+<div class="col-md-12" id="main-block">
+
+    <div class="main-block">
+
+        <div class="row main-header">
+            <div>
+                <h1>Complete your Purchase</h1>
+            </div>
+
+            <!--div class="sub-header">
+                Short Description
+            </div-->
+        </div>
+
+        <div class="h20"></div>
+
+        <div class="main-content" id="payment-page">
+            <div class="row">
+
+                <div class="col-md-5 text-center">
+
+                    <div class="card subscription-inside">
+                        <h1 class="subscription-name">Basic</h1>
+                        <!--h2 class="change-plan">Change Plan</h2-->
+                        <!-- Nav tabs -->
+                        <ul id="billing-list-inside" class="billing-variants nav nav-tabs text-center" role="tablist">
+                            <li id="monthly-billing-inside" class="plan-period plan-period-month" role="presentation" class="active"><a href="#monthly-billing" aria-controls="inner-billing" role="tab" data-toggle="tab">Monthly Billing</a></li>
+                            <li id="annual-billing-inside" class="plan-period plan-period-year" role="presentation"><a href="#annual-billing" aria-controls="inner-billing" role="tab" data-toggle="tab">Annual Billing</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active fade in" id="inner-billing">
+                                <div class="row text-center">
+
+                                    <div class="col-md-12">
+                                        <div class="price-box">
+                                            <h2 class="price">&nbsp;</h2>
+                                            <span class="period-container">/<span class="period">&nbsp;</span></span>
+                                            <div class="info">
+                                                <ul>
+                                                    <li><span class="team-size">&nbsp;</span> User Account</li>
+                                                    <li><span class="deal-count">&nbsp;</span> Lead Credits</li>
+                                                    <li>Email Automation</li>
+                                                    <li>Reports</li>
+                                                </ul>
+                                            </div>
+                                            <div class="save-money">
+                                                <i class="fa fa-circle"></i> Save <span class="save-percentage">34</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+<!--                             <div role="tabpanel" class="tab-pane fade" id="annual-billing">
+                                <div class="row text-center">
+
+                                    <div class="col-md-12">
+                                        <div class="price-box">
+                                            <h1>Basic</h1>
+                                            <h2 class="price">$99</h2>
+                                            <span class="period">/month</span>
+                                            <div class="info">
+                                                <ul>
+                                                    <li>1 User Account</li>
+                                                    <li>100 Lead Credits</li>
+                                                    <li>Email Automation</li>
+                                                    <li>Reports</li>
+                                                </ul>
+                                            </div>
+                                            <div class="select-plan">
+                                                <a href="#" class="btn-blue">Select Plan</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div> -->
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-7">
+                    <div class="card">
+                        <h1>Input Payment Details</h1>
+                        <br />
+<!--                         <h1>Select Payment Method</h1>
+                        <h2 class="change-plan">Click one of the options below</h2>
+                        
+
+                        <div class="col-md-3 payment-method active">
+                            <img src="https://icalp2014.itu.dk/Registration/~/media/10E2B621B091449D93AB719D4B17DF4A.ashx" class="img-responsive" alt="">
+                        </div>
+                        <div class="col-md-3 payment-method">
+                            <img src="https://www.datatrans.ch/userobjects/4425_3508_pp_h_rgb.png" class="img-responsive" alt="">
+                        </div> -->
+                        
+                        <div class="row">
+                            <div class="col-md-10">
+
+
+                                <form action="" id="payment-form">
+                                	<!-- <div class="form-group">
+                                		<label class="control-label">E-mail</label>
+                                		<input class="form-control" data-validation="email">
+                                	</div> -->
+                               <!--  	<div class="form-group">
+                                		<label class="control-label">Cardholder Name</label>
+                                		<input class="form-control" data-validation="length alphanumeric" 
+                                				 data-validation-length="3-50" 
+                                				 data-validation-error-msg="User name has to be an alphanumeric value (3-50 chars)">
+                                	</div> -->
+
+                                    <div class="form-group">
+                                        <label class="control-label">Credit Card Number</label>
+                                        <input class="form-control" data-validation="creditcard" data-validation-allowing="visa, mastercard, amex, diners_club, discover, cjb" data-stripe="number">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label">Expiration Date (MM/YYYY)</label>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                            	<input class="form-control" data-validation="date" data-validation-format="mm" data-stripe="exp-month">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input class="form-control" data-validation="date" data-validation-format="yyyy" data-stripe="exp-year">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label">CVV</label>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <input class="form-control" data-validation="cvv" data-stripe="cvc">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label">Coupon Code</label>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <input class="form-control" name="coupon_code">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="payment-errors"></div>
+
+                                	<p>
+                                		<button class="btn-blue">PURCHASE SUBSCRIPTION</button>
+                                	</p>
+                                </form>
+
+                             <!--    <div class="form-group">
+                                    <label for="cardholder-name">Cardholder Name</label>
+                                    <input type="text" class="form-control" id="cardholder-name">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <label for="creditcard-number">Credit Card Number</label>
+                                        <input type="text" class="form-control" id="creditcard-number" data-stripe="number">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="cvv">CVV</label>
+                                        <input type="text" class="form-control" id="cvv" data-stripe="cvc">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label for="expiration-date-start">Expiration Date (MM/YYYY)</label>
+                                        <div class="row">
+                                            <div class="col-xs-6 little-padding">
+                                                <input type="text" size="2" data-stripe="exp-month" />
+                                            </div>
+                                            <div class="col-xs-6 little-padding">
+                                                <input type="text" size="4" data-stripe="exp-year" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!-- <button class="btn-blue">Subscribe</button> -->
+                            </div>
+                            <div class="col-md-6"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $.validate({
+      modules : 'security'
+    });
+    Stripe.setPublishableKey($stripe_key);
+</script>
+

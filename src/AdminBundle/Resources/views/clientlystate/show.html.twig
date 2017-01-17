@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ClientlyState</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Stateid</th>
+                <td>{{ clientlyState.stateId }}</td>
+            </tr>
+            <tr>
+                <th>Statename</th>
+                <td>{{ clientlyState.stateName }}</td>
+            </tr>
+            <tr>
+                <th>Stateslug</th>
+                <td>{{ clientlyState.stateSlug }}</td>
+            </tr>
+            <tr>
+                <th>Stateminislug</th>
+                <td>{{ clientlyState.stateMinislug }}</td>
+            </tr>
+            <tr>
+                <th>Statetsynced</th>
+                <td>{{ clientlyState.stateTSynced }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clientlystate_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('clientlystate_edit', { 'id': clientlyState.stateId }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

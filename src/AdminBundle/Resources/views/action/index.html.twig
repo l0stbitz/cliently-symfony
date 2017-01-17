@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Action list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actiontypeid</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Workflowid</th>
+                <th>Ownerid</th>
+                <th>Position</th>
+                <th>Values</th>
+                <th>Extra</th>
+                <th>Sort</th>
+                <th>Defaultid</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Executedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for action in actions %}
+            <tr>
+                <td><a href="{{ path('action_show', { 'id': action.id }) }}">{{ action.id }}</a></td>
+                <td>{{ action.actionTypeId }}</td>
+                <td>{{ action.name }}</td>
+                <td>{{ action.description }}</td>
+                <td>{{ action.workflowId }}</td>
+                <td>{{ action.ownerId }}</td>
+                <td>{{ action.position }}</td>
+                <td>{{ action.values }}</td>
+                <td>{{ action.extra }}</td>
+                <td>{{ action.sort }}</td>
+                <td>{{ action.defaultId }}</td>
+                <td>{{ action.isEnabled }}</td>
+                <td>{{ action.createdAt }}</td>
+                <td>{{ action.updatedAt }}</td>
+                <td>{{ action.executedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('action_show', { 'id': action.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('action_edit', { 'id': action.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('action_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ClientlySetting list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Settingid</th>
+                <th>Settingtitle</th>
+                <th>Settingcontent</th>
+                <th>Isactive</th>
+                <th>Isdelete</th>
+                <th>Createddate</th>
+                <th>Modifieddate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for clientlySetting in clientlySettings %}
+            <tr>
+                <td><a href="{{ path('clientlysetting_show', { 'id': clientlySetting.settingId }) }}">{{ clientlySetting.settingId }}</a></td>
+                <td>{{ clientlySetting.settingTitle }}</td>
+                <td>{{ clientlySetting.settingContent }}</td>
+                <td>{% if clientlySetting.isActive %}Yes{% else %}No{% endif %}</td>
+                <td>{% if clientlySetting.isDelete %}Yes{% else %}No{% endif %}</td>
+                <td>{% if clientlySetting.createdDate %}{{ clientlySetting.createdDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if clientlySetting.modifiedDate %}{{ clientlySetting.modifiedDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('clientlysetting_show', { 'id': clientlySetting.settingId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('clientlysetting_edit', { 'id': clientlySetting.settingId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clientlysetting_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

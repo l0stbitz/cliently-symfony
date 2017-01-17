@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>XrefClientDeal</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ xrefClientDeal.id }}</td>
+            </tr>
+            <tr>
+                <th>Clientid</th>
+                <td>{{ xrefClientDeal.clientId }}</td>
+            </tr>
+            <tr>
+                <th>Dealid</th>
+                <td>{{ xrefClientDeal.dealId }}</td>
+            </tr>
+            <tr>
+                <th>Ismain</th>
+                <td>{{ xrefClientDeal.isMain }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ xrefClientDeal.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{{ xrefClientDeal.isEnabled }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ xrefClientDeal.createdAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('xrefclientdeal_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('xrefclientdeal_edit', { 'id': xrefClientDeal.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

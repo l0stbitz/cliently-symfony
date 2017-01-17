@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ActionDefault</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ actionDefault.id }}</td>
+            </tr>
+            <tr>
+                <th>Actiontypeid</th>
+                <td>{{ actionDefault.actionTypeId }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ actionDefault.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ actionDefault.description }}</td>
+            </tr>
+            <tr>
+                <th>Workflowid</th>
+                <td>{{ actionDefault.workflowId }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ actionDefault.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Position</th>
+                <td>{{ actionDefault.position }}</td>
+            </tr>
+            <tr>
+                <th>Values</th>
+                <td>{{ actionDefault.values }}</td>
+            </tr>
+            <tr>
+                <th>Sort</th>
+                <td>{{ actionDefault.sort }}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{{ actionDefault.isEnabled }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ actionDefault.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ actionDefault.updatedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('actiondefault_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('actiondefault_edit', { 'id': actionDefault.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

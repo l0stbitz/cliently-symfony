@@ -1,0 +1,31 @@
+site_homepage:
+    path:     /
+    defaults: { _controller: SiteBundle:Default:index }
+    
+site_pricing:
+    path:     /pricing
+    defaults: { _controller: SiteBundle:Default:pricing }    
+
+site_features:
+    path:     /features
+    defaults: { _controller: SiteBundle:Default:features } 
+    
+site_stripe:
+    path:     /stripe
+    defaults: { _controller: SiteBundle:Default:stripe }        
+    
+site_about_us:
+    path:     /about_us
+    defaults: { _controller: SiteBundle:Default:aboutUs }     
+    
+site_contact_us:
+    path:     /contact_us
+    defaults: { _controller: SiteBundle:Default:contactUs }    
+    
+site_message:
+    path:     /message
+    defaults: { _controller: SiteBundle:Default:message }    
+    
+site_shared_video:
+    path:     /shared_video
+    defaults: { _controller: SiteBundle:Default:shared_video }       

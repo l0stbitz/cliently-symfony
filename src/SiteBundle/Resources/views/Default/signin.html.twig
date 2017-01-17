@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Clients</title>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Bootstrap -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/bower_components/metroNotification/css/MetroNotificationStyle.min.css" />
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
+
+        <!-- Our Style -->
+        <link href="/css/auth.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+        <script src="/old_js/jquery-1.11.3.min.js"></script>
+        <script src="/old_js/jquery-ui-1.10.4.custom.min.js"></script>
+        <link rel="stylesheet" href="/bower_components/metroNotification/css/MetroNotificationStyle.min.css" />
+        <script src="/old_js/app.js"></script>
+    </head>
+
+    <body style="overflow: visible">
+        <?php
+            if (ENVIRONMENT === 'production')
+            {
+                $gtm_key = 'GTM-M5C2ML';
+                $stripe_key = 'pk_live_yNP51WBNdbFB6JD2NVC3bNer';
+            }
+            elseif (ENVIRONMENT === 'staging')
+            {
+                $gtm_key = 'GTM-W7P855';
+                $stripe_key = 'pk_test_NrbzidguNRW4mBxUWV0OvIP2';
+            }
+            else
+            {
+                $gtm_key = FALSE;
+                $stripe_key = 'pk_test_NrbzidguNRW4mBxUWV0OvIP2';
+            }
+        ?>
+
+        <?php if ($gtm_key) : ?>
+            <!-- Google Tag Manager -->
+            <noscript>
+                <iframe src="//www.googletagmanager.com/ns.html?id=<?php echo $gtm_key; ?>" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+            </noscript>
+            <script>
+                (function (w, d, s, l, i) {
+                    w[l] = w[l] || [];
+                    w[l].push({'gtm.start':
+                                new Date().getTime(), event: 'gtm.js'});
+                    var f = d.getElementsByTagName(s)[0],
+                            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                    j.async = true;
+                    j.src =
+                            '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+                    f.parentNode.insertBefore(j, f);
+                })(window, document, 'script', 'dataLayer', '<?php echo $gtm_key; ?>');
+            </script>
+            <!-- End Google Tag Manager -->
+        <?php endif; ?>
+        
+        <?php if ($stripe_key) : ?>
+            <script> var $stripe_key = '<?php echo $stripe_key; ?>';</script>
+        <?php endif; ?>
+
+        <div class="container signin-new" id="sign-up-in">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <!--h1>Cliently.io</h1-->
+                    <img class="logo" style="height: 100px" src="/images/cliently-inverted-blue-logo.png" />
+                    <div id="login-block">
+                        <div class="login-block">
+                            <h1>Sign in to your account</h1>
+                            <p class="using-social-networks">using social networks</p>
+
+                            <div class="social-cliently-networks row">
+
+                                <div class="col-xs-6 cliently-twitter" onclick="loginTwitter()">
+                                    <i class="fa fa-cliently-twitter"></i> Sign In with Twitter
+                                </div>
+                                <div class="col-xs-6 google-cliently-plus" onclick="loginGoogle()">
+                                    <i class="fa fa-cliently-google-plus"></i> Sign In with Google
+                                </div>
+
+                            </div>
+
+                            <div class="with-email">
+                                or sign in with your email and password
+                                <form id="form_signin" action="{{ path("fos_user_security_check") }}"  method="post" data-abide="ajax" data-options="live_validate: false" class="x-panel">
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="Email">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" id="password" name="_password" required="required">
+                                        <!-- <a href="/password-reset" class="forget-password">Forget Password?</a> -->
+                                    </div>
+                                    <div class="_messages">
+                                        <div data-alert class="_signin-fail alert-box alert radius hide">
+                                            <span>Such email/password combination is invalid.</span>
+                                        </div>
+                                        <div data-alert class="_signin-success alert-box success radius hide">
+                                            <span>You have successfully signed in.</span>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn-blue">Sign in</button>
+                                </form>
+                            </div>
+                        </div>
+                        <h6>Don't have an account? <a href="/sign-up">Sign Up</a></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="/bower_components/metroNotification/js/MetroNotification.min.js"></script>
+
+        <script>
+            function openIntegrationWindow(url, title, w, h) {
+                // Fixes dual-screen position                         Most browsers      Firefox
+                var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
+                var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
+
+                var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+                var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+                var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+                var top = ((height / 2) - (h / 2)) + dualScreenTop;
+                var newWindow = window.open(url, title, 'toolbar=0,status=0,scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+                // Puts focus on the newWindow
+                if (window.focus) {
+                    newWindow.focus();
+                }
+                
+                return newWindow;
+            }
+            
+            function toggleForm() {
+                $('#login-block').fadeToggle();
+                $('#signup-block').fadeToggle();
+            }
+            $('#login-block').show();
+            // var url = $(location).attr('href').split('/');
+            // var current = url[url.length - 1];
+            // if (current[current.length - 1] == '#') {
+            //     current = current.slice(0, -1);
+            // }
+            // if (current == 'sign-up') {
+            //     //$('#login-block').css("display", "none");
+            //     $('#signup-block').show();
+            // } else if (current == 'sign-in') {
+            //     //$('#signup-block').css("display", "none");
+            //     $('#login-block').show();
+            // }
+            var timerG = null;
+            var timerT = null;
+            var googleWnd = null;
+            var twitterWnd = null;
+
+            function loginGoogle() {
+                googleWnd = openIntegrationWindow('/auth/google', '', 626, 436);
+                timerG = setInterval(checkChildGoogle, 500);
+            }
+
+            function loginTwitter() {
+                twitterWnd = openIntegrationWindow('/auth/twitter', '', 626, 436);
+                timerT = setInterval(checkChildTwitter, 500);
+            }
+
+            function checkChildTwitter() {
+                if (twitterWnd.closed) {
+                    location.reload();
+                    clearInterval(timerT);
+                }
+            }
+
+            function checkChildGoogle() {
+                if (googleWnd.closed) {
+                    location.reload();
+                    clearInterval(timerG);
+                }
+            }
+        </script>
+
+
+    </body>
+
+</html>

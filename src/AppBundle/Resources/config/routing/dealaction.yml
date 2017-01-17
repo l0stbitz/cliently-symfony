@@ -1,0 +1,24 @@
+dealaction_index:
+    path:     /
+    defaults: { _controller: "AppBundle:DealAction:index" }
+    methods:  GET
+
+dealaction_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:DealAction:show" }
+    methods:  GET
+
+dealaction_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:DealAction:new" }
+    methods:  [GET, POST]
+
+dealaction_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:DealAction:edit" }
+    methods:  [GET, POST]
+
+dealaction_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:DealAction:delete" }
+    methods:  DELETE

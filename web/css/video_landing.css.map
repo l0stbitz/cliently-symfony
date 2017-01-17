@@ -1,0 +1,8 @@
+{
+"version": 3,
+"mappings": "AAAA,IAAI;EACF,MAAM,EAAE,CAAC;EACT,OAAO,EAAE,CAAC;EACV,KAAK,EAAE,OAAO;EACd,SAAS,EAAE,IAAI;EACf,WAAW,EAAE,UAAU;;AAEzB,UAAU;EACR,OAAO,EAAE,SAAS;EAClB,cAAG;IACD,UAAU,EAAE,KAAK;;AAErB,WAAW;EACT,OAAO,EAAE,SAAS;EAClB,UAAU,EAAE,iBAAiB;EAC7B,aAAa,EAAE,iBAAiB;EAChC,UAAU,EAAE,OAAO;;AAErB,iBAAiB;EACf,MAAM,EAAE,IAAI;EACZ,OAAO,EAAE,MAAM;EACf,UAAU,EAAE,MAAM;EAClB,uBAAK;IACH,SAAS,EAAE,GAAG;;AAElB,UAAU;EACR,aAAa,EAAE,IAAI;EACnB,UAAU,EAAE,MAAM;EAClB,SAAS,EAAE,IAAI",
+"sources": ["dev/sass/video_landing.sass"],
+"sourcesContent": ["body\n  margin: 0\n  padding: 0\n  color: #666666\n  font-size: 14px\n  font-family: sans-serif\n\ndiv.header\n  padding: 10px 30px\n  img\n    max-height: 120px\n\ndiv.message\n  padding: 15px 50px\n  border-top: 1px solid #cccccc\n  border-bottom: 1px solid #cccccc\n  background: #eeeeee\n\ndiv.video-wrapper\n  margin: auto\n  padding: 30px 0\n  text-align: center\n  video\n    max-width: 50%\n\ndiv.footer\n  margin-bottom: 30px\n  text-align: center\n  font-size: 11px\n"],
+"names": [],
+"file": "video_landing.css"
+}

@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ClientlyIndustryLeads list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Industryleadsid</th>
+                <th>Industryleadsjobtitle</th>
+                <th>Industryleadsrole</th>
+                <th>Industryleadsseniority</th>
+                <th>Industryleadsindustryid</th>
+                <th>Industryleadssize</th>
+                <th>Industryleadsrevenue</th>
+                <th>Industryleadscityid</th>
+                <th>Industryleadsstateid</th>
+                <th>Isactive</th>
+                <th>Isdelete</th>
+                <th>Createddate</th>
+                <th>Modifieddate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for clientlyIndustryLead in clientlyIndustryLeads %}
+            <tr>
+                <td><a href="{{ path('clientlyindustryleads_show', { 'id': clientlyIndustryLead.industryLeadsId }) }}">{{ clientlyIndustryLead.industryLeadsId }}</a></td>
+                <td>{{ clientlyIndustryLead.industryLeadsJobTitle }}</td>
+                <td>{{ clientlyIndustryLead.industryLeadsRole }}</td>
+                <td>{{ clientlyIndustryLead.industryLeadsSeniority }}</td>
+                <td>{{ clientlyIndustryLead.industryLeadsIndustryId }}</td>
+                <td>{{ clientlyIndustryLead.industryLeadsSize }}</td>
+                <td>{{ clientlyIndustryLead.industryLeadsRevenue }}</td>
+                <td>{{ clientlyIndustryLead.industryLeadsCityId }}</td>
+                <td>{{ clientlyIndustryLead.industryLeadsStateId }}</td>
+                <td>{% if clientlyIndustryLead.isActive %}Yes{% else %}No{% endif %}</td>
+                <td>{% if clientlyIndustryLead.isDelete %}Yes{% else %}No{% endif %}</td>
+                <td>{% if clientlyIndustryLead.createdDate %}{{ clientlyIndustryLead.createdDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if clientlyIndustryLead.modifiedDate %}{{ clientlyIndustryLead.modifiedDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('clientlyindustryleads_show', { 'id': clientlyIndustryLead.industryLeadsId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('clientlyindustryleads_edit', { 'id': clientlyIndustryLead.industryLeadsId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clientlyindustryleads_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

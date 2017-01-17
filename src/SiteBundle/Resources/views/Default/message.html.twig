@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta content="IE=edge" http-equiv="X-UA-Compatible">
+		<meta content="width=device-width, initial-scale=1" name="viewport">
+		<title>Thanks For Registration</title>
+		<?php $this->load->view('parts/icons.html'); ?>
+		<link rel="stylesheet" href="/css/font-awesome.min.css">
+		<style media="screen">
+			body {
+				font-family: arial;
+			}
+			.popup {
+				border-radius: 5px;
+				padding: 60px 20px 20px;
+				position: absolute;
+				top: calc(50% - 73px);
+				left: calc(50% - 150px);
+				left: -10em;
+				right: -10em;
+				/*width: 300px;*/
+				/*height: 146px;*/
+				text-align: center;
+				-webkit-box-shadow: 0 0 35px 0 rgba(0,0,0,0.75);
+				-moz-box-shadow: 0 0 35px 0 rgba(0,0,0,0.75);
+				box-shadow: 0 0 35px 0 rgba(0,0,0,0.75);
+			}
+			.check-mark {
+				position: absolute;
+				top: -30px;
+				left: calc(50% - 30px);
+				width: 60px;
+				height: 60px;
+				background: #2ecc71;
+				border-radius: 50%;
+				z-index: 10;
+				color: #fff;
+				text-align: center;
+			}
+			.check-mark.alert {
+				background: #ee3333;
+			}
+			.check-mark i {
+				line-height: 62px;
+			}
+			h1 {
+				color: #1a1a1a;
+				font-size: 22px;
+				font-weight: 400;
+				margin-top: 0;
+				margin-bottom: 20px;
+			}
+			p {
+				color: #1a1a1a;
+				margin-bottom: 25px;
+			}
+			a {
+				color: #00aaf0;
+				text-decoration: none;
+				border-bottom: 1px dashed;
+			}
+			a.btn {
+				border: none;
+				border-radius: 3px;
+				transition: all .3s ease;
+				cursor: pointer;
+				background: #2ecc71;
+				color: #fff;
+				display: block;
+				padding: 10px 0;
+				width: 100%;
+			}
+			a.btn.alert {
+				background: #ee3333;
+			}
+			a.btn.alert:hover {
+				background: #aa0000;
+			}
+		</style>
+		
+		<?php if (isset($next_page, $next_page['redirect']) && $next_page['redirect']) : ?>
+			<link rel="canonical" href="<?php echo $next_page['url']; ?>" />
+
+			<noscript>
+				<meta http-equiv="refresh" content="<?php echo $next_page['delay']; ?>;URL=<?php echo $next_page['url']; ?>">
+			</noscript>
+
+			<!--[if lt IE 9]><script type="text/javascript">var ie_fix=true;</script><![endif]-->
+			<script type="text/javascript">
+				var url = '<?php echo $next_page['url']; ?>';
+				var delay = <?php echo $next_page['delay'] * 1000; ?>;
+
+				function redirect() {
+					if (typeof ie_fix !== 'undefined' && ie_fix !== null) {
+						// IE8 and lower fix to pass the http referer
+						var referer_link = document.createElement('a');
+						referer_link.href = url;
+						document.body.appendChild(referer_link);
+						referer_link.click();
+					}
+					else {
+						// All other browsers
+						window.location.replace(url);
+					}
+				}
+
+				window.onload = function () {
+					setTimeout(redirect, delay);
+				}
+			</script>
+		<?php endif; ?>
+	</head>
+	<body>
+		<?php
+			if (ENVIRONMENT === 'production')
+			{
+				$gtm_key = 'GTM-M5C2ML';
+				$stripe_key = 'pk_live_yNP51WBNdbFB6JD2NVC3bNer';
+			}
+			elseif (ENVIRONMENT === 'staging')
+			{
+				$gtm_key = 'GTM-W7P855';
+				$stripe_key = 'pk_test_NrbzidguNRW4mBxUWV0OvIP2';
+			}
+			else
+			{
+				$gtm_key = FALSE;
+				$stripe_key = 'pk_test_NrbzidguNRW4mBxUWV0OvIP2';
+			}
+		?>
+
+		<?php if ($gtm_key) : ?>
+			<!-- Google Tag Manager -->
+			<noscript>
+				<iframe src="//www.googletagmanager.com/ns.html?id=<?php echo $gtm_key; ?>" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+			</noscript>
+			<script>
+				(function (w, d, s, l, i) {
+					w[l] = w[l] || [];
+					w[l].push({'gtm.start':
+								new Date().getTime(), event: 'gtm.js'});
+					var f = d.getElementsByTagName(s)[0],
+							j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+					j.async = true;
+					j.src =
+							'//www.googletagmanager.com/gtm.js?id=' + i + dl;
+					f.parentNode.insertBefore(j, f);
+				})(window, document, 'script', 'dataLayer', '<?php echo $gtm_key; ?>');
+			</script>
+			<!-- End Google Tag Manager -->
+		<?php endif; ?>
+		
+		<?php if ($stripe_key) : ?>
+			<script> var $stripe_key = '<?php echo $stripe_key; ?>';</script>
+		<?php endif; ?>
+
+		<div class="popup">
+			<?php
+				if ($status === 'failure')
+				{
+					$failure_class = 'minus';
+					$failure_color = ' alert';
+					$autoclose = FALSE;
+				}
+				else
+				{
+					$failure_class = 'check';
+					$failure_color = '';
+					$autoclose = TRUE;
+				}
+			?>
+
+			<div class="check-mark<?php echo $failure_color; ?>">
+				<i class="fa fa-<?php echo $failure_class; ?> fa-2x"></i>
+			</div>
+
+			<?php if ($type === 'custom') : ?>
+				<h1><?php echo $title; ?></h1>
+				<p><?php echo $msg; ?></p>
+			<?php else : ?>
+				<h1><?php echo ucfirst($status); ?></h1>
+				<?php if ($process === 'signin') : ?>
+					<?php if ($status === 'success') : ?>
+						<p>You have successfully signed in with your <?php echo ucfirst($type); ?> account</p>
+					<?php elseif ($status === 'failure') : ?>
+						<p>Sorry, you can't sign in with this <?php echo ucfirst($type); ?> account</p>
+					<?php endif; ?>
+				<?php elseif ($process === 'signup') : ?>
+					<?php if ($status === 'success') : ?>
+						<p>You have successfully signed up with your <?php echo ucfirst($type); ?> account</p>
+					<?php elseif ($status === 'failure') : ?>
+						<p>Sorry, but <?php echo ucfirst($type); ?> account you want to apply uses email address, that we already have in our database. Try to login directly through this email address.</p>
+					<?php endif; ?>
+				<?php elseif ($process === 'integration') : ?>
+					<?php if ($status === 'success') : ?>
+						<p>You have successfully integrated your <?php echo ucfirst($type); ?> account</p>
+					<?php elseif ($status === 'failure') : ?>
+						<p>Sorry, but this <?php echo ucfirst($type); ?> account was already integrated for another user on our system.</p>
+					<?php endif; ?>
+				<?php endif; ?>
+
+				<?php if ($status === 'success') : ?>
+					<!-- <br> -->
+					<!-- <p>Welcome to Cliently!</p> -->
+				<?php endif; ?>
+			<?php endif; ?>
+
+			<?php if ($is_popup) : ?>
+				<a onclick="close_itself(0);" class="btn <?php echo $failure_color; ?>">OK</a>
+			<?php elseif (isset($next_page, $next_page['name'])) : ?>
+				<a href="<?php echo $next_page['url']; ?>" class="<?php echo $failure_color; ?>"><?php echo $next_page['name']; ?></a>
+			<?php endif; ?>
+		</div>
+
+		<?php if ($is_popup) : ?>
+			<script type="text/javascript">
+				function close_itself(time) {
+					setTimeout(function() {
+						var win = window.open("about:blank", "_self");
+						win.close();
+					}, time);
+				}
+				<?php if ($autoclose) : ?>
+					close_itself(3000);
+				<?php endif; ?>
+			</script>
+		<?php endif; ?>
+<?php if (ENVIRONMENT === 'production') : ?>
+<script>
+	<?php if ($usertrack['segment']) : ?>
+		window.onload = function() {
+			window.segment_user = <?php echo $usertrack['segment']['userId']; ?>;
+			window.segment_traits = <?php echo json_encode($usertrack['segment']['traits']); ?>;
+			window.analytics.identify(window.segment_user, window.segment_traits);
+		};
+	<?php endif; ?>
+</script>
+<?php endif; ?>
+	</body>
+</html>

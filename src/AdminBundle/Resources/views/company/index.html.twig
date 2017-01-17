@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Company list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Addressline1</th>
+                <th>Addressline2</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>Country</th>
+                <th>Coords</th>
+                <th>Googlelocation</th>
+                <th>Foundationyear</th>
+                <th>Phone</th>
+                <th>Website</th>
+                <th>Description</th>
+                <th>Logo</th>
+                <th>Ownerid</th>
+                <th>Workspaceid</th>
+                <th>Sourceid</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for company in companies %}
+            <tr>
+                <td><a href="{{ path('company_show', { 'id': company.id }) }}">{{ company.id }}</a></td>
+                <td>{{ company.name }}</td>
+                <td>{{ company.addressLine1 }}</td>
+                <td>{{ company.addressLine2 }}</td>
+                <td>{{ company.city }}</td>
+                <td>{{ company.state }}</td>
+                <td>{{ company.zip }}</td>
+                <td>{{ company.country }}</td>
+                <td>{{ company.coords }}</td>
+                <td>{{ company.googleLocation }}</td>
+                <td>{{ company.foundationYear }}</td>
+                <td>{{ company.phone }}</td>
+                <td>{{ company.website }}</td>
+                <td>{{ company.description }}</td>
+                <td>{{ company.logo }}</td>
+                <td>{{ company.ownerId }}</td>
+                <td>{{ company.workspaceId }}</td>
+                <td>{{ company.sourceId }}</td>
+                <td>{{ company.isEnabled }}</td>
+                <td>{{ company.createdAt }}</td>
+                <td>{{ company.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('company_show', { 'id': company.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('company_edit', { 'id': company.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('company_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

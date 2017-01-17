@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Plan list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Class</th>
+                <th>Name</th>
+                <th>Subscriptionid</th>
+                <th>Period</th>
+                <th>Price</th>
+                <th>Isenabled</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for plan in plans %}
+            <tr>
+                <td><a href="{{ path('plan_show', { 'id': plan.id }) }}">{{ plan.id }}</a></td>
+                <td>{{ plan.class }}</td>
+                <td>{{ plan.name }}</td>
+                <td>{{ plan.subscriptionId }}</td>
+                <td>{{ plan.period }}</td>
+                <td>{{ plan.price }}</td>
+                <td>{{ plan.isEnabled }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('plan_show', { 'id': plan.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('plan_edit', { 'id': plan.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('plan_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

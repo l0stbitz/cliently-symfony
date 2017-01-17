@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>WorkspaceMember list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Userid</th>
+                <th>Workspaceid</th>
+                <th>Role</th>
+                <th>Creditbalance</th>
+                <th>Accepteddealcount</th>
+                <th>Extra</th>
+                <th>Ownerid</th>
+                <th>Isconfirmed</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for workspaceMember in workspaceMembers %}
+            <tr>
+                <td><a href="{{ path('workspacemember_show', { 'id': workspaceMember.id }) }}">{{ workspaceMember.id }}</a></td>
+                <td>{{ workspaceMember.userId }}</td>
+                <td>{{ workspaceMember.workspaceId }}</td>
+                <td>{{ workspaceMember.role }}</td>
+                <td>{{ workspaceMember.creditBalance }}</td>
+                <td>{{ workspaceMember.acceptedDealCount }}</td>
+                <td>{{ workspaceMember.extra }}</td>
+                <td>{{ workspaceMember.ownerId }}</td>
+                <td>{% if workspaceMember.isConfirmed %}Yes{% else %}No{% endif %}</td>
+                <td>{{ workspaceMember.isEnabled }}</td>
+                <td>{{ workspaceMember.createdAt }}</td>
+                <td>{{ workspaceMember.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('workspacemember_show', { 'id': workspaceMember.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('workspacemember_edit', { 'id': workspaceMember.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('workspacemember_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

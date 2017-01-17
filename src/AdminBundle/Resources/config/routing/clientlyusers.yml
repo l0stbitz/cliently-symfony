@@ -1,0 +1,24 @@
+clientlyusers_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:ClientlyUsers:index" }
+    methods:  GET
+
+clientlyusers_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:ClientlyUsers:show" }
+    methods:  GET
+
+clientlyusers_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:ClientlyUsers:new" }
+    methods:  [GET, POST]
+
+clientlyusers_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:ClientlyUsers:edit" }
+    methods:  [GET, POST]
+
+clientlyusers_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:ClientlyUsers:delete" }
+    methods:  DELETE

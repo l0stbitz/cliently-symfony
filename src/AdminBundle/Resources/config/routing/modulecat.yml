@@ -1,0 +1,24 @@
+modulecat_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:ModuleCat:index" }
+    methods:  GET
+
+modulecat_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:ModuleCat:show" }
+    methods:  GET
+
+modulecat_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:ModuleCat:new" }
+    methods:  [GET, POST]
+
+modulecat_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:ModuleCat:edit" }
+    methods:  [GET, POST]
+
+modulecat_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:ModuleCat:delete" }
+    methods:  DELETE

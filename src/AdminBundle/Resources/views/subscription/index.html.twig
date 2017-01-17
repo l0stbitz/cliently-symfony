@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Subscription list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Class</th>
+                <th>Name</th>
+                <th>Users</th>
+                <th>Workspacelimit</th>
+                <th>Pipelinelimit</th>
+                <th>Deals</th>
+                <th>Workflows</th>
+                <th>Sources</th>
+                <th>Isenabled</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for subscription in subscriptions %}
+            <tr>
+                <td><a href="{{ path('subscription_show', { 'id': subscription.id }) }}">{{ subscription.id }}</a></td>
+                <td>{{ subscription.class }}</td>
+                <td>{{ subscription.name }}</td>
+                <td>{{ subscription.users }}</td>
+                <td>{{ subscription.workspaceLimit }}</td>
+                <td>{{ subscription.pipelineLimit }}</td>
+                <td>{{ subscription.deals }}</td>
+                <td>{{ subscription.workflows }}</td>
+                <td>{{ subscription.sources }}</td>
+                <td>{{ subscription.isEnabled }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('subscription_show', { 'id': subscription.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('subscription_edit', { 'id': subscription.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('subscription_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

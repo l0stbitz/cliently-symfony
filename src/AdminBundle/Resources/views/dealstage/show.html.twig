@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>DealStage</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ dealStage.id }}</td>
+            </tr>
+            <tr>
+                <th>Dealid</th>
+                <td>{{ dealStage.dealId }}</td>
+            </tr>
+            <tr>
+                <th>Stageid</th>
+                <td>{{ dealStage.stageId }}</td>
+            </tr>
+            <tr>
+                <th>Durationtotal</th>
+                <td>{{ dealStage.durationTotal }}</td>
+            </tr>
+            <tr>
+                <th>Durationlast</th>
+                <td>{{ dealStage.durationLast }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ dealStage.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ dealStage.updatedAt }}</td>
+            </tr>
+            <tr>
+                <th>Accessedat</th>
+                <td>{{ dealStage.accessedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('dealstage_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('dealstage_edit', { 'id': dealStage.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

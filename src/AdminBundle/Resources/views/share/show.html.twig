@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Share</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ share.id }}</td>
+            </tr>
+            <tr>
+                <th>Key</th>
+                <td>{{ share.key }}</td>
+            </tr>
+            <tr>
+                <th>Data</th>
+                <td>{{ share.data }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ share.type }}</td>
+            </tr>
+            <tr>
+                <th>Ownerid</th>
+                <td>{{ share.ownerId }}</td>
+            </tr>
+            <tr>
+                <th>Viewcount</th>
+                <td>{{ share.viewCount }}</td>
+            </tr>
+            <tr>
+                <th>Isenabled</th>
+                <td>{{ share.isEnabled }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ share.createdAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('share_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('share_edit', { 'id': share.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Task list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Ownerid</th>
+                <th>Description</th>
+                <th>Clientid</th>
+                <th>Dealid</th>
+                <th>Type</th>
+                <th>Iscompleted</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Dueat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+            <tr>
+                <td><a href="{{ path('task_show', { 'id': task.id }) }}">{{ task.id }}</a></td>
+                <td>{{ task.name }}</td>
+                <td>{{ task.ownerId }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.clientId }}</td>
+                <td>{{ task.dealId }}</td>
+                <td>{{ task.type }}</td>
+                <td>{{ task.isCompleted }}</td>
+                <td>{{ task.createdAt }}</td>
+                <td>{{ task.updatedAt }}</td>
+                <td>{{ task.dueAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('task_show', { 'id': task.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('task_edit', { 'id': task.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('task_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

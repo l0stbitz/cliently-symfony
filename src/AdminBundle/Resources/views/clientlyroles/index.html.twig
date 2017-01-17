@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ClientlyRoles list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Rolesid</th>
+                <th>Rolesname</th>
+                <th>Isactive</th>
+                <th>Isdelete</th>
+                <th>Createddate</th>
+                <th>Modifieddate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for clientlyRole in clientlyRoles %}
+            <tr>
+                <td><a href="{{ path('clientlyroles_show', { 'id': clientlyRole.rolesId }) }}">{{ clientlyRole.rolesId }}</a></td>
+                <td>{{ clientlyRole.rolesName }}</td>
+                <td>{% if clientlyRole.isActive %}Yes{% else %}No{% endif %}</td>
+                <td>{% if clientlyRole.isDelete %}Yes{% else %}No{% endif %}</td>
+                <td>{% if clientlyRole.createdDate %}{{ clientlyRole.createdDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if clientlyRole.modifiedDate %}{{ clientlyRole.modifiedDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('clientlyroles_show', { 'id': clientlyRole.rolesId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('clientlyroles_edit', { 'id': clientlyRole.rolesId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clientlyroles_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

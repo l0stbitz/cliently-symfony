@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ModuleProcess list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for moduleProcess in moduleProcesses %}
+            <tr>
+                <td><a href="{{ path('moduleprocess_show', { 'id': moduleProcess.id }) }}">{{ moduleProcess.id }}</a></td>
+                <td>{{ moduleProcess.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('moduleprocess_show', { 'id': moduleProcess.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('moduleprocess_edit', { 'id': moduleProcess.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('moduleprocess_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

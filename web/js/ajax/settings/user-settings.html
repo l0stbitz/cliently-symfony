@@ -1,0 +1,257 @@
+<div id="settings">
+    <form id="settings-form">
+        <div class="row">
+            <div class="header col-md-12">
+                <h1>Settings</h1>
+                <p class="sub-header">Change settings of your account.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <!--form id="form_dashboard_contractor_profile_logo"-->
+                    <label>Company logo</label>
+                    <div class="company-logo-uploader">
+                        <img alt="person" class="img-responsive" src="/images/company-gray.png">
+                    </div>
+                    <!--/form-->
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <!--form id="form_dashboard_contractor_profile_logo"-->
+                    <label>Avatar</label>
+                    <div class="upload-photo-container">
+                        <img alt="person" class="img-responsive" src="/images/profile-blank.png">
+                        <input class="_choose-btn upload-photo" id="user-profile-image-uploader" type="button">
+                    </div>
+                    <!--/form-->
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="s-company">Company/Organization</label>
+                    <input type="text" class="form-control" id="s-company" name="company_name">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="s-name">First Name</label>
+                    <input type="text" class="form-control" id="s-name" name="first_name">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="s-name">Last Name</label>
+                    <input type="text" class="form-control" id="s-name" name="last_name">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="s-email">Email Address</label>
+                    <input type="email" class="form-control" id="s-email" name="email">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="s-phone">Phone</label>
+                    <input type="text" class="form-control" id="s-phone" name="phone">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="s-password">Password</label>
+                    <input type="password" class="form-control" id="s-password" name="password">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="s-password-repeat">Repeat Password</label>
+                    <input type="password" class="form-control" id="s-password-repeat">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-5">
+                <button class="save btn-blue">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var user_id = null;
+    $("#settings settings-form").validate();
+    $("#settings .save").html('<i class="fa fa-spin fa-spinner"></i> Loading...').attr('disabled', true);
+
+    $(".company-logo-uploader img").error(function () {
+        this.src = '/images/company-gray.png';
+    });
+    $.getJSON('/api/v1/users/me', function (data) {
+        if (data) {
+            user_id = data.id;
+            $('input[name="company_name"]').val(data.company_name);
+            $('input[name="first_name"]').val(data.first_name);
+            $('input[name="last_name"]').val(data.last_name);
+            $('input[name="email"]').val(data.email);
+            $('input[name="phone"]').val(data.phone);
+
+            if (data.avatar) {
+                $(".upload-photo-container img").attr('src', '/uploads/users/avatars/' + data.avatar + '_200x200.jpg'); //.effect("highlight");
+            } else if (data.integration_avatar) {
+                if (data.integration_type == 2) {
+                    $(".upload-photo-container img").attr('src', '//' + data.integration_avatar.replace(/normal/, '200x200')); //.effect("highlight");
+                } else if (data.integration_type == 3) {
+                    $(".upload-photo-container img").attr('src', '//' + data.integration_avatar + '?sz=200'); //.effect("highlight");
+                }
+            } else {
+                $(".upload-photo-container img").attr('src', '/images/profile-blank.png'); //.effect("highlight");
+            }
+            $("#user-profile-image").attr('src', $(".upload-photo-container img").attr('src'));
+            if (data.company_logo) {
+                $(".company-logo-uploader img").attr('src', '/uploads/users/company_logos/' + data.company_logo + '_200x200.jpg');
+            }
+        }
+        $("#settings .save").attr('disabled', false).html('<i class="fa fa-save"></i> Save');
+    });
+    $("#settings #settings-form").submit(function () {
+        var company = $('input[name="company_name"]').val();
+        var first_name = $('input[name="first_name"]').val();
+        var last_name = $('input[name="last_name"]').val();
+        var email = $('input[name="email"]').val();
+        var phone = $('input[name="phone"]').val();
+
+//        if (company == "") {
+//            validateForm('input[name="company_name"]');
+//            return false;
+//        }
+        if (first_name == "") {
+            validateForm('input[name="first_name"]');
+            return false;
+        }
+        if (last_name == "") {
+            validateForm('input[name="last_name"]');
+            return false;
+        }
+        if (email == "") {
+            validateForm('input[name="email"]');
+            return false;
+        }
+//        if (phone == "") {
+//            validateForm('input[name="phone"]');
+//            return false;
+//        }
+
+        var password = $('input[name="password"]').val();
+        if (password != $("#s-password-repeat").val()) {
+            ShowErrorMessage("Error!!!", "The password does not match with confirm password.");
+            return false;
+        }
+
+        var isEmailAlreadyExisting = false;
+        $.ajax({
+            url: '/api/v1/validations/email/availability?q=' + email,
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                if (!data.success) {
+                    isEmailAlreadyExisting = true;
+                }
+            }
+        });
+
+        if (isEmailAlreadyExisting) {
+            showErrorMessage('Account Settings', 'Email account already exists, please use a different one.');
+            return false;
+        }
+        var info = {
+            company_name: company,
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            phone: phone
+        };
+
+        if (password != '') {
+            info.password = password;
+        }
+
+        $("#settings .save").attr('disabled', true).html('<i class="fa fa-spin fa-spinner"></i> Saving ...');
+        $.ajax({
+            url: '/api/v1/users/me',
+            method: 'PUT',
+            data: info,
+            success: function () {
+                showSuccessMessage("Success", "The account information has been saved successfully.");
+                $("#settings .save").attr('disabled', false).html('<i class="fa fa-save"></i> Save');
+            }
+        });
+
+        return false;
+    });
+
+    var companyLogoUploader = new ss.SimpleUpload({
+        button: $(".company-logo-uploader img"), // file upload button
+        data: {type: 'user_company_logo'},
+        onComplete: function (filename, response) {
+            if (response.success === true) {
+                showSuccessMessage("Success", "The company logo has been updated successfully.");
+                $(".company-logo-uploader img").attr('src', '/uploads/users/company_logos/' + response.id + '_200x200.jpg');
+                $.ajax({
+                    url: '/api/v1/users/me',
+                    method: 'PUT',
+                    data: {company_logo: response.id}
+                });
+            } else {
+                if (response.msg) {
+                    ShowErrorMessage("Error!!!", response.msg);
+                } else {
+                    ShowErrorMessage("Error!!!", "Unable to upload file");
+                }
+            }
+        }
+    });
+    var avatarUploader = new ss.SimpleUpload({
+        button: 'user-profile-image-uploader', // file upload button
+        data: {type: 'user_avatar'},
+        onComplete: function (filename, response) {
+            if (response.success === true) {
+                showSuccessMessage("Success", "The avatar has been updated successfully.");
+                $(".upload-photo-container img").attr('src', '/uploads/users/avatars/' + response.id + '_200x200.jpg'); //.effect("highlight");
+                $("#user-profile-image").attr('src', $(".upload-photo-container img").attr('src'));
+                $.ajax({
+                    url: '/api/v1/users/me',
+                    method: 'PUT',
+                    data: {avatar: response.id}
+                });
+            } else {
+                if (response.msg) {
+                    ShowErrorMessage("Error!!!", response.msg);
+                } else {
+                    ShowErrorMessage("Error!!!", "Unable to upload file");
+                }
+            }
+        }
+    });
+    //
+</script>

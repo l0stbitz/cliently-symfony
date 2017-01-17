@@ -1,0 +1,24 @@
+deallog_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:DealLog:index" }
+    methods:  GET
+
+deallog_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:DealLog:show" }
+    methods:  GET
+
+deallog_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:DealLog:new" }
+    methods:  [GET, POST]
+
+deallog_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:DealLog:edit" }
+    methods:  [GET, POST]
+
+deallog_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:DealLog:delete" }
+    methods:  DELETE

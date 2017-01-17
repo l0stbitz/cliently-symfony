@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Industry list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Parentid</th>
+                <th>Islast</th>
+                <th>Workflows</th>
+                <th>Isenabled</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for industry in industries %}
+            <tr>
+                <td><a href="{{ path('industry_show', { 'id': industry.id }) }}">{{ industry.id }}</a></td>
+                <td>{{ industry.name }}</td>
+                <td>{{ industry.parentId }}</td>
+                <td>{{ industry.isLast }}</td>
+                <td>{{ industry.workflows }}</td>
+                <td>{{ industry.isEnabled }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('industry_show', { 'id': industry.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('industry_edit', { 'id': industry.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('industry_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

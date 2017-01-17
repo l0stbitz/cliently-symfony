@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Deal list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Sourcedescription</th>
+                <th>Value</th>
+                <th>Isenabled</th>
+                <th>Initialclientid</th>
+                <th>Workflowid</th>
+                <th>Stageid</th>
+                <th>Taskid</th>
+                <th>Actionid</th>
+                <th>Actionvalues</th>
+                <th>Ownerid</th>
+                <th>Sourceid</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Accessedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for deal in deals %}
+            <tr>
+                <td><a href="{{ path('deal_show', { 'id': deal.id }) }}">{{ deal.id }}</a></td>
+                <td>{{ deal.name }}</td>
+                <td>{{ deal.description }}</td>
+                <td>{{ deal.sourceDescription }}</td>
+                <td>{{ deal.value }}</td>
+                <td>{{ deal.isEnabled }}</td>
+                <td>{{ deal.initialClientId }}</td>
+                <td>{{ deal.workflowId }}</td>
+                <td>{{ deal.stageId }}</td>
+                <td>{{ deal.taskId }}</td>
+                <td>{{ deal.actionId }}</td>
+                <td>{{ deal.actionValues }}</td>
+                <td>{{ deal.ownerId }}</td>
+                <td>{{ deal.sourceId }}</td>
+                <td>{{ deal.createdAt }}</td>
+                <td>{{ deal.updatedAt }}</td>
+                <td>{{ deal.accessedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('deal_show', { 'id': deal.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('deal_edit', { 'id': deal.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('deal_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

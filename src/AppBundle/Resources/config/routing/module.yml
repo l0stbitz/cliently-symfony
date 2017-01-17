@@ -1,0 +1,24 @@
+module_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Module:index" }
+    methods:  GET
+
+module_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Module:show" }
+    methods:  GET
+
+module_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Module:new" }
+    methods:  [GET, POST]
+
+module_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Module:edit" }
+    methods:  [GET, POST]
+
+module_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Module:delete" }
+    methods:  DELETE

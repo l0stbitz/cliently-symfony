@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>WorkflowDefault list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ownerid</th>
+                <th>Name</th>
+                <th>Stoponrespond</th>
+                <th>Position</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for workflowDefault in workflowDefaults %}
+            <tr>
+                <td><a href="{{ path('workflowdefault_show', { 'id': workflowDefault.id }) }}">{{ workflowDefault.id }}</a></td>
+                <td>{{ workflowDefault.ownerId }}</td>
+                <td>{{ workflowDefault.name }}</td>
+                <td>{{ workflowDefault.stopOnRespond }}</td>
+                <td>{{ workflowDefault.position }}</td>
+                <td>{{ workflowDefault.isEnabled }}</td>
+                <td>{{ workflowDefault.createdAt }}</td>
+                <td>{{ workflowDefault.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('workflowdefault_show', { 'id': workflowDefault.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('workflowdefault_edit', { 'id': workflowDefault.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('workflowdefault_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

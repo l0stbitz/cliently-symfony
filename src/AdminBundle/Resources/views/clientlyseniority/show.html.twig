@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ClientlySeniority</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Seniorityid</th>
+                <td>{{ clientlySeniority.seniorityId }}</td>
+            </tr>
+            <tr>
+                <th>Seniorityname</th>
+                <td>{{ clientlySeniority.seniorityName }}</td>
+            </tr>
+            <tr>
+                <th>Isactive</th>
+                <td>{% if clientlySeniority.isActive %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Isdelete</th>
+                <td>{% if clientlySeniority.isDelete %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Createddate</th>
+                <td>{% if clientlySeniority.createdDate %}{{ clientlySeniority.createdDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Modifieddate</th>
+                <td>{% if clientlySeniority.modifiedDate %}{{ clientlySeniority.modifiedDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clientlyseniority_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('clientlyseniority_edit', { 'id': clientlySeniority.seniorityId }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

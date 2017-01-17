@@ -1,0 +1,66 @@
+workspace_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Workspace:index" }
+    methods:  GET
+
+workspace_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Workspace:show" }
+    methods:  GET
+
+workspace_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Workspace:new" }
+    methods:  [GET, POST]
+
+workspace_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Workspace:edit" }
+    methods:  [GET, POST]
+
+workspace_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Workspace:delete" }
+    methods:  DELETE
+    
+#------
+    
+api_workspace_get:
+    path:     /{id}
+    defaults: { _controller: "AppBundle:API/Workspace:show" }
+    methods:  [GET, PUT] 
+    
+api_workspace_deals_export:
+    path:     /{id}/deals/export
+    defaults: { _controller: "AppBundle:API/Workspace:exportDeals" }
+    methods:  GET     
+    
+api_workspace_leads:
+    path:     /{id}/leads
+    defaults: { _controller: "AppBundle:API/Workspace:leads" }
+    methods:  GET 
+     
+api_workspace_leads_discover:
+    path:     /{id}/leads/discover
+    defaults: { _controller: "AppBundle:API/Workspace:leadsDiscover" }
+    methods:  GET     
+    
+api_workspace_members:
+    path:     /{id}/workspace_members
+    defaults: { _controller: "AppBundle:API/WorkspaceMember:index" }
+    methods:  [GET, POST]
+    
+api_workspace_pipelines:
+    path:     /{id}/pipelines
+    defaults: { _controller: "AppBundle:API/Pipeline:index" }
+    methods:  [GET, POST]   
+    
+api_workspace_workflows:
+    path:     /{id}/workflows
+    defaults: { _controller: "AppBundle:API/Workflow:index" }
+    methods:  [GET, POST]      
+    
+api_workspace_leads_new:
+    path:     /{id}/leads/info/new
+    defaults: { _controller: "AppBundle:API/Lead:index" }
+    methods:  [GET, POST]        

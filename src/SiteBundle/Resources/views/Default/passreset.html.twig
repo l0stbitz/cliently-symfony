@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Clients</title>
+    <?php $this->load->view('parts/icons.html'); ?>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/old_css/jquery-ui.css">
+    <link rel="stylesheet" href="/old_css/style.css">
+    <script src="/old_js/jquery-1.11.3.min.js"></script>
+    <script src="/old_js/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="/old_js/main_old.js"></script>
+    <script src="/old_js/app.js"></script>
+  </head>
+  <body>
+    <div class="page">
+      <nav class="sidebar">
+        <a class="link--logo" href="#">
+        	<span class="icon icon--logo s-center-abs"></span>
+        </a>
+        <a class="link--sidebar active" href="#">
+        	<span class="icon icon--speed s-center-abs"></span>
+        	<span class="icon icon--speed-active s-center-abs"></span>
+        </a>
+        <a class="link--sidebar" href="#">
+        	<span class="icon icon--workflow s-center-abs"></span>
+        	<span class="icon icon--workflow-active s-center-abs"></span>
+        </a>
+        <a class="link--sidebar" href="#">
+        	<span class="icon icon--calendar s-center-abs"></span>
+        	<span class="icon icon--calendar-active s-center-abs"></span>
+        </a>
+        
+      </nav>
+      <div class="content">
+        <header class="header">
+          <div class="panel panel--header">
+          	<form class="form form--search" action="#">
+          		<input id="search" class="input input--search" type="text" placeholder="Search...">
+          		<button class="btn btn--search" type="submit">
+          			<span class="icon icon--search"></span>
+          		</button>
+          	</form>
+          	<div class="notification-hold">
+          		<a class="notification link" href="#">
+          			<span class="icon icon--bell"></span>
+          			<span class="indicator">2</span>
+          		</a>
+          	</div>
+          	<div class="avatar-hold">
+          		<a class="avatar link" href="#">
+          			<img class="avatar-img" src="img/ava.png" alt="Avatar">
+          		</a>
+          	</div>
+          </div>
+          
+        </header>
+        <main class="main">
+          <form id="form_passreset" method="post" class="x-panel">
+            <div>
+              <label><span>Email </span>
+                <input name="email" type="email" required>
+              </label>
+            </div>
+            <div class="_messages">
+              <div data-alert class="_passreset-fail-values alert-box alert radius hide"><span>Make sure that all input values are valid.</span></div>
+              <div data-alert class="_passreset-fail-notexists alert-box alert radius hide"><span>User with such email address doesn't exist.</span></div>
+              <div data-alert class="_passreset-success alert-box success radius hide"><span>Password reset request was successfully submited.</span></div>
+            </div>
+            <button type="submit" class="x-btn">Send Request</button>
+          </form>
+          <div class="panel callout radius">
+            <p>Already have an account? <a href="/sign-in">Sign In</a>!</p>
+            <p>New user? Click <a href="/sign-up">here</a> to Sign Up!</p>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

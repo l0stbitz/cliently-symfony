@@ -1,0 +1,24 @@
+lead_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Lead:index" }
+    methods:  GET
+
+lead_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Lead:show" }
+    methods:  GET
+
+lead_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Lead:new" }
+    methods:  [GET, POST]
+
+lead_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Lead:edit" }
+    methods:  [GET, POST]
+
+lead_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Lead:delete" }
+    methods:  DELETE

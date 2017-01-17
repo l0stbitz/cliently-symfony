@@ -1,0 +1,91 @@
+#-----
+
+api_ui:
+        resource: "@AppBundle/Resources/config/routing/ui.yml"
+        prefix:   /ui
+        
+api_stages:
+        resource: "@AppBundle/Resources/config/routing/stage.yml"
+        prefix:   /stages          
+        
+api_users:
+        resource: "@AppBundle/Resources/config/routing/user.yml"
+        prefix:   /users  
+        
+api_workspaces:
+        resource: "@AppBundle/Resources/config/routing/workspace.yml"
+        prefix:   /workspaces   
+        
+api_workspacemembers:
+        resource: "@AppBundle/Resources/config/routing/workspacemember.yml"
+        prefix:   /workspace_members 
+        
+api_clients:
+        resource: "@AppBundle/Resources/config/routing/client.yml"
+        prefix:   /clients        
+        
+api_accounts:
+        resource: "@AppBundle/Resources/config/routing/account.yml"
+        prefix:   /accounts  
+        
+api_pipelines:
+        resource: "@AppBundle/Resources/config/routing/pipeline.yml"
+        prefix:   /pipelines   
+        
+api_deals:
+        resource: "@AppBundle/Resources/config/routing/deal.yml"
+        prefix:   /deals  
+        
+api_tasks:
+        resource: "@AppBundle/Resources/config/routing/task.yml"
+        prefix:   /tasks  
+ 
+api_notes:
+        resource: "@AppBundle/Resources/config/routing/note.yml"
+        prefix:   /notes
+        
+api_industries:
+        resource: "@AppBundle/Resources/config/routing/industry.yml"
+        prefix:   /industries
+        
+api_integrations:
+        resource: "@AppBundle/Resources/config/routing/integration.yml"
+        prefix:   /integrations 
+        
+api_subscriptions:
+        resource: "@AppBundle/Resources/config/routing/subscription.yml"
+        prefix:   /subscriptions    
+        
+api_workflows:
+        resource: "@AppBundle/Resources/config/routing/workflow.yml"
+        prefix:   /workflows        
+           
+api_user_email_validate:
+    path:     /validations/email/availability
+    defaults: { _controller: "AppBundle:API/User:emailValidate" }
+    methods:  GET    
+    
+api_integration_google:
+    path:     /integrations/google
+    defaults: { _controller: "AppBundle:API/Integration:google" }
+    methods:  [GET, PUT]    
+    
+api_integration_twitter:
+    path:     /integrations/twitter
+    defaults: { _controller: "AppBundle:API/Integration:twitter" }
+    methods:  [GET, PUT]   
+    
+api_integration_slack:
+    path:     /integrations/slack
+    defaults: { _controller: "AppBundle:API/Integration:slack" }
+    methods:  [GET, PUT]    
+    
+api_integration_slack_connect:
+    path:     /integrations/slack/connect
+    defaults: { _controller: "AppBundle:API/Integration:slack" }
+    methods:  GET
+    
+api_integration_imap:
+    path:     /integrations/imap
+    defaults: { _controller: "AppBundle:API/Integration:imap" }
+    methods:  [GET, PUT]     

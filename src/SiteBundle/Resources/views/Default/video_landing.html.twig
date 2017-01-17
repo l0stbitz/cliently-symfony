@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Video Message - <?php echo $data['email']; ?></title>
+	<?php $this->load->view('parts/icons.html'); ?>
+	<link href="/css/video_landing.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body>
+	<div class="header">
+		<!-- <a href="#"><img src="/images/logo.png" /></a> -->
+		<?php if ($user['company_logo']) : ?>
+			<a><img src="/uploads/users/company_logos/<?php echo $user['company_logo']; ?>_normal.jpg" /></a>
+		<?php endif; ?>
+	</div>
+	<div class="message">
+		<strong>Subject: <?php echo $data['title']; ?></strong>
+		<div><?php echo $data['msg']; ?></div>
+<!-- 		Hi Steve,
+		<br />
+		Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas
+		humanitatis per seacula quarta decima et quinta decima.
+		Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.
+		<br /><br />
+		
+		Best,<br />
+		Spencer -->
+	</div>
+	<div class="video-wrapper">
+		<!-- <video controls src="/intro.mp4"></video> -->
+		<?php
+			$s3_upload_path = 'https://cliently-public.s3.amazonaws.com';
+			if (is_string($data['video']) && mb_substr($data['video'], 0, mb_strlen($s3_upload_path)) === $s3_upload_path) : ?>
+				<video controls src="<?php echo $data['video']; ?>"></video>
+			<?php else : ?>
+				<video controls src="/uploads/actions/videos/<?php echo $data['video']; ?>.mp4"></video>
+			<?php endif; ?>
+	</div>
+	<div class="footer"><?php echo $data['email']; ?><?php echo $user['phone'] ? ' | ' . $user['phone'] : ''; ?></div>
+	</body>
+</html>

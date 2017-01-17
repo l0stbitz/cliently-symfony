@@ -1,0 +1,24 @@
+userlog_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:UserLog:index" }
+    methods:  GET
+
+userlog_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:UserLog:show" }
+    methods:  GET
+
+userlog_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:UserLog:new" }
+    methods:  [GET, POST]
+
+userlog_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:UserLog:edit" }
+    methods:  [GET, POST]
+
+userlog_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:UserLog:delete" }
+    methods:  DELETE

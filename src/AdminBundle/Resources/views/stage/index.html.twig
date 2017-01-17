@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Stage list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Value</th>
+                <th>Pipelineid</th>
+                <th>Ownerid</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for stage in stages %}
+            <tr>
+                <td><a href="{{ path('stage_show', { 'id': stage.id }) }}">{{ stage.id }}</a></td>
+                <td>{{ stage.name }}</td>
+                <td>{{ stage.position }}</td>
+                <td>{{ stage.value }}</td>
+                <td>{{ stage.pipelineId }}</td>
+                <td>{{ stage.ownerId }}</td>
+                <td>{{ stage.isEnabled }}</td>
+                <td>{{ stage.createdAt }}</td>
+                <td>{{ stage.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('stage_show', { 'id': stage.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('stage_edit', { 'id': stage.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('stage_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

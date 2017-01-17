@@ -1,0 +1,51 @@
+workspace_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:Workspace:index" }
+    methods:  GET
+
+workspace_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:Workspace:show" }
+    methods:  GET
+
+workspace_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:Workspace:new" }
+    methods:  [GET, POST]
+
+workspace_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:Workspace:edit" }
+    methods:  [GET, POST]
+
+workspace_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:Workspace:delete" }
+    methods:  DELETE
+    
+#------
+    
+workspace_get:
+    path:     /{id}
+    defaults: { _controller: "AdminBundle:API/Workspace:show" }
+    methods:  GET 
+    
+workspace_members:
+    path:     /{id}/workspace_members
+    defaults: { _controller: "AdminBundle:API/WorkspaceMember:index" }
+    methods:  [GET, POST]
+    
+workspace_pipelines:
+    path:     /{id}/pipelines
+    defaults: { _controller: "AdminBundle:API/Pipeline:index" }
+    methods:  [GET, POST]   
+    
+workspace_workflows:
+    path:     /{id}/workflows
+    defaults: { _controller: "AdminBundle:API/Workflow:index" }
+    methods:  [GET, POST]      
+    
+workspace_leads_new:
+    path:     /{id}/leads/info/new
+    defaults: { _controller: "AdminBundle:API/Lead:index" }
+    methods:  [GET, POST]        

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>DealWorkflow list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ownerid</th>
+                <th>Clientid</th>
+                <th>Dealid</th>
+                <th>Workflowid</th>
+                <th>Name</th>
+                <th>Stoponrespond</th>
+                <th>Isactive</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for dealWorkflow in dealWorkflows %}
+            <tr>
+                <td><a href="{{ path('dealworkflow_show', { 'id': dealWorkflow.id }) }}">{{ dealWorkflow.id }}</a></td>
+                <td>{{ dealWorkflow.ownerId }}</td>
+                <td>{{ dealWorkflow.clientId }}</td>
+                <td>{{ dealWorkflow.dealId }}</td>
+                <td>{{ dealWorkflow.workflowId }}</td>
+                <td>{{ dealWorkflow.name }}</td>
+                <td>{{ dealWorkflow.stopOnRespond }}</td>
+                <td>{{ dealWorkflow.isActive }}</td>
+                <td>{{ dealWorkflow.isEnabled }}</td>
+                <td>{{ dealWorkflow.createdAt }}</td>
+                <td>{{ dealWorkflow.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('dealworkflow_show', { 'id': dealWorkflow.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('dealworkflow_edit', { 'id': dealWorkflow.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('dealworkflow_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

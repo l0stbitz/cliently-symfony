@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>StageDefault list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Value</th>
+                <th>Pipelineid</th>
+                <th>Ownerid</th>
+                <th>Isenabled</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for stageDefault in stageDefaults %}
+            <tr>
+                <td><a href="{{ path('stagedefault_show', { 'id': stageDefault.id }) }}">{{ stageDefault.id }}</a></td>
+                <td>{{ stageDefault.name }}</td>
+                <td>{{ stageDefault.position }}</td>
+                <td>{{ stageDefault.value }}</td>
+                <td>{{ stageDefault.pipelineId }}</td>
+                <td>{{ stageDefault.ownerId }}</td>
+                <td>{{ stageDefault.isEnabled }}</td>
+                <td>{{ stageDefault.createdAt }}</td>
+                <td>{{ stageDefault.updatedAt }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('stagedefault_show', { 'id': stageDefault.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('stagedefault_edit', { 'id': stageDefault.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('stagedefault_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

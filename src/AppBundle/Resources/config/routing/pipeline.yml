@@ -1,0 +1,47 @@
+pipeline_index:
+    path:     /
+    defaults: { _controller: "AppBundle:Pipeline:index" }
+    methods:  GET
+
+pipeline_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Pipeline:show" }
+    methods:  GET
+
+pipeline_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Pipeline:new" }
+    methods:  [GET, POST]
+
+pipeline_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Pipeline:edit" }
+    methods:  [GET, POST]
+
+pipeline_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Pipeline:delete" }
+    methods:  DELETE
+    
+#----
+
+api_pipeline_show:
+    path:     /{id}
+    defaults: { _controller: "AppBundle:API/Pipeline:show" }
+    methods:  [GET, PUT]
+    
+api_pipeline_stages:
+    path:     /{id}/stages
+    defaults: { _controller: "AppBundle:API/Pipeline:stages" }
+    methods:  [GET, POST]
+    
+api_pipeline_deal_list:
+    path:     /{id}/deals/list
+    defaults: { _controller: "AppBundle:API/Pipeline:deals" }
+    methods:  [GET, POST]    
+
+api_pipeline_deal_search:
+    path:     /{id}/deals/search
+    defaults: { _controller: "AppBundle:API/Pipeline:search" }
+    methods:  [GET, POST]    
+
