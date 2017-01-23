@@ -41,9 +41,7 @@ var Tasks = (function () {
 
     function $createTask(task) {
         var workspace_member = null;
-        console.log(workspace_members);
         $.each(workspace_members, function (i, member) {
-            console.log(member);
             if (member.user_id === task.owner_id) {
                 workspace_member = member;
                 return;

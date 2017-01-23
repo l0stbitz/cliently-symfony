@@ -3,6 +3,9 @@ namespace AppBundle\Service;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\User;
+use AppBundle\Entity\Client;
+use AppBundle\Entity\Msg;
 
 /**
  * Description of TwitterService
@@ -11,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class TwitterService
 {
+
+    protected $connection;
 
     /**
      *
@@ -24,18 +29,92 @@ class TwitterService
         $this->em = $this->container->get('doctrine')->getManager();
     }
 
+    public function authUser(User $user)
+    {
+        //TODO: Use constant for type
+        $integration = $this->em->getRepository('AppBundle:Integration')->findOneBy(['userId' => $user, 'type' => 2]);
+        if (!$integration) {
+            return false;
+        }
+        //$token = '553966583-vhOVD5lsYAfX5MQ39vS09jQqFyf6X9GPusEsFmMF';
+        //$secret = 'CQWSM8v28YIiUgm7AFxkBuRzihgBBPjMqHXo9XazI';
+        $values = json_decode($integration->getValues());
+        $this->connection = new TwitterOAuth($this->key, $this->secret, $values->access_token, $values->access_token_secret);
+        $content = $this->connection->get("account/verify_credentials");
+    }
+
+    public function getUserInfo(Client $client)
+    {
+        $social = json_decode($client->getSocial());
+        if ($social && isset($social->twitter)) {
+            return $this->connection->get('users/show', array('screen_name' => $social->twitter));
+        }
+        return false;
+    }
+
+    public function twitterFollow($client_id)
+    {
+        $result = $this->connection->post('friendships/create', array('user_id' => $client_id, 'follow' => TRUE));
+        if (isset($result->errors)) {
+            return FALSE;
+        }
+
+        $result_refined = [];
+        $result_refined['status_id'] = $client_id . '~' . Msg::TYPE_TWITTER_FOLLOW . '~1~' . time();
+        $result_refined['text'] = '';
+        $result_refined['created_at'] = time();
+        $result_refined['is_own'] = TRUE;
+        $result_refined['status_type'] = 'twitter_follow';
+        return $result_refined;
+    }
+
+    public function twitterUnfollow($client_id)
+    {
+        $result = $this->connection->post('friendships/destroy', array('user_id' => $client_id, 'follow' => TRUE));
+        if (isset($result->errors)) {
+            return FALSE;
+        }
+
+        $result_refined = [];
+        $result_refined['status_id'] = $client_id . '~' . Msg::TYPE_TWITTER_UNFOLLOW . '~0~' . time();
+        $result_refined['text'] = '';
+        $result_refined['created_at'] = time();
+        $result_refined['is_own'] = TRUE;
+        $result_refined['status_type'] = 'twitter_unfollow';
+        return $result_refined;
+    }
+
     public function handleAction($user, $client, $type = 1, $description = '', $source_id = 0)
     {
-        $integration = $this->em->getRepository('AppBundle:Integration')->findBy(['userId' => $this->getUser()->getId()]);
+        $integration = $this->em->getRepository('AppBundle:Integration')->findOneBy(['userId' => $user->getId(), 'type' => 2]);
         if (!$integration) {
-            return JsonResponse('fail');
+            return false;
         }
-        $clientTwitter = $this->em->getRepository('AppBundle:ClientTwitter')->find($client->getId());
-        if (!$clientTwitter) {
-            return JsonResponse('fail');
+        $values = json_decode($integration->getValues());
+        $source = $client->getSource();
+        $extra = json_decode($source->getExtra());
+        $msg_data = [];
+        $this->authUser($user);
+        switch ($type) {
+            case 'twitter_tweet':
+                break;
+            case 'twitter_retweet':
+                break;  
+            case 'twitter_favorite':
+                break;     
+            case 'twitter_direct':
+                break;      
+            case 'twitter_quote':
+                break;            
+            case 'twitter_follow':
+                $msg_data = $this->twitterFollow($client->getSource()->getCode());
+                break;
+            case 'twitter_unfollow':
+                $msg_data = $this->twitterUnfollow($client->getSource()->getCode());
+                break;
         }
-        $source = $clientTwitter->getSource();
-        echo $source->getId();exit;
+        return $msg_data;
+        exit;
         $twitter_values = json_decode($integration['values'], TRUE);
         $source_extra = json_decode($client_twitter['source_extra'], TRUE);
         $user_source_extra = json_decode($integration['source_extra'], TRUE);

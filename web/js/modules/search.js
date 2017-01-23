@@ -822,6 +822,13 @@ var Search = (function () {
             if (jqXHR.status === 402) {
                 $btn.html('Accept');
                 showErrorMessage('Error', 'Please purchase additional credits to accept more leads.');
+            } else if (jqXHR.status === 409) {
+                showErrorMessage('Error', 'Another Team Member has already accepted this lead.');
+                setTimeout(function () {
+                    $deal.fadeOut({duration: 500, queue: false}).slideUp(500, function () {
+                        $(this).remove();
+                    });
+                }, 100);
             } else if (jqXHR.status === 410) {
                 showErrorMessage('Error', 'Email information is no longer valid. Lead has been deleted and no credits have been charged.');
                 setTimeout(function () {

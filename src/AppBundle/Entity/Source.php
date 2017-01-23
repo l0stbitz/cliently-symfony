@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,6 +11,26 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Source
 {
+
+    const TYPE_TWITTER_USER = 1;
+    const TYPE_TWITTER_MSG = 2;
+    const TYPE_ZOOMINFO_PERSON = 3;
+    const TYPE_ZOOMINFO_COMPANY = 4;
+    const TYPE_ZOOMINFO_COMPANY_NOID = 5;
+    const BY_ID = [
+        1 => ['id' => 1, 'class' => 'twitter_user'],
+        2 => ['id' => 2, 'class' => 'twitter_tweet'],
+        3 => ['id' => 3, 'class' => 'dbperson_user'],
+        4 => ['id' => 4, 'class' => 'dbperson_company'],
+        5 => ['id' => 5, 'class' => 'dbperson_company'],
+    ];
+    const BY_CLASS = [
+        'twitter_user' => ['id' => 1, 'class' => 'twitter_user'],
+        'twitter_tweet' => ['id' => 2, 'class' => 'twitter_tweet'],
+        'dbperson_user' => ['id' => 3, 'class' => 'dbperson_user'],
+        'dbperson_company' => ['id' => 4, 'class' => 'dbperson_company'],
+    ];
+
     /**
      * @var integer
      *
@@ -26,84 +45,89 @@ class Source
      *
      * @ORM\Column(name="type", type="integer", nullable=false)
      */
-    private $type;
+    private $type = 0;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="code", type="bigint", nullable=false)
      */
-    private $code;
+    private $code = 0;
 
     /**
      * @var string
      *
      * @ORM\Column(name="extra", type="text", length=65535, nullable=false)
      */
-    private $extra;
+    private $extra = '';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="is_enabled", type="integer", nullable=false)
      */
-    private $isEnabled;
+    private $isEnabled = 0;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="created_at", type="integer", nullable=false)
      */
-    private $createdAt;
+    private $createdAt = 0;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="updated_at", type="integer", nullable=false)
      */
-    private $updatedAt;
-    
+    private $updatedAt = 0;
+
     /**
      *
      * @ORM\OneToMany(targetEntity="Integration", mappedBy="source")
      */
     private $integrations;
-    
+
     /**
      *
      * @ORM\OneToMany(targetEntity="ClientTwitter", mappedBy="source")
      */
-    private $clientTwitters;    
-    
+    private $clientTwitters;
+
     /**
      *
      * @ORM\OneToMany(targetEntity="Client", mappedBy="source")
      */
-    private $clients;    
-    
+    private $clients;
+
     /**
      *
      * @ORM\OneToMany(targetEntity="Company", mappedBy="source")
      */
-    private $companies;        
-    
+    private $companies;
+
     /**
      *
      * @ORM\OneToMany(targetEntity="Deal", mappedBy="source")
      */
-    private $deals;      
-    
+    private $deals;
+
     /**
      *
      * @ORM\OneToMany(targetEntity="Lead", mappedBy="source")
      */
-    private $leads;     
-    
+    private $leads;
+
     /**
      *
      * @ORM\OneToMany(targetEntity="Msg", mappedBy="source")
      */
-    private $msgs;       
+    private $msgs;
+
+    public function __construct()
+    {
+        $this->setCreatedAt(time());
+    }
 
     /**
      * Get id
@@ -258,8 +282,8 @@ class Source
     {
         return $this->updatedAt;
     }
-    
-        /**
+
+    /**
      * 
      * @return array
      */

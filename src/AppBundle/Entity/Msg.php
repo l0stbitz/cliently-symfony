@@ -48,6 +48,8 @@ class Msg
         107 => 'twitter_direct'
     );
 
+    const LIMIT_SEARCH = 10;
+
     /**
      * @var integer
      *
@@ -177,6 +179,13 @@ class Msg
     private $threadCode = '';
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="tracking_code", type="string", length=50, nullable=false)
+     */
+    private $trackingCode = '';
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="type", type="integer", nullable=false)
@@ -214,10 +223,25 @@ class Msg
     /**
      * @var integer
      *
+     * @ORM\Column(name="opened_at", type="integer", nullable=false)
+     */
+    private $openedAt = 0;
+
+    /**
+     * @var integer
+     *
      * @ORM\ManyToOne(targetEntity="Deal", inversedBy="mails")
      * @ORM\JoinColumn(name="deal_id", referencedColumnName="id")
      */
     private $deal;
+
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="mails")
+     * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
+     */
+    private $client;
 
     /**
      * @var integer
@@ -238,8 +262,21 @@ class Msg
      * @see
      * @since
      */
-    public function __construct()
+    public function __construct($data = [])
     {
+        $this->setName($data['name'] ?? '');
+        $this->setDescription($data['description'] ?? '');
+        $this->setCc($data['cc'] ?? '');
+        $this->setBcc($data['bcc'] ?? '');
+        $this->setUid($data['uid'] ?? '');
+        $this->setReferences($data['references'] ?? '');
+        $this->setCode($data['code'] ?? '');
+        $this->setThreadCode($data['thread_code'] ?? '');
+        $this->setTrackingCode($data['tracking_code'] ?? '');
+        $this->setEmail($data['email'] ?? '');
+        $this->setHandle($data['handle'] ?? '');
+        $this->setType($data['integration_type'] ?? 1);
+
         $this->setCreatedAt(time());
     }
 
@@ -662,6 +699,30 @@ class Msg
     }
 
     /**
+     * Set trackingCode
+     *
+     * @param string $trackingCode
+     *
+     * @return Msg
+     */
+    public function setTrackingCode($trackingCode)
+    {
+        $this->trackingCode = $trackingCode;
+
+        return $this;
+    }
+
+    /**
+     * Get trackingCode
+     *
+     * @return string
+     */
+    public function getTrackingCode()
+    {
+        return $this->trackingCode;
+    }
+
+    /**
      * Set type
      *
      * @param integer $type
@@ -780,6 +841,30 @@ class Msg
     {
         return $this->updatedAt;
     }
+    
+    /**
+     * Set openedAt
+     *
+     * @param integer $openedAt
+     *
+     * @return Msg
+     */
+    public function setOpenedAt($openedAt)
+    {
+        $this->openedAt = $openedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get openedAt
+     *
+     * @return integer
+     */
+    public function getOpenedAt()
+    {
+        return $this->openedAt;
+    }
 
     /**
      *
@@ -802,6 +887,26 @@ class Msg
     }
 
     /**
+     *
+     * @return type
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     *
+     * @param type $client
+     * @return \AppBundle\Entity\Client
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+        return $this;
+    }
+
+    /**
      * 
      * @return array
      */
@@ -811,11 +916,14 @@ class Msg
         $arr['id'] = $this->getId();
         $arr['name'] = $this->getName();
         $arr['email'] = $this->getEmail();
+        $arr['handle'] = $this->getHandle();
+        $arr['to'] = $this->getEmail();
         $arr['cc'] = $this->getCc();
         $arr['bcc'] = $this->getBcc();
         $arr['client_id'] = $this->getClientId();
         $arr['deal_id'] = $this->getDealId();
         $arr['owner_id'] = $this->getOwnerId();
+        $arr['is_own'] = $this->getOwnerId();
         $arr['description'] = $this->getDescription();
         $arr['status'] = $this->getStatus();
         $arr['created_at'] = $this->getCreatedAt();
@@ -823,7 +931,7 @@ class Msg
 
         return $arr;
     }
-        
+
     /**
      *
      * @return type

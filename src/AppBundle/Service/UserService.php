@@ -10,7 +10,6 @@ use AppBundle\Entity\Pipeline;
 use AppBundle\Entity\Stage;
 use AppBundle\Entity\User;
 
-
 /**
  * Description of UserService
  *
@@ -28,13 +27,14 @@ class UserService
         $this->container = $container;
     }
 
-    public function createUser($user)
+    public function createUser($user, $persistUser = true)
     {
         $em = $this->container->get('doctrine')->getManager();
         //Create User
-        $em->persist($user);
-        $em->flush();
-
+        if ($persistUser) {
+            $em->persist($user);
+            $em->flush();
+        }
         $account = new Account();
         $account->setType(Account::TYPE_BY_CLASS['main']['class']);
         $account->setPlanId(Plan::BY_CLASS['free']['id']);

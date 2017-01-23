@@ -60,8 +60,8 @@ class RegistrationController extends Controller
         }
 
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
+       // if ($form->isSubmitted()) {
+           // if ($form->isValid()) {
                 $data = $request->request;
                 $email = $data->get('register')['email'];
                 $email_exist = $userManager->findUserByEmail($email);
@@ -108,7 +108,7 @@ class RegistrationController extends Controller
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
                 return $response;
-            }
+            //}
 
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_FAILURE, $event);
@@ -116,7 +116,7 @@ class RegistrationController extends Controller
             if (null !== $response = $event->getResponse()) {
                 return $response;
             }
-        }
+       // }
 
         return $this->render(
                 '@FOSUser/Registration/register.html.twig', array(

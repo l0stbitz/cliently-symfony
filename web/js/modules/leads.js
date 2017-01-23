@@ -39,6 +39,9 @@ var Leads = (function () {
     var $leadActions = null;
     var $clientTwitterInfo = null;
 
+    var $mailIntegrator = null;
+    var $googleIntegrator = null;
+
     function init() {
         $(window).resize(function () {
             if ($('#page-clients.main-block-wrapper').length) {
@@ -481,7 +484,6 @@ var Leads = (function () {
     function loadStages() {
         $stageColumns = $('#page-clients .columns.stage-columns');
         return $.get('/api/v1/pipelines/' + current_pipeline_id + '/stages', function (result) {
-            console.log(result);
             pipelines[current_pipeline_index].stages = result;
 
             if ( ! result.length) {
@@ -505,7 +507,6 @@ var Leads = (function () {
         return Layout.$createColumn().addClass('stage-column');
     }
     function $createStage(stage) {
-        console.log(stage);
         var html = '\
             <div class="stage">\
                 <div class="stage-inner">\
@@ -722,6 +723,7 @@ var Leads = (function () {
     };
 
     function loadClients(owner_id, pipeline_id) {
+        showGlobalLoader();
         var params = getSearchParams();
         if (owner_id == null) owner_id = current_owner_id;
         if (pipeline_id == null) pipeline_id = current_pipeline_id;
@@ -752,6 +754,7 @@ var Leads = (function () {
             if (owner_id != null && owner_id !== false) params.owner_id = owner_id;
             return $.get(url, params, function (leads) {
                 if (!leads.length) {
+                    hideGlobalLoader();
                     return;
                 }
                 $stageColumns.hide();
@@ -767,6 +770,7 @@ var Leads = (function () {
                 });
 
                 $stageColumns.fadeIn();
+                hideGlobalLoader();
             });
         });
     }
@@ -786,7 +790,6 @@ var Leads = (function () {
     function reloadClients(owner_id, pipeline_id) {
         showGlobalLoader();
         loadClients(owner_id, pipeline_id).done(function () {
-            hideGlobalLoader();
         });
     }
     scope.reloadClients = function () {
@@ -1524,10 +1527,9 @@ var Leads = (function () {
     }
 
     function fillCard(onShow) {
-        console.log('fillCard');
         //Client Info
         fillClient();
-        
+
         //Company Info
         fillCompany();
 
@@ -1535,7 +1537,7 @@ var Leads = (function () {
             if (lead.stage != null && lead.stage.selected_pipeline_id != null) {
                 lead.stage.selected_pipeline_id = null;
             }
-            console.log('reset ? ');
+
             resetTaskActionTab();
             resetNoteActionTab();
             resetMailActionTab();
@@ -1545,10 +1547,8 @@ var Leads = (function () {
         $card.find('.lead-actions>ul.nav.nav-tabs>li>a[href="#lead-action-tab-pane-twitter"]').parent().removeClass('active');
         $card.find('.lead-actions>.tab-content>.tab-pane#lead-action-tab-pane-twitter').removeClass('active in');
         if (!lead.is_full) {
-            console.log('full');
             loadFullLead();
         } else {
-            console.log('not full');
             fillManage(true);
             fillStage(true);
             fillTasks(); //fill tasks
@@ -1570,7 +1570,6 @@ var Leads = (function () {
     }
 
     function fillClient() {
-        console.log('fillClient');
         var $contactInfo = $personInfo.find('.contact-info');
         if ($contactInfo.is(':empty')) {
             $contactInfo.append('\
@@ -1716,6 +1715,7 @@ var Leads = (function () {
         if (lead.is_full) {
             contactAvatarUploader.enable();
             contactAvatarUploader.setOptions({
+                data: {type: 'client_avatar'},
                 onComplete: function (filename, response) {
                     if (!response) {
                         showErrorMessage("Error!!!", filename + " file upload failed.");
@@ -1848,7 +1848,6 @@ var Leads = (function () {
 
 
     function fillCompany() {
-        console.log('fillCompany');
         var $companyInfo = $personInfo.find('.company-info');
         var $companyDetails = $companyInfo.find('.company-details');
 
@@ -1863,9 +1862,8 @@ var Leads = (function () {
                 lead.value = newValue;
             }
         });
-        console.log('fillCompany2');
+
         if ($companyInfo.is(':empty')) {
-            console.log('fillCompanyempty');
             $companyInfo.append('\
                 <h1 class="add-company">+ Add Company</h1>\
                 <div class="company-details">\
@@ -1929,29 +1927,22 @@ var Leads = (function () {
                 this.onerror = null;
                 this.src = '/images/company-gray.png';
             });
-            console.log('fillCompany3');
+
             $companyDetails = $companyInfo.find('.company-details');
-            console.log('fillCompany4');
             $companyDetails.find('[data-name]').each(function () {
-                console.log('fillCompany5');
-                console.log($(this));
                 if ($(this).attr('data-name') == 'location') {
                     $(this).editable({
                         type: 'address',
                         placement: 'bottom',
                         params: function (params) {
                             var data = {};
-                            console.log('fillCompanyparams');
                             $.each(params.value, function (name, value) {
-                                console.log(value);
                                 data[name] = value;
                             });
                             return data;
                         },
                         success: function (response, newValue) {
-                            console.log('fillCompany-leads?');
                             $.each(newValue, function (name, value) {
-                                console.log(value);
                                 lead.company[name] = value;
                             });
                         }
@@ -2002,6 +1993,7 @@ var Leads = (function () {
             if (lead.is_full) {
                 companyLogoUploader.enable();
                 companyLogoUploader.setOptions({
+                    data: {type: 'company_logo'},
                     onComplete: function (filename, response) {
                         if (!response) {
                             showErrorMessage("Error!!!", filename + " file upload failed.");
@@ -2015,7 +2007,7 @@ var Leads = (function () {
                             $.ajax({
                                 url: '/api/v1/companies/' + company.id,
                                 method: 'PUT',
-                                data: {avatar: company.logo}
+                                data: {logo: company.logo}
                             });
                         } else {
                             if (response.msg) {
@@ -2059,10 +2051,8 @@ var Leads = (function () {
     }
 
     function fillManage(refresh) {
-        console.log('fillmanage');
         var member_index = 0;
         $.each(workspace_members, function (i, member) {
-            console.log(member);
             if (member.user_id === lead.owner_id) {
                 member_index = i;
                 return;
@@ -2074,7 +2064,6 @@ var Leads = (function () {
 
     function fillStage(refresh, stages) {
         var __$stages = $stageInfo.find('>ul.stages');
-        console.log(stages);
         if (refresh) {
             __$stages.empty();
             var $stages = $('.columns.stage-columns .column.stage-column .stage');
@@ -2132,25 +2121,22 @@ var Leads = (function () {
             data.$element = lead.$element;
             data.is_full = true;
             lead = data;
-            console.log('tasks');
+
             $.each(lead.tasks, function (i, task) {
                 task.lead = lead;
             });
-            console.log('n');
             $.each(lead.notes, function (i, note) {
                 note.lead = lead;
             });
-            console.log('m');
             $.each(lead.mails, function (i, mail) {
                 mail.lead = lead;
             });
-            console.log('tw');
             $.each(lead.twitter, function (i, item) {
                 item.lead = lead;
             });
-            
+
             lead.$element.data('lead', lead);
-            console.log('fillCard');
+
             fillCard();
         });
     }
@@ -2501,13 +2487,14 @@ var Leads = (function () {
                     <form class="form action-form mail-action-form">\
                         <div class="row">\
                             <div class="col-md-6">\
-                                <div class="form-group">\
-                                    <input class="form-control" name="name" placeholder="Subject" type="text">\
+                                <div class="form-group from-container">\
+                                    <input class="form-control mail-from" placeholder="From:" readonly type="text" value="From: ">\
+                                    <div class="integration-handler-container"></div>\
                                 </div>\
                             </div>\
                             <div class="col-md-6">\
                                 <div class="form-group mail-to-wrapper">\
-                                    <input class="form-control mail-to" placeholder="To:" readonly type="text">\
+                                    <input class="form-control mail-to" placeholder="To:" readonly type="text" value="To: ">\
                                     <button type="button" class="btn btn-sm btn-default btn-cc-bcc-toggle">CC/BCC</button>\
                                 </div>\
                             </div>\
@@ -2521,6 +2508,13 @@ var Leads = (function () {
                             <div class="col-md-6">\
                                 <div class="form-group">\
                                     <input class="form-control" name="bcc" placeholder="BCC:" type="text">\
+                                </div>\
+                            </div>\
+                        </div>\
+                        <div class="row">\
+                            <div class="col-md-12">\
+                                <div class="form-group">\
+                                    <input class="form-control" name="name" placeholder="Subject" type="text">\
                                 </div>\
                             </div>\
                         </div>\
@@ -2543,25 +2537,63 @@ var Leads = (function () {
             var $form = $action.find('form.mail-action-form');
             $form
                     .find('.bootstrap-text-editor').wysiwyg({toolbarSelector: $form.find('[data-role="editor-toolbar"]')}).end()
-                    .find('input.mail-to').val(lead.clients[0].email);
+                    .find('input.mail-to').val('To: ' + lead.clients[0].email);
 
             $form.on('submit', function () {
-                var $xhr = createMail($(this));
-                if ($xhr) {
-                    var $btn = $(this).find('button.btn-save');
-                    var html = $btn.html();
-                    $btn.attr('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Saving');
-                    $xhr.done(function () {
-                        $btn.attr('disabled', false).html(html);
-                    }).fail(function () {
-                        $btn.attr('disabled', false).html(html);
-                    });
+                var $is_active_integration = $leadActions.find('>.tab-content>.tab-pane#lead-action-tab-pane-mail .integration-handler-container > .active');
+                if ( ! $is_active_integration.length) {
+                    showErrorMessage('Error', 'Please connect Gmail or IMAP to send emails.');
+                } else {
+                    var $xhr = createMail($(this));
+                    if ($xhr) {
+                        var $btn = $(this).find('button.btn-save');
+                        var html = $btn.html();
+                        $btn.attr('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Saving');
+                        $xhr.done(function () {
+                            $btn.attr('disabled', false).html(html);
+                        }).fail(function () {
+                            $btn.attr('disabled', false).html(html);
+                        });
+                    }
                 }
                 return false;
             }).on('click', 'button.btn-cc-bcc-toggle', function () {
                 $(this).closest('form.mail-action-form').toggleClass('show-cc-bcc');
             });
             fillMails();
+        }
+
+        var $integration_container = $leadActions.find('>.tab-content>.tab-pane#lead-action-tab-pane-mail .integration-handler-container');
+
+        if ( ! $mailIntegrator) {
+            $mailIntegrator = SocialIntegrator.$createMailIntegration().hide();
+        }
+        if ( ! $googleIntegrator) {
+            $googleIntegrator = SocialIntegrator.$createGoogleIntegration().hide();
+        }
+        $integration_container.append($googleIntegrator);
+        if ( ! $googleIntegrator.is(':visible')) {
+            var $xhr = SocialIntegrator.reloadIntegration($googleIntegrator.show());
+            if ($xhr) {
+                $xhr.done(function(data) {
+                    if (data && data.integration) {
+                        $googleIntegrator.show()
+                        $mailIntegrator.hide();
+                    }
+                })
+            }
+        }
+        $integration_container.append($mailIntegrator);
+        if ( ! $googleIntegrator.is(':visible')) {
+            var $xhr = SocialIntegrator.reloadIntegration($mailIntegrator.show());
+            if ($xhr) {
+                $xhr.done(function(data) {
+                    if (data && data.integration) {
+                        $googleIntegrator.hide()
+                        $mailIntegrator.show();
+                    }
+                })
+            }
         }
     }
 

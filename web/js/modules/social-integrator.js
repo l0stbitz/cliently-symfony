@@ -1,4 +1,5 @@
 var SocialIntegrationTypes = {
+    MAIL: 'imap',
     GOOGLE: 'google',
     TWITTER: 'twitter'
 };
@@ -13,7 +14,18 @@ var SocialIntegrator = (function () {
             e.stopPropagation();
             e.cancelBubble = true;
 
-            startIntegrating($(this));
+            if ($(this).data('type') === SocialIntegrationTypes.MAIL) {
+                if ( ! $('#modal_mail_integration').length) {
+                    $($('#tpl_modal_mail_integration').html()).appendTo('body');
+                }
+                $('#modal_mail_integration').modal({
+                    backdrop: false
+                });
+                $('#modal_mail_integration').modal('show');
+                loadImapInfo();
+            } else {
+                startIntegrating($(this));
+            }
 
             return false;
         });
@@ -22,6 +34,9 @@ var SocialIntegrator = (function () {
         initialized = true;
     }
 
+    scope.$createMailIntegration = function (callback) {
+        return this.$create(SocialIntegrationTypes.MAIL, callback);
+    };
     scope.$createGoogleIntegration = function (callback) {
         return this.$create(SocialIntegrationTypes.GOOGLE, callback);
     };
@@ -43,6 +58,8 @@ var SocialIntegrator = (function () {
 
     function getEmptyTitle(type) {
         switch (type) {
+            case SocialIntegrationTypes.MAIL:
+                return 'Connect to IMAP';
             case SocialIntegrationTypes.GOOGLE:
                 return 'Connect to Google';
             case SocialIntegrationTypes.TWITTER:
@@ -52,6 +69,8 @@ var SocialIntegrator = (function () {
 
     function getIcon(type) {
         switch (type) {
+            case SocialIntegrationTypes.MAIL:
+                return '<span class="icon"><img src="/images/mail-icon-1.png" /><span class="text">Connect</span><span class="checked"><i class="fa fa-check"></i></span></span>';
             case SocialIntegrationTypes.GOOGLE:
                 return '<span class="icon"><img src="/images/gmail-icon.png" /><span class="text">Connect</span><span class="checked"><i class="fa fa-check"></i></span></span>';
             case SocialIntegrationTypes.TWITTER:
@@ -71,9 +90,11 @@ var SocialIntegrator = (function () {
 
     function reloadIntegration($integration) {
         var type = $integration.data('type');
+        $integration.parent().removeClass('active');
         $integration.removeClass('active empty').html("<i class='fa fa-spin fa-spinner'></i>").attr('title', 'Loading...');
-        $.get("/api/v1/integrations/" + type, function (data) {
+        return $.get("/api/v1/integrations/" + type, function (data) {
             if (data && data.integration) {
+                $integration.parent().addClass('active');
                 $integration.addClass('active').html(getIcon(type) + ' <label class="title">' + data.integration.handle + '</label>').attr('title', 'Change Account');
             } else {
                 var title = getEmptyTitle(type);

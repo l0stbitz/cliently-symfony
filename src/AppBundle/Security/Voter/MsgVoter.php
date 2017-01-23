@@ -65,6 +65,6 @@ class MsgVoter extends Voter
     {
         // this assumes that the data object has a getOwner() method
         // to get the entity of the user who owns this data object
-        return $user === $msg->getOwner();
+        return $user->getId() === $msg->getOwnerId();
     }
 }

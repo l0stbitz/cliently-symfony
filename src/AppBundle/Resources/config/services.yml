@@ -13,7 +13,23 @@ services:
         
     app.twitter_service:
         class: AppBundle\Service\TwitterService
-        arguments: ["@service_container"]          
+        arguments: ["@service_container"]     
+        
+    app.integration_service:
+        class: AppBundle\Service\IntegrationService
+        arguments: ["@service_container", "@security.token_storage"]  
+        
+    app.email_service:
+        class: AppBundle\Service\EmailService
+        arguments: ["@service_container", "@security.token_storage"]   
+        
+    app.gmail_service:
+        class: AppBundle\Service\GoogleGmailService
+        arguments: ["@service_container"]         
+        
+    app.googleanalytics_service:
+        class: AppBundle\Service\GoogleAnalyticsService
+        arguments: ["@service_container"]            
         
     app.account_voter:
         class: AppBundle\Security\Voter\AccountVoter

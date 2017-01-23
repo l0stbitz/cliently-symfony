@@ -30,3 +30,8 @@ api_client_show:
     defaults: { _controller: "AppBundle:API/Client:show" }
     methods:  [GET, PUT, DELETE]
     
+api_client_twitter_messages:
+    path:     /{id}/twitter/messages
+    defaults: { _controller: "AppBundle:API/Client:twitterMessages" }
+    methods:  [POST]    
+    

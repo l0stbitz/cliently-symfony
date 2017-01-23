@@ -162,12 +162,12 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Account", mappedBy="user")
      */
     private $accounts;
-    
+
     /**
      *
      * @ORM\OneToMany(targetEntity="Integration", mappedBy="user")
      */
-    private $integrations;    
+    private $integrations;
 
     /**
      *
@@ -180,12 +180,12 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Deal", mappedBy="user")
      */
     private $deals;
-    
+
     /**
      *
      * @ORM\OneToMany(targetEntity="Company", mappedBy="user")
      */
-    private $companies;    
+    private $companies;
 
     /**
      * Get id
@@ -587,8 +587,8 @@ class User extends BaseUser
         $arr['wizard'] = $this->getWizard();
         $arr['industries'] = ["1"];
         $arr['integrations'] = $this->getIntegrationsArray();
-        $arr['integration_avatar'] = '';
-        $arr['integration_type'] = '';
+        $arr['integration_avatar'] = $this->getIntegrationAvatar();
+        $arr['integration_type'] = $this->getIntegrationType();
         $arr['accounts'] = [];
         $arr['workspaces'] = [];
         return $arr;
@@ -646,8 +646,7 @@ class User extends BaseUser
         $this->accounts = $accounts;
         return $this;
     }
-    
-    
+
     /**
      *
      * @return type
@@ -655,8 +654,8 @@ class User extends BaseUser
     public function getIntegrationsArray()
     {
         $integrations = [];
-        foreach ($this->getIntegrations() as $integration) {
-            $integrations[] = $integration->toArray();
+        foreach ($this->getIntegrations() as $i) {
+            $integrations[Integration::TYPE_BY_ID[$i->getType()]['class']] = $i->toArray();
         }
         return $integrations;
     }
@@ -679,5 +678,31 @@ class User extends BaseUser
     {
         $this->integrations = $integrations;
         return $this;
+    }
+
+    /**
+     *
+     * @return type
+     */
+    public function getIntegrationAvatar()
+    {
+        foreach ($this->integrations as $i) {
+            if ($i->getType() == 2) {
+                return $i->getAvatar();
+            }
+        };
+    }
+
+    /**
+     *
+     * @return type
+     */
+    public function getIntegrationType()
+    {
+        foreach ($this->integrations as $i) {
+            if ($i->getType() == 2) {
+                return 2;
+            }
+        };
     }
 }

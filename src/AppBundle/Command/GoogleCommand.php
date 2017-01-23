@@ -13,29 +13,25 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
+use Aws\S3\S3Client;
+use EmpireBundle\Utility\MimeType;
+use EmpireBundle\Entity\ImageMedia;
+use EmpireBundle\Entity\VideoMedia;
+use EmpireBundle\Entity\ListPostMember;
 
 /**
-  =
+ * =
  *
  * @author Josh Murphy
  *
  * @todo Add configure help
  * @todo Document each request
  */
-class MailCommand extends ContainerAwareCommand
+class GoogleCommand extends ContainerAwareCommand
 {
-
     /*
      * {@inheritdoc}
      */
-    private $stream;
-    private $mbox;
-    private $imapHost     = 'imap-mail.outlook.com';
-    private $imapPort     = 993;
-    private $imapTls      = 'ssl';
-    private $smtpHost     = 'smtp-mail.outlook.com';
-    private $smtpPort     = '587';
-    private $smtpTls      = 'ssl';
 
     /**
 * 
@@ -54,8 +50,8 @@ class MailCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('cliently:mail')
-            ->setDescription('Acquire social stats for content')
+            ->setName('cliently:google')
+            ->setDescription('')
             ->addOption('dry-run', null, InputOption::VALUE_NONE, 'Dry Run')
             ->setHelp('TODO: Fill this in');
     }
@@ -68,18 +64,16 @@ class MailCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->input  = $input;
+        $this->input = $input;
         $this->output = $output;
         $this->dryRun = $this->input->getOption('dry-run');
         if ($this->dryRun) {
             $this->output->writeln('<info>Dryrun Enabled</info>');
-        }
-        $mailService = $this->getContainer()->get('app.email_service');
-        $mailService->searchAllImapIntegrations();
-        /*$mailbox = 'INBOX';
-        $this->mbox   = '{' . $this->imapHost . ':' . $this->imapPort . '/' . $this->imapTls . '}' . $mailbox;
-        $this->stream = imap_open($this->mbox, 'clientlytest@hotmail.com', 'Cliently2017');
-        $this->searchMessages();*/
-        
+        }     
+        $gaService = $this->getContainer()->get('app.googleanalytics_service');
+        $events = $gaService->getEvents();
+        print_r($events);
     }
+
+  
 }

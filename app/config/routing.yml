@@ -1,17 +1,35 @@
-#hwi_oauth_redirect:
-#    host:     "{domain}"
-#    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-#    prefix:   /connect
+hwi_oauth_redirect:
+    host:     "{domain}"
+    requirements:
+        domain: '%domain%'
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /integration/login
 
-#hwi_oauth_connect:
-#    host:     "{domain}"
-#    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
-#    prefix:   /connect
+hwi_oauth_connect:
+    host:     "{domain}"
+    requirements:
+        domain: '%domain%'
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix:   /connect
 
-#hwi_oauth_login:
-#    host:     "{domain}"
- #   resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
-#    prefix:   /integration/login
+hwi_oauth_login:
+    host:     "{domain}"
+    requirements:
+        domain: '%domain%'
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /integration/login
+    
+google_login:
+    host:     "{domain}"
+    requirements:
+        domain: '%domain%'
+    path: /login/check-google    
+    
+twitter_login:
+    host:     "{domain}"
+    requirements:
+        domain: '%domain%'
+    path: /login/check-twitter      
 
 user:
     resource: "@UserBundle/Resources/config/routing.yml"

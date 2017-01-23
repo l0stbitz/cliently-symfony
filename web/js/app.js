@@ -160,7 +160,7 @@ $.fn.editable.defaults.error = function(response, newValue) {
 $.fn.qtip.zindex = 1019;
 
 ss.uploadSetup({
-    url: 'api/v1/uploads',
+    url: '/api/v1/uploads',
     name: 'uploadfile', // upload parameter name        
     progressUrl: '/uploads/x-upload-session-progress', // enables cross-browser progress support (more info below)
     sessionProgressUrl: '/uploads/x-upload-session-progress', // enables cross-browser progress support (more info below)
@@ -363,7 +363,6 @@ function loadPipelines(workspace_id, page, subpage, refresh) {
 
 function loadWorkspaceMembers(workspace_id) {
     return $.get('/api/v1/workspaces/' + workspace_id + '/workspace_members?include_user=1&include_user_integrations=1', function (data) {
-        console.log(data);
         workspace_members = data;
     });
 }
@@ -513,13 +512,20 @@ function checkIfLeadAcceptable() {
     } else {
 //        $(".available-deal-counter a").pulsate({color: "#bf1c56", repeat: 3});
 //        showErrorMessage('Accept Lead', 'No more available deals.');
-        bootbox.confirm('Please purchase additional credits to accept more leads.',
+        if (workspaces[current_workspace_index].membership.role === 'owner' || workspaces[current_workspace_index].membership.role === 'admin') {
+            bootbox.confirm('Please purchase additional credits to accept more leads.',
                 function (result) {
                     if (result) {
                         Layout.activatePage(Pages.SETTINGS, 'billing');
                     }
                 }
-        );
+            );
+        } else {
+            bootbox.confirm('Please contact your account owner or admin to add more credits.',
+                function (result) {
+                }
+            );
+        }
 //        if (confirm('Upgrade your account to accept more prospects.')) {
 //            activatePage(Pages.SETTINGS, 'billing');
 //        }
@@ -859,7 +865,7 @@ function stripeResponseHandler(status, response) {
     } else {
         var token = response.id;
         $.ajax({
-            url: '/api/v1/account/' + current_account_id + '/purchases',
+            url: '/api/v1/accounts/' + current_account_id + '/purchases',
             method: 'POST',
             data: {
                 token: response.id,
@@ -871,7 +877,7 @@ function stripeResponseHandler(status, response) {
             },
             success: function () {
                 showSuccessMessage("Payment Information", "Payment completed successfully.");
-                openBillingPage(false);
+                Settings.openBillingPage(false);
 
 
 

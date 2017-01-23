@@ -290,18 +290,6 @@ var Layout = (function () {
             openSettingsPageSidebar();
         }, 100);
         Settings.activateSettingsPage(subpage ? subpage : (InitParams.settingsPage ? InitParams.settingsPage : SettingsPages.USER));
-//        $.get("/js/ajax/settings.html?" + (new Date().getTime()), function (data) {
-//            $(".page-content").html(data);
-//            if (subpage == 'billing') {
-//                openBillingPage();
-//            } else {
-//                openUserSettings();
-//            }
-//            hideGlobalLoader();
-//            setTimeout(function () {
-//                openSettingsPageSidebar();
-//            }, 100);
-//        });
     }
     function isSettingsPageSidebarOpen() {
         return $('body').hasClass('settings-page-sidebar-open');

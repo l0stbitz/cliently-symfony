@@ -198,7 +198,7 @@ var Sidebar = (function () {
                     if (jqXHR.status === 402) {
                         $btn.html(html);
                         showErrorMessage('Error', 'Please purchase additional credits to accept more leads.');
-                    } else if (jqXHR.status === 409) {
+                    } else if (jqXHR.status === 404 || jqXHR.status === 409) {
                         $btn.html(html);
                         showErrorMessage('Lead', 'Another Team Member has already accepted this lead.');
                         setTimeout(function () {
@@ -344,7 +344,7 @@ var Sidebar = (function () {
                                 <span class="verify-icon verify-icon-phone" title="' + phone + '"><i class="fa fa-phone"></i></span>\
                             </div>\
                         </div>\
-                        <br /><span class="dbperson-role">' + occupation + '</span> | <span class="dbperson-company-name">' + (lead.company != null ? lead.company.name : '') + '</span>\
+                        <br /><span class="dbperson-role">' + occupation + '</span> | <span class="dbperson-company-name">' + (lead.source.company != null ? lead.source.company.name : '') + '</span>\
                     </div>\
                     <div class="dbperson-more">\
                         ' + (sizes ? '<label><span class="icon"><i class="fa fa-users"></i></span>' + '"' + sizes.join('" "') + '"' + '</label>' : '') + '\

@@ -22,3 +22,9 @@ integration_delete:
     path:     /{id}/delete
     defaults: { _controller: "AppBundle:Integration:delete" }
     methods:  DELETE
+    
+#------
+api_integration_index:
+    path:     /
+    defaults: { _controller: "AppBundle:API/Integration:index" }
+    methods:  GET

@@ -19,3 +19,7 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     domain:            dev2.cliently.ca
+    google_app_id:     920431362941-ksi7mm22mmr6q3i1t20o2749i13jokp8.apps.googleusercontent.com
+    google_app_secret: wYZreZfgqn_g2m808JWI5KMu
+    twitter_app_id:    7F0IX0juiVE8BfThmLB4vA
+    twitter_app_secret: FCrFk2Zcg8q0g5X4kI8HLJDtkYkGNDsqsxomT6TaU

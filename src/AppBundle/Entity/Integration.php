@@ -12,6 +12,31 @@ use Doctrine\ORM\Mapping as ORM;
 class Integration
 {
 
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
+    const STATUS_DEFAULT = 2;
+    const TYPE_BY_ID = [
+        1 => ['id' => 1, 'class' => 'mail'],
+        2 => ['id' => 2, 'class' => 'twitter'],
+        3 => ['id' => 3, 'class' => 'google'],
+        4 => ['id' => 4, 'class' => 'slack'],
+    ];
+    const TYPE_BY_CLASS = [
+        'mail' => ['id' => 1, 'class' => 'mail'],
+        'twitter' => ['id' => 2, 'class' => 'twitter'],
+        'google' => ['id' => 3, 'class' => 'google'],
+        'slack' => ['id' => 4, 'class' => 'slack'],
+    ];
+    const VALUES_MAIL = [
+        'fullname' => '',
+        'email' => '',
+        'password' => '',
+        'imap_server' => '',
+        'imap_port' => 0,
+        'smtp_server' => '',
+        'smtp_port' => 0,
+    ];
+
     /**
      * @var integer
      *
@@ -26,7 +51,7 @@ class Integration
      *
      * @ORM\Column(name="name", type="string", length=100, nullable=false)
      */
-    private $name;
+    private $name = '';
 
     /**
      * @var integer
@@ -54,49 +79,49 @@ class Integration
      *
      * @ORM\Column(name="code", type="string", length=50, nullable=false)
      */
-    private $code;
-
+    private $code = '';
+    //Renamed field
     /**
      * @var string
      *
-     * @ORM\Column(name="values", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="vals", type="text", length=65535, nullable=false)
      */
-    private $values;
+    private $values = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="avatar", type="string", length=100, nullable=false)
      */
-    private $avatar;
+    private $avatar = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="handle", type="string", length=100, nullable=false)
      */
-    private $handle;
+    private $handle = '';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="is_primary", type="integer", nullable=false)
      */
-    private $isPrimary;
+    private $isPrimary = 0;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="is_suspended", type="boolean", nullable=false)
      */
-    private $isSuspended;
+    private $isSuspended = false;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="status", type="integer", nullable=false)
      */
-    private $status;
+    private $status = 0;
 
     /**
      * @var integer
@@ -110,7 +135,7 @@ class Integration
      *
      * @ORM\Column(name="updated_at", type="integer", nullable=false)
      */
-    private $updatedAt;
+    private $updatedAt = 0;
 
     /**
      * @var integer
@@ -127,6 +152,11 @@ class Integration
      * @ORM\JoinColumn(name="source_id", referencedColumnName="id")
      */
     private $source;
+
+    public function __construct()
+    {
+        $this->setCreatedAt(time());
+    }
 
     /**
      * Get id
@@ -208,6 +238,16 @@ class Integration
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Get type
+     *
+     * @return integer
+     */
+    public function getTypeString()
+    {
+        return self::TYPE_BY_ID[$this->getType()]['class'];
     }
 
     /**
@@ -469,7 +509,6 @@ class Integration
         $this->source = $source;
         return $this;
     }
-    
 
     /**
      *
@@ -489,7 +528,7 @@ class Integration
     {
         $this->user = $user;
         return $this;
-    }    
+    }
 
     /**
      * 
@@ -501,7 +540,10 @@ class Integration
         $arr['id'] = $this->getId();
         $arr['name'] = $this->getName();
         $arr['avatar'] = $this->getAvatar();
+        $arr['type'] = $this->getTypeString();
+        $arr['status'] = $this->getStatus();
         $arr['handle'] = $this->getHandle();
+        $arr['code'] = $this->getCode();
         $arr['user_id'] = $this->getUser()->getId();
         $arr['source'] = $this->getSource()->toArray();
         $arr['values'] = json_decode($this->getValues());

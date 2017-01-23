@@ -125,9 +125,7 @@ var Sources = (function () {
             var $source = $(this).parent();
             popupSourceCreationWizard(__type2step($source.attr('data-source-type')), $source.data('source'));
         }).on('click', '.column.source-column .source-workflow .btn-workflow-action-add', function () {
-            if ( ! $(this).hasClass('disabled')) {
-                $(this).closest('.source-workflow').find('.workflow .add-work').last().click();
-            }
+            $(this).closest('.source-workflow').find('.workflow .add-work').last().click();
         }).on('click', '#source-creation-wizard.modal ul.source-type-list li', function () {
             popupSourceCreationWizard($(this).data('next-step'));
         }).on('submit', '#source-creation-wizard.modal form', function () {

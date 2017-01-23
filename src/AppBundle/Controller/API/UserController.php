@@ -60,7 +60,9 @@ class UserController extends Controller
                         break; 
                     case 'password':
                         //TODO: Validate password if present
-                        $user->setPassword($v);
+                        $encoder = $this->get('security.password_encoder');
+                        $encoded = $encoder->encodePassword($user, $v);
+                        $user->setPassword($encoded);
                         $update = true;
                         break;                     
                     case 'phone':

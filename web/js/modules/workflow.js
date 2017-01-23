@@ -58,6 +58,7 @@ var Workflow = (function () {
     var $optionsPopup = null;
 
     var $twitterIntegrator = null;
+    var $mailIntegrator = null;
     var $googleIntegrator = null;
 
     var EmailTokens = {
@@ -159,20 +160,18 @@ var Workflow = (function () {
                 $work.addClass('collapsed').find('.work-content').stop().fadeOut({duration: 500, queue: false}).slideUp(500);
             }
         }).on('click', '.workflow button.add-work', function () {
-            if ( ! $(this).hasClass('flow-add-button-small') || ! $(this).parents('.workflow').hasClass('disabled')) {
-                workflowId = $(this).closest('.workflow').attr('data-workflow-id');
-                isFromLead = $(this).closest('.workflow').hasClass('workflow-from-lead');
-                workId = null;
-                position = $(this).attr('data-work-position');
-                isCompleted = false;
+            workflowId = $(this).closest('.workflow').attr('data-workflow-id');
+            isFromLead = $(this).closest('.workflow').hasClass('workflow-from-lead');
+            workId = null;
+            position = $(this).attr('data-work-position');
+            isCompleted = false;
 
-                if (DevOptions.debug) {
-                    popupWorkCreationWizard(WorkCreationWizardSteps.WORK_PANE_EMAIL_VIDEO);
-                } else {
-                    openWorkTypeChooser();
-                }
-                $wizard.data('workflow-id', workflowId).data('work-id', workId).data('work-position', position);
+            if (DevOptions.debug) {
+                popupWorkCreationWizard(WorkCreationWizardSteps.WORK_PANE_EMAIL_VIDEO);
+            } else {
+                openWorkTypeChooser();
             }
+            $wizard.data('workflow-id', workflowId).data('work-id', workId).data('work-position', position);
         }).on('click', '.workflow .work .work-content', function () {
             var $work = $(this).parent();
             workflowId = $(this).closest('.workflow').attr('data-workflow-id');
@@ -505,7 +504,7 @@ var Workflow = (function () {
                     </div>\
                 </div>');
         } else if (work.class == WorkflowClasses.EMAIL_VIDEO) {
-            var s3_upload_path = 'https://cliently-public.s3.amazonaws.com';
+            var s3_upload_path = ADDPIPE_BUCKET_URL;
             var video_html;
             if (typeof work.values.video === 'string' && work.values.video.substring(0, s3_upload_path.length) === s3_upload_path) {
                 video_html = '<video controls src="' + work.values.video + '"></video>';
@@ -626,7 +625,8 @@ var Workflow = (function () {
                     };
                     flashvars = {
                         qualityurl: "avq/240p.xml",
-                        accountHash: "c73e7bd79ab80f90d287b19ef34b1e8a",
+                        accountHash: ADDPIPE_PK,
+                        eid: ADDPIPE_ENV_ID,
                         showMenu: "true",
                         mrt: 120,
                         sis: 0, asv: 1,
@@ -653,12 +653,35 @@ var Workflow = (function () {
         }
 
         if (workflowClass.indexOf(WorkflowModuleClasses.EMAIL) === 0) {
+            if (!$mailIntegrator) {
+                $mailIntegrator = SocialIntegrator.$createMailIntegration().hide();
+            }
             if (!$googleIntegrator) {
                 $googleIntegrator = SocialIntegrator.$createGoogleIntegration().hide();
             }
-            $step.find(".google-integration-handler-container").append($googleIntegrator);
+            $step.find(".mail-n-google-integration-handler-container").append($googleIntegrator);
             if (!$googleIntegrator.is(':visible')) {
-                SocialIntegrator.reloadIntegration($googleIntegrator.show());
+                var $xhr = SocialIntegrator.reloadIntegration($googleIntegrator.show());
+                if ($xhr) {
+                    $xhr.done(function(data) {
+                        if (data && data.integration) {
+                            $googleIntegrator.show()
+                            $mailIntegrator.hide();
+                        }
+                    })
+                }
+            }
+            $step.find(".mail-n-google-integration-handler-container").append($mailIntegrator);
+            if (!$googleIntegrator.is(':visible')) {
+                var $xhr = SocialIntegrator.reloadIntegration($mailIntegrator.show());
+                if ($xhr) {
+                    $xhr.done(function(data) {
+                        if (data && data.integration) {
+                            $googleIntegrator.hide()
+                            $mailIntegrator.show();
+                        }
+                    })
+                }
             }
 //        } else if ($googleIntegrator) {
 //            $googleIntegrator.hide();
@@ -787,7 +810,7 @@ var Workflow = (function () {
                                     <label class="control-label col-md-2 text-right">From: </label>\
                                     <div class="col-md-10">\
                                         <div class="form-control-static">\
-                                            <div class="google-integration-handler-container"></div>\
+                                            <div class="mail-n-google-integration-handler-container integration-handler-container"></div>\
                                         </div>\
                                     </div>\
                                 </div>\
@@ -1185,7 +1208,7 @@ var Workflow = (function () {
                             <label class="control-label col-md-2 text-right">From: </label>\
                             <div class="col-md-10">\
                                 <div class="form-control-static">\
-                                    <div class="google-integration-handler-container"></div>\
+                                    <div class="mail-n-google-integration-handler-container integration-handler-container"></div>\
                                 </div>\
                             </div>\
                         </div>\
@@ -1763,7 +1786,7 @@ var Workflow = (function () {
                 $form.find('.bootstrap-text-editor.email-message').html((work.values.msg));
                 $form.find('input[name="video"]').val(work.values.video ? work.values.video : '');
                 $form.find('input[name="thumb"]').val(work.values.thumb ? work.values.thumb : '');
-                var s3_upload_path = 'https://cliently-public.s3.amazonaws.com';
+                var s3_upload_path = ADDPIPE_BUCKET_URL;
                 if (typeof work.values.video === 'string' && work.values.video.substring(0, s3_upload_path.length) === s3_upload_path) {
                     // form.find('.video-recorder video').attr('src', work.values.video);
                 } else {
@@ -1838,8 +1861,8 @@ var Workflow = (function () {
                 }
                 break;
             case WorkflowClasses.EMAIL_SEND:
-                if (!DevOptions.debug && !$googleIntegrator.hasClass('active')) {
-                    showErrorMessage('Workflow', 'Please connect to google to send email.');
+                if (!DevOptions.debug && ! ($googleIntegrator.hasClass('active') || $mailIntegrator.hasClass('active'))) {
+                    showErrorMessage('Workflow', 'Please connect to google or imap to send email.');
                     return;
                 }
 
@@ -1913,8 +1936,8 @@ var Workflow = (function () {
                 var token_value = values['token_value'];
                 delete values['token_value'];
 
-                if (!DevOptions.debug && !$googleIntegrator.hasClass('active')) {
-                    showErrorMessage('Workflow', 'Please connect to google to send email.');
+                if (!DevOptions.debug && ! ($googleIntegrator.hasClass('active') || $mailIntegrator.hasClass('active'))) {
+                    showErrorMessage('Workflow', 'Please connect to google or imap to send email.');
                     return;
                 }
 
@@ -2048,7 +2071,7 @@ var Workflow = (function () {
                             var url = '/api/v1/' + (isFromLead ? 'deal_actions/' : 'workflows/' + workflowId + '/actions/') + work.id;
                             $.getJSON(url, function (data) {
                                 $work.find('.loading-div').remove();
-                                var s3_upload_path = 'https://cliently-public.s3.amazonaws.com';
+                                var s3_upload_path = ADDPIPE_BUCKET_URL;
                                 if (typeof data.values.video === 'string' && data.values.video.substring(0, s3_upload_path.length) === s3_upload_path) {
                                     $work.find('video').attr('src', data.values.video);
                                 } else {
@@ -2077,7 +2100,7 @@ var Workflow = (function () {
                             var url = '/api/v1/' + (isFromLead ? 'deal_actions/' : 'workflows/' + workflowId + '/actions/') + work.id;
                             $.getJSON(url, function (data) {
                                 $new_workflow.find('.loading-div').remove();
-                                var s3_upload_path = 'https://cliently-public.s3.amazonaws.com';
+                                var s3_upload_path = ADDPIPE_BUCKET_URL;
                                 if (typeof data.values.video === 'string' && data.values.video.substring(0, s3_upload_path.length) === s3_upload_path) {
                                     $new_workflow.find('video').attr('src', data.values.video);
                                 } else {
@@ -2118,7 +2141,7 @@ var Workflow = (function () {
             if (values.front === 'true') {
                 if (step === 'action_postcard_front') {
                     postcardFrontImageUploader.setOptions({
-                        url: 'api/v1/uploads',
+                        url: '/api/v1/uploads',
                         data: {type: 'action_postcard_front'},
                         onComplete: function (filename, response) {
                             $form.find('input[name="front"]').val(response.id);
@@ -2131,7 +2154,7 @@ var Workflow = (function () {
             if (values.back === 'true') {
                 if (step === 'action_postcard_back') {
                     postcardBackImageUploader.setOptions({
-                        url: 'api/v1/uploads',
+                        url: '/api/v1/uploads',
                         data: {type: 'action_postcard_back'},
                         onComplete: function (filename, response) {
                             $form.find('input[name="back"]').val(response.id);
@@ -2149,7 +2172,7 @@ var Workflow = (function () {
                     data.append('type', 'action_video');
                     data.append('uploadfile', recordedBlob, 'video.mp4');
                     $.ajax({
-                        url: 'api/v1/uploads',
+                        url: '/api/v1/uploads',
                         type: 'post',
                         data: data,
                         processData: false,
@@ -2170,7 +2193,7 @@ var Workflow = (function () {
                     data.append('type', 'action_video_thumb');
                     data.append('uploadfile', thumbBlob, 'thumb.jpg');
                     $.ajax({
-                        url: 'api/v1/uploads',
+                        url: '/api/v1/uploads',
                         type: 'post',
                         data: data,
                         processData: false,
@@ -2270,7 +2293,7 @@ var Workflow = (function () {
                     var url = '/api/v1/' + (isFromLead ? 'deal_actions/' : 'workflows/' + workflowId + '/actions/') + workId;
                     $.getJSON(url, function (data) {
                         $work.find('.loading-div').remove();
-                        var s3_upload_path = 'https://cliently-public.s3.amazonaws.com';
+                        var s3_upload_path = ADDPIPE_BUCKET_URL;
                         if (typeof data.values.video === 'string' && data.values.video.substring(0, s3_upload_path.length) === s3_upload_path) {
                             $work.find('video').attr('src', data.values.video);
                         } else {

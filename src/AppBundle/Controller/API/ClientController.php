@@ -23,8 +23,14 @@ class ClientController extends Controller
         if ($request->isMethod('PUT')) {
             $data = $request->request;
             $update = false;
+            $integration = false;
             foreach ($data as $k => $v) {
                 switch ($k) {
+                    case 'social':
+                        $client->setSocial(json_encode($v));
+                        $update = true;
+                        $integration = $v;
+                        break;
                     case 'email':
                         //TODO: Proper validation of email using forms
                         $client->setEmail($v);
@@ -71,6 +77,9 @@ class ClientController extends Controller
                 $em->persist($client);
                 $em->flush();
             }
+            if($integration){
+                $this->get('app.integration_service')->updateClientIntegrations($client, $integration);
+            }
         }
         return new JsonResponse($client->toArray());
     }
@@ -82,14 +91,13 @@ class ClientController extends Controller
     {
         $this->denyAccessUnlessGranted('view', $client);
         if ($request->isMethod('POST')) {
-            $em = $this->getDoctrine()->getManager();
             $data = $request->request;
             $type = $data->get('type');
             $description = $data->get('description');
-            $id = $data->get('source_id');
-
-            $this->get('app.twitter_service')->handleAction($user, $client, $type, $description, $source_id);
+            $source_id = $data->get('source_id');
+            $twitterService = $this->get('app.twitter_service');
+            $twitterService->handleAction($this->getUser(), $client, $type, $description, $source_id);
         }
-        return new JsonResponse($data);
+        return new JsonResponse(['id'=>1]);
     }
 }

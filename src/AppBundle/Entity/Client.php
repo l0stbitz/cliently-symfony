@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -14,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Client
 {
+
     /**
      * @var integer
      *
@@ -126,7 +126,7 @@ class Client
      *
      * @ORM\Column(name="social", type="text", length=65535, nullable=false)
      */
-    private $social = '';
+    private $social = '{}';
 
     /**
      * @var string
@@ -173,7 +173,7 @@ class Client
     /**
      * @var integer
      *
-     * @ORM\Column(name="source_id", type="integer", nullable=false)
+     * @ORM\Column(name="source_id", type="integer", nullable=true)
      */
     private $sourceId = 0;
 
@@ -206,28 +206,34 @@ class Client
     private $updatedAt = 0;
 
     /**
+     *
+     * @ORM\OneToMany(targetEntity="Msg", mappedBy="deal")
+     */
+    private $mails = [];
+
+    /**
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="Workspace", inversedBy="clients")
      * @ORM\JoinColumn(name="workspace_id", referencedColumnName="id")
      */
-    private $workspace;   
-    
+    private $workspace;
+
     /**
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="clients")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
-    private $user;    
-    
+    private $user;
+
     /**
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="Source", inversedBy="clients")
      * @ORM\JoinColumn(name="source_id", referencedColumnName="id")
      */
-    private $source;    
+    private $source;
 
     /**
      * __construct
@@ -242,9 +248,9 @@ class Client
      */
     public function __construct()
     {
-        $this->setCreatedAt(time());     
+        $this->setCreatedAt(time());
     }
-    
+
     /**
      * Get id
      *
@@ -878,8 +884,7 @@ class Client
     {
         return $this->updatedAt;
     }
-    
-        
+
     /**
      *
      * @return type
@@ -899,8 +904,7 @@ class Client
         $this->user = $user;
         return $this;
     }
-    
-    
+
     /**
      *
      * @return type
@@ -920,7 +924,7 @@ class Client
         $this->workspace = $workspace;
         return $this;
     }
-    
+
     /**
      * 
      * @return array
@@ -937,15 +941,15 @@ class Client
         $arr['company_id'] = $this->getCompanyId();
         //$arr['source'] = null;
         $arr['contacts'] = [];
-        $arr['integrations'] = [];
-        $arr['social'] = [];
+        $arr['integrations'] = $this->getIntegrationsArray();
+        $arr['social'] = json_decode($this->getSocial());
         $arr['is_verified'] = false;
-     
+
         //$arr['created_at'] = $this->getCreatedAt();
 
         return $arr;
     }
-        
+
     /**
      *
      * @return type
@@ -963,6 +967,56 @@ class Client
     public function setSource($source)
     {
         $this->source = $source;
+        return $this;
+    }
+
+    /**
+     *
+     * @return type
+     */
+    public function getIntegrationsArray()
+    {
+        $s = $this->getSourceId();
+        if ($s == 0) {
+            return [];
+        }
+        $integrations = [];
+        $extra = json_decode($this->getSource()->getExtra());
+        //$integrations[Source::BY_ID[$this->getSource()->getType()]['class']] = $extra;
+        $integrations['twitter'] = $extra;
+        return $integrations;
+    }
+
+    /**
+     *
+     * @return type
+     */
+    public function getMailsArray()
+    {
+        $mails = [];
+        foreach ($this->getMails() as $mail) {
+            $mails[] = $mail->toArray();
+        }
+        return $mails;
+    }
+
+    /**
+     *
+     * @return type
+     */
+    public function getMails()
+    {
+        return $this->mails;
+    }
+
+    /**
+     *
+     * @param type $mails
+     * @return \AppBundle\Entity\Msg
+     */
+    public function setMails($mails)
+    {
+        $this->mails = $mails;
         return $this;
     }
 }

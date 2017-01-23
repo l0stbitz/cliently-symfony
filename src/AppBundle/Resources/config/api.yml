@@ -48,6 +48,10 @@ api_notes:
         resource: "@AppBundle/Resources/config/routing/note.yml"
         prefix:   /notes
         
+api_mails:
+        resource: "@AppBundle/Resources/config/routing/msg.yml"
+        prefix:   /mails      
+        
 api_industries:
         path:   /industries
         defaults: { _controller: "AppBundle:API/Industry:index" }

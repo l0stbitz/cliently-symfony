@@ -645,7 +645,9 @@ var Settings = (function () {
             });
         });
     }
-
+    scope.openBillingPage = function(el) {
+        openBillingPage(el);
+    }
     function openBillingPage(el) {
         $.get("/js/ajax/settings/billing.html?" + (new Date().getTime()), function (data) {
             $("#settings-pages").html(data);
@@ -655,10 +657,59 @@ var Settings = (function () {
     }
 
     function openIntegrationPage(el) {
-        $.get("/js/ajax/settings/integration.html?" + (new Date().getTime()), function (data) {
-            $("#settings-pages").html(data);
-            hideGlobalLoader();
+        $("#settings-pages").html($('#tpl_page_integrations').html());
+
+        $.fn.bootstrapSwitch.defaults.size = 'small';
+        deactivateAllIntegrations();
+        reloadIntegrations();
+
+        $(".checkbox-s").bootstrapSwitch().on('switchChange.bootstrapSwitch', function (event, state) {
+            var type = $(this).closest('.user.row').data('type');
+            var name = IntegrationNames[type];
+            var always_delete = true;
+            if (state) {
+                if (type == IntegrationTypes.IMAP) {
+                    if ( ! $('#modal_mail_integration').length) {
+                        $($('#tpl_modal_mail_integration').html()).appendTo('body');
+                    }
+                    $('#modal_mail_integration').modal('show');
+                    loadImapInfo();
+                } else if (type == IntegrationTypes.TWITTER) {
+                    loginTwitter();
+                } else if (type == IntegrationTypes.GOOGLE) {
+                    loginGoogle();
+                } else if (type == IntegrationTypes.SLACK) {
+                    loginSlack();
+                }
+            } else {
+                if (confirm("Are you sure you want to deactivate " + name + " integration?")) {
+                    if ( ! always_delete && type == IntegrationTypes.IMAP) {
+                        $.ajax({
+                            method: "PUT",
+                            url: '/api/v1/integrations/imap',
+                            data: {status: 0},
+                            success: function () {
+                                deactivateIntegration(type);
+                                showSuccessMessage("Success", "The " + name + " integration has been deactivated successfully.");
+                            }
+                        });
+                    } else {
+                        $.ajax({
+                            method: 'DELETE',
+                            url: '/api/v1/integrations/' + name,
+                            success: function () {
+                                deactivateIntegration(type);
+                                showSuccessMessage("Success", "The " + name + " has been deactivated successfully.");
+                            }
+                        });
+                    }
+                } else {
+                    $(this).bootstrapSwitch('state', true, true);
+                }
+            }
         });
+
+        hideGlobalLoader();
     }
 
     return scope;
@@ -1032,3 +1083,269 @@ function removeTeamMemberI(el) {
     $(el).parents('.user').fadeOut();
     $(el).parents('.user').next().fadeOut();
 }
+
+var IntegrationTypes = {
+    IMAP:    1,
+    TWITTER: 2,
+    GOOGLE:  3,
+    SLACK:   4
+};
+var IntegrationNames = ['', 'imap', 'twitter', 'google', 'slack'];
+var timerG = null;
+var timerT = null;
+var child_integration_window = null;
+
+function deactivateAllIntegrations() {
+    for (var i = 0; i < IntegrationNames.lengh - 1; i++) {
+        deactivateIntegration(i + 1);
+    }
+}
+
+function reloadIntegrations(type) {
+    if (type == undefined) {
+        type = 0;
+    }
+    $.getJSON("/api/v1/integrations/" + IntegrationNames[type], function (data) {
+        if (type > 0) {
+            if (data && data.integration) {
+                activateIntegration(data.integration, type);
+                if (type != IntegrationTypes.TWITTER && data.integration.is_primary != 1) {
+                    checkAndSetPrimaryEmail(type);
+                }
+            } else {
+                deactivateIntegration(type);
+            }
+        } else {
+            for (var i = 0; i < data.length; i++) {
+                activateIntegration(data[i], data[i].type);
+            }
+        }
+    });
+}
+
+function activateIntegration(integration, type) {
+    if (integration.status != 2) {
+        return;
+    }
+
+    var date = new Date(integration.created_at * 1000);
+    $("#integration-" + type)
+            .find("h1").html(integration.name).end()
+            .find(".email").html(integration.handle).end()
+            .find('.date').html(date.toLocaleString()).end()
+            .find(".checkbox-s").bootstrapSwitch('state', true, true);
+}
+
+function deactivateIntegration(type) {
+    $("#integration-" + type)
+            .find("h1").html('').end()
+            .find(".email").html('').end()
+            .find('.date').html('').end()
+            .find(".checkbox-s").bootstrapSwitch('state', false, true);
+}
+
+function loginGoogle() {
+    child_integration_window = SocialIntegrator.openIntegrationWindow('/integrations/google/connect', '', 626, 436);
+}
+function checkChildGoogle() {
+    if (child_integration_window.closed) {
+        clearInterval(timerG);
+        reloadIntegrations(IntegrationTypes.GOOGLE);
+    }
+}
+
+function loginTwitter() {
+    child_integration_window = SocialIntegrator.openIntegrationWindow('/integrations/twitter/connect', '', 626, 436);
+    timerT = setInterval(checkChildTwitter, 500);
+}
+
+function checkChildTwitter() {
+    if (child_integration_window.closed) {
+        clearInterval(timerT);
+        reloadIntegrations(IntegrationTypes.TWITTER);
+    }
+}
+
+function loginSlack() {
+    child_integration_window = SocialIntegrator.openIntegrationWindow('/integrations/slack/connect', '', 626, 436);
+    timerT = setInterval(checkChildSlack, 500);
+}
+
+function checkChildSlack() {
+    if (child_integration_window.closed) {
+        clearInterval(timerT);
+        reloadIntegrations(IntegrationTypes.SLACK);
+    }
+}
+
+function loadImapInfo() {
+    $('#modal_mail_integration').find('.btn-primary').attr('disabled', true).html('<i class="fa fa-spin fa spinner"></i> Loading...');
+    $.get('/api/v1/integrations/imap', function (data) {
+        if (data.integration !== undefined) {
+            $('#fullname').val(data.integration.values.fullname);
+            $('#email').val(data.integration.values.email);
+            $('#password').val(data.integration.values.password);
+            $('#smtp_port').val(data.integration.values.smtp_port);
+            $('#smtp_server').val(data.integration.values.smtp_server);
+            $('#imap_port').val(data.integration.values.imap_port);
+            $('#imap_server').val(data.integration.values.imap_server);
+        }
+        $('#modal_mail_integration').find('.btn-primary').attr('disabled', false).html('<i class="fa fa-save"></i> Save Changes');
+    });
+}
+
+function saveImapInfo() {
+    var email_autoconfig = $('#email_autoconfig')[0].checked;
+    var fullname         = $('#fullname').val();
+    var email            = $('#email').val();
+    var password         = $('#password').val();
+    var imap_port        = email_autoconfig ? '' : $('#imap_port').val();
+    var imap_server      = email_autoconfig ? '' : $('#imap_server').val();
+    var port             = email_autoconfig ? '' : $('#smtp_port').val();
+    var smtp             = email_autoconfig ? '' : $('#smtp_server').val();
+
+    if (fullname == "") {
+        showErrorMessage('IMAP Info', 'Please enter full name.');
+        validateForm('#fullname');
+        return false;
+    }
+
+    if (email == "") {
+        showErrorMessage('IMAP Info', 'Please enter email.');
+        validateForm('#email');
+        return false;
+    }
+
+    if (password == "") {
+        showErrorMessage('IMAP Info', 'Please enter password.');
+        validateForm('#password');
+        return false;
+    }
+
+    if ( ! email_autoconfig) {
+        if (imap_port == "") {
+            showErrorMessage('IMAP Info', 'Please enter IMAP Port.');
+            validateForm('#imap_port');
+            return false;
+        }
+
+        if (imap_server == "") {
+            showErrorMessage('IMAP Info', 'Please enter IMAP Server.');
+            validateForm('#imap_server');
+            return false;
+        }
+
+        if (port == "") {
+            showErrorMessage('IMAP Info', 'Please enter SMTP Port.');
+            validateForm('#smtp_port');
+            return false;
+        }
+
+        if (smtp == "") {
+            showErrorMessage('IMAP Info', 'Please enter SMTP Server.');
+            validateForm('#smtp_server');
+            return false;
+        }
+    }
+
+    var isEmailAlreadyExisting = false;
+    $.ajax({
+        url: '/api/v1/validations/email/availability?q=' + email,
+        async: false,
+        dataType: 'json',
+        success: function (data) {
+            if ( ! data.success) {
+                isEmailAlreadyExisting = true;
+            }
+        }
+    });
+
+    if (isEmailAlreadyExisting) {
+        showErrorMessage('IMAP Info', 'Email account already exists, please use a different one.');
+        return false;
+    }
+
+    $('#modal_mail_integration').find('.btn-primary').attr('disabled', true).html('<i class="fa fa-spin fa-spinner"></i> Saving...');
+    $.ajax({
+        method: "PUT",
+        url: '/api/v1/integrations/imap',
+        data: {
+            name: fullname,
+            values: {
+                fullname: fullname,
+                email: email,
+                password: password,
+                imap_server: imap_server,
+                imap_port: imap_port,
+                smtp_server: smtp,
+                smtp_port: port
+            },
+            handle: email,
+            status: 2
+        },
+        success: function () {
+            $('#modal_mail_integration').modal('hide');
+            $('.modal-backdrop').removeAttr('style');
+            showSuccessMessage("Success", "The imap has been saved successfully.");
+            if ($('#page_integrations').length) {
+                reloadIntegrations(IntegrationTypes.IMAP);
+            } else {
+                var $int_containers = $('.social-integration-handler[data-type="imap"]');
+                $int_containers.each(function(index, obj) {
+                    SocialIntegrator.reloadIntegration($(obj));
+                });
+            }
+        }
+    }).fail(function(jqXHR) {
+        var error = jqXHR.responseJSON.errors[0];
+        $('#modal_mail_integration').find('.btn-primary').removeAttr('disabled').html('Save changes');
+        if (error.code_class == null) {
+            showErrorMessage("Error", "Wrong input");
+        } else if (error.object === 'values.fullname') {
+            showErrorMessage("Error", "Invalid fullname");
+        } else if (error.object === 'values.email') {
+            showErrorMessage("Error", "Invalid email");
+        } else if (error.object === 'values.password') {
+            showErrorMessage("Error", "Invalid password");
+        } else if (error.object === 'values.imap_server') {
+            showErrorMessage("Error", "Invalid IMAP server");
+        } else if (error.object === 'values.imap_port') {
+            showErrorMessage("Error", "Invalid IMAP port");
+        } else if (error.object === 'values.smtp_server') {
+            showErrorMessage("Error", "Invalid SMTP server");
+        } else if (error.object === 'values.smtp_port') {
+            showErrorMessage("Error", "Invalid SMTP port");
+        } else if (error.object === 'email_autoconfig') {
+            if (error.reason === 'only_pop3') {
+                showErrorMessage("Email Autoconfiguration", "Looks like your mail server doesn't have IMAP support");
+            } else if (error.reason === 'failure') {
+                showErrorMessage("Email Autoconfiguration", "We couldn't autoconfigure your mailbox. Please input values manually");
+            }
+        }
+    });
+
+    return false;
+}
+
+function checkAndSetPrimaryEmail(type) {
+//        $.get('/api/v1/integrations/' + IntegrationNames[type], function (data) {
+//            if (data.integration !== undefined && data.integration.is_primary != 1) {
+            if (!confirm('Will you set this email as primary?')) {
+                return;
+            }
+
+            $.ajax({
+                method: "PUT",
+                url: '/api/v1/integrations/' + IntegrationNames[type],
+                data: {is_primary: 1},
+                success: function () {
+                    showSuccessMessage("You have set primary email successfully.");
+                }
+            });
+//            }
+//        });
+}
+
+$(document).on('click', '#modal_mail_integration button[data-dismiss="modal"]', function() {
+    $('.modal-backdrop').removeAttr('style');
+})

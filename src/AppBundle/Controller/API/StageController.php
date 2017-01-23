@@ -33,6 +33,7 @@ class StageController extends Controller
             $client->setIsEnabled(1);
             $client->setWorkspace($stage->getPipeline()->getWorkspace());
             $client->setOwner($this->getUser());
+            $client->setSource($em->getReference('AppBundle:Source', 0));
             $em->persist($client);
             $em->flush();
             $deal = new Deal();
@@ -40,6 +41,7 @@ class StageController extends Controller
             $deal->setInitialClientId($client->getId());
             $deal->setStage($stage);
             $deal->setOwner($this->getUser());
+            $deal->setSource($em->getReference('AppBundle:Source', 0));
             $em->persist($deal);
             $em->flush();
             $xref = new XrefClientDeal();
@@ -56,7 +58,6 @@ class StageController extends Controller
             //deal workflow model?
             //create source with client data
             //{"id":2,"source_description":"","value":0,"is_enabled":true,"initial_client_id":2,"workflow_id":0,"stage_id":2,"action_values":[],"owner_id":1,"created_at":1484245555,"updated_at":0,"accessed_at":1484245555,"clients":[{"id":2,"name":"|Test","avatar":"","occupation":"","description":"","email":"","address_line1":"","address_line2":"","city":"","state":"","zip":"","country":"","coords":"","phone":"","social":[],"contacts":[],"new_events_count":0,"company_id":0,"source_id":0,"is_verified":false,"is_enabled":true,"created_at":1484245555,"updated_at":0}]}
-
             //return new JsonResponse(json_decode('[{"success":[{"code":0,"message":"success"}]}]'));
             return new JsonResponse($deal->toArray());
         }

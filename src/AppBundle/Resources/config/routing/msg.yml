@@ -22,3 +22,17 @@ msg_delete:
     path:     /{id}/delete
     defaults: { _controller: "AppBundle:Msg:delete" }
     methods:  DELETE
+
+
+    
+#-------
+
+api_msg_reply:
+    path:     /{id}/reply
+    defaults: { _controller: "AppBundle:API/Msg:reply" }
+    methods:  [POST]
+    
+api_msg_forward:
+    path:     /{id}/forward
+    defaults: { _controller: "AppBundle:API/Msg:forward" }
+    methods:  [POST]    

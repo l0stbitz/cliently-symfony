@@ -39,23 +39,24 @@ class DealController extends Controller
             //TODO: Use proper validation form
             $data = $request->request;
             $em = $this->getDoctrine()->getManager();
-            /*$max_pos = $em->createQueryBuilder()
-                ->select('c.id')
-                ->from('AppBundle:Deal', 'd')
-                ->join('AppBundle:XrefClientDeal', 'x', 'WITH', 'x.dealId = d.id')
-                ->join('AppBundle:Client', 'c', 'WITH', 'c.id = x.clientId')
-                //->join('AppBundle:Company', 'cp', 'WITH', 'cp.id = c.companyId')
-                ->where('d.id = :deal')
-                //->andWhere('x.isMain = 1')
-                ->setParameter('deal', $deal)
-                ->getQuery()
-                ->getSingleScalarResult();*/
+            /* $max_pos = $em->createQueryBuilder()
+              ->select('c.id')
+              ->from('AppBundle:Deal', 'd')
+              ->join('AppBundle:XrefClientDeal', 'x', 'WITH', 'x.dealId = d.id')
+              ->join('AppBundle:Client', 'c', 'WITH', 'c.id = x.clientId')
+              //->join('AppBundle:Company', 'cp', 'WITH', 'cp.id = c.companyId')
+              ->where('d.id = :deal')
+              //->andWhere('x.isMain = 1')
+              ->setParameter('deal', $deal)
+              ->getQuery()
+              ->getSingleScalarResult(); */
             //TODO:How is the relationship managed?
             $company = new Company();
             $company->setName($data->get('name', ''));
             $company->setIsEnabled(1);
             $company->setOwner($this->getUser());
             $company->setWorkspaceId($deal->getStage()->getPipeline()->getWorkspace()->getId());
+            $company->setSource($em->getReference('AppBundle:Source', 0));
             $em->persist($company);
             $em->flush();
             //$deal = $em->getRepository('AppBundle:Deal')->find($deal->getId());
@@ -250,25 +251,36 @@ class DealController extends Controller
      * @see
      * @since
      */
-    public function mailsAction(Request $request, Deal $deal, Client $client)
+    public function mailsAction(Request $request, Deal $deal, $client_id)
     {
         $this->denyAccessUnlessGranted('view', $deal);
+        $em = $this->getDoctrine()->getManager();
+        $client = $em->getRepository('AppBundle:Client')->find($client_id);
+        if (!$client) {
+            return new JsonResponse([]);
+        }
         if ($request->isMethod('POST')) {
             //TODO: Use proper validation form
             $data = $request->request;
-            $em = $this->getDoctrine()->getManager();
-            $mail = new Msg();
-            $mail->setName($data->get('name', ''));
+            $name = $data->get('name', '');
+            $description = $data->get('description');
+            $email = $data->get('email');
+            $cc = $data->get('cc', '');
+            $bcc = $data->get('bcc', '');
+
+            $row = $this->get('app.email_service')->deliverImap($client->getEmail(), $description, $client->getName(), $name, $cc, $bcc);
+            $mail = new Msg($row);
+            //$mail->setName($name);
             $mail->setStatus(1);
             //TODO: Review code property, assume uniqe mailid?
-            $mail->setCode(md5(uniqid()));
-            $mail->setType(Msg::TYPE_EMAIL);
-            $mail->setEmail($client->getEmail());
-            $mail->setDescription($data->get('description', ''));
-            $mail->setCc($data->get('cc', ''));
-            $mail->setBcc($data->get('bcc', ''));
+            //$mail->setCode(md5(uniqid()));
+            //$mail->setType(Msg::TYPE_EMAIL);
+            //$mail->setEmail($client->getEmail());
+            //$mail->setDescription($data->get('description', ''));
+            //$mail->setCc($data->get('cc', ''));
+            //$mail->setBcc($data->get('bcc', ''));
             $mail->setDeal($deal);
-            $mail->setClientId($client->getId());
+            $mail->setClient($client);
             $mail->setOwnerId($this->getUser()->getId());
             $em->persist($mail);
             $em->flush();
